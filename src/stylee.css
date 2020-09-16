@@ -1,0 +1,33 @@
+.gradd{
+    background-image: linear-gradient(#707070,black);
+
+}
+.gradd:hover{
+    cursor: pointer;
+}
+.graddred{
+    background-image: linear-gradient(  #FF3B30,#ff534a)
+}
+.graddred:hover{
+    background-image: linear-gradient(  #FF3B30,#ff534a);
+    cursor: pointer;
+}
+.delete:hover{
+    cursor: pointer;
+}
+
+.abc :hover{
+    color: teal;
+}
+
+.MuiButtonBase-root.MuiExpansionPanelSummary-root.Mui-expanded{
+    background-image: linear-gradient(to left, #ff95,#111) !important;
+    }
+    
+    .MuiButtonBase-root.MuiExpansionPanelSummary-root.Mui-expanded svg{
+            color: #FF9500 !important;
+    }
+    
+    .MuiButtonBase-root.MuiExpansionPanelSummary-root.Mui-expanded a>p{
+              color: #FF9500 !important;
+    }
