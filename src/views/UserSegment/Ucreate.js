@@ -162,7 +162,8 @@ export default function Ucreate() {
     }).catch((err)=>{
       console.log(err)
       setErrorShow(true)
-      // setErrorMessage(err.message)
+      console.log(err.response.data.message)
+      setErrorMessage(err.response.data.message)
     })
   }
   return (
@@ -193,12 +194,7 @@ export default function Ucreate() {
 
         <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
 
-          {/* <div  style={{background:'transparent',  borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, marginBottom:15}} >     
-      
-      <div style={{display:'flex', flexDirection:'row'}}> */}
-          {/* <div style={{marginLeft:10, fontSize:15, lineHeight:2.5}}> Channel Partner</div> 
-        <div style={{marginLeft:'auto', padding:6}}>   	<ExpandMore /> </div>		
-      </div> */}
+        
           <FormControl variant="outlined" style={{ minWidth: "100%" }}>
             <InputLabel id="demo-simple-select-outlined-label">Customer Partner</InputLabel>
             <Select
@@ -438,8 +434,8 @@ export default function Ucreate() {
           <input 
           // value={country}
           name="Country"
-          onChange={handleChange}
-          className='col-lg-12 col-sm-12' type="text" placeholder="India" style={{ paddingLeft: 10, marginBottom: 30, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
+          // onChange={handleChange}
+          className='col-lg-12 col-sm-12' type="text" placeholder="" style={{ paddingLeft: 10, marginBottom: 30, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
 
               {/* <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5 }}>India</div>
               <div style={{ marginLeft: 'auto', padding: 6 }}>   	<ExpandMore /> </div> */}

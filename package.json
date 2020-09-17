@@ -1,7 +1,7 @@
 {
   "name": "material-dashboard-react",
   "version": "1.8.0",
-  "homepage": "http://loyalty.rajyugsolutions.com/rajyug_solutions/",
+  "homepage": "http://loyalty.rajyugsolutions.com/",
   "description": "Material Dashboard React. Coded by Rajyug Solutions",
   "private": false,
   "main": "dist/index.js",

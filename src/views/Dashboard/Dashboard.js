@@ -54,13 +54,12 @@ export default function Dashboard() {
 	const [redirect, setRedirect] = useState(false);
 	const [channelCount,setChannelCount] =useState(null)
 	const classes = useStyles();
-
-
+	
+	
 	useEffect(() => {
 		if (!payload) {
-			setRedirect(true)
+			return (<Redirect to="/" />)
 		}
-
 		getChannelPartner().then((res)=>{
 			console.log(res)
 			if(res){
@@ -71,9 +70,9 @@ export default function Dashboard() {
 		})
 	}, [])
 
-	if (redirect) {
-		return (<Redirect to="/" />)
-	}
+	
+		
+	
 	return (
 
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height: "100vh", width: '100%', }}>

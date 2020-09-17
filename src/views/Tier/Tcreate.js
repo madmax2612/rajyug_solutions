@@ -120,8 +120,8 @@ export default function Tier() {
       }
     }).catch((err) => {
       console.log(err);
-      setErrorMessage(err)
       setErrorShow(true);
+      setErrorMessage(err.response.data.message)
     })
   }
   console.log(customer)

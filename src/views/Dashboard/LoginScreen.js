@@ -3,9 +3,10 @@ import React,{useEffect, useState} from "react";
 import "./login.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Row, Col, Container} from 'react-bootstrap';
+import {Row, Col, Container, Modal, Button} from 'react-bootstrap';
 import {Link, Redirect} from 'react-router-dom'
 import {AdminLogin} from '../../utils/Services'
+// import { Button, Modal } from "@material-ui/core";
 
 
 
@@ -15,27 +16,49 @@ export default function Dashboard() {
 	const [payload,setPayload]=useState(sessionStorage.getItem('payload'))
 	const[redirect,setRedirect]=useState(false);
 	const [error,setError]=useState(false);
-
+	const [textError,setTextError]=useState(false)
+	const[errorMessage,setErrorMessage]=useState('')
 useEffect(()=>{
 		if(payload){
 			setRedirect(true);
 		}
+		setTextError(false);
 
 },[])
 
 	const handleChange=(e)=>{
 		console.log({[e.target.name]:e.target.value})
-		if(e.target.name==='password'){
+		if(e.target.name==='password'&& e.target.value){
 			setPassword(e.target.value)
+			setTextError(false);
 		}
-		else{
+		else if(e.target.name==='userId'&& e.target.value){
 			setUserId(e.target.value)
+			setTextError(false);
 		}
+		else if(e.target.name==='password'&& e.target.value===''){
+			setTextError(true)
+		}
+		else if(e.target.name==='userId'&& e.target.value===''){
+			setTextError(true)
+		}
+		
+	
+		
+
+
 	}
 
 	const SubmitData=()=>{
 		console.log(Password)
 		console.log(userId)
+		 if(Password===''){
+			setTextError(true)
+		}
+		else if(userId===''){
+			setTextError(true)
+		}
+		
 		if(Password && userId){
 			const data={"UserId":userId,"Password":Password}
 			console.log(data);
@@ -50,8 +73,10 @@ useEffect(()=>{
 						setError(true);
 					}
 			}).catch((err)=>{
-				console.log(err);
+				console.log("error Found",err);
 				setError(true);
+				console.log(err.response.data.message)
+      			setErrorMessage(err.response.data.message)
 			})
 		}
 
@@ -63,7 +88,24 @@ if(redirect){
 
 
 	return (
+		
 		<div class="row" style={{ display: "flex", flexDirection: "row", height:"100vh", width:'100%'}}>
+			
+			{
+        error &&
+        <Modal show={error} onHide={() => setError(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Error Occured</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{errorMessage?errorMessage:'Server Error'}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={()=>setError(false)}>
+              Close
+          </Button>
+            
+          </Modal.Footer>
+        </Modal>
+      }
 			<div class="col-lg-6 col-sm-6 col-md-6 bgimage " style={{ display: "flex", flexDirection: "column",  }}>
 				<div  style={{display:'flex', justifyContent:'center', position:'relative',height:'100%'}}> 
 				<img   style={{height:200, width:280, alignSelf:'center'}}src="https://rajyugsolutions.com/wp-content/uploads/2020/04/soil_logo.png"></img>
@@ -82,7 +124,12 @@ if(redirect){
                   User ID
                 </div>
                  <input onChange={(e)=>handleChange(e)} name="userId" type="text" placeholder="John Deo" style={{paddingLeft:10,fontSize:14,background:'transparent', width:340, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }} />
-				 
+				 {textError &&
+					 <div class="col-lg-6 col-sm-6 col-md-6" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
+					 paddingLeft:'10%'}}>
+						 UserId is Required
+						 </div>
+				 }
 				
 				<div style={{marginTop:20}}>
 				<div style={{marginLeft:10, fontSize:13}}>
@@ -94,6 +141,14 @@ if(redirect){
                 </input>
 				</div>
             
+				{textError &&
+					 <div class="col-lg-6 col-sm-6 col-md-6" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
+					 paddingLeft:'10%'}}>
+						 Password is Required
+						 </div>
+				 }
+				
+
                 <div style={{marginTop:10}}>
                 
 				<input  type="checkbox" /> <span style={{fontSize:12, color:'gray',marginTop:-10}}> Remeber me</span>
