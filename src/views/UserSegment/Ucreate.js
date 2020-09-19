@@ -209,7 +209,7 @@ export default function Ucreate() {
               </MenuItem>
               <MenuItem value="Customer">Customer</MenuItem>
               <MenuItem value="Employee">Employee</MenuItem>
-              <MenuItem value="ChannelPartner">Channel Partner</MenuItem>
+              <MenuItem value="Channel Partner">Channel Partner</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -487,63 +487,14 @@ export default function Ucreate() {
               paddingTop: 320,
               backgroundColor: 'rgba(100,100,100,0.6)'
             }}>
-            <div style={{ width: 600, height: 480, }}>
+            <div style={{ width: 600 }}>
               <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} />
               <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
               <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 200, paddingTop: 10 }}> Successful</div>
               <div style={{ fontSize: 16, color: "gray", marginLeft: 60, paddingTop: 20 }}> Your user account has been created successfully
          </div>
 
-              <Divider style={{ marginTop: 20, marginLeft: 30, marginRight: 30, width: 430 }} />
-
-
-              <div style={{ display: "flex", flexDirection: "column", marginBottom: 20, marginLeft: 60 }}>
-                <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-                  <div style={{ marginRight: 130, fontSize: 16, fontWeight: "400" }}> User Segment</div>
-
-                  <div style={{ fontSize: 14 }}>Channel Partner</div>
-
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-                  <div style={{ marginRight: 140, fontSize: 16, fontWeight: "400" }}> Subcategory</div>
-
-                  <div style={{ fontSize: 14, width: 400 }}>Ast. Channel Partner</div>
-
-                </div>
-
-
-                <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-                  <div style={{ marginRight: 175, fontSize: 16, fontWeight: "400" }}> User ID</div>
-
-                  <div style={{ fontSize: 14 }}>SACH123</div>
-
-                </div>
-
-
-                <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-                  <div style={{ marginRight: 155, fontSize: 16, fontWeight: "400" }}> Password</div>
-
-                  <div style={{ fontSize: 14 }}>Rg@325</div>
-
-                </div>
-
-              </div>
-
-              <div className="gradd" style={{ paddingBottom: 30, width: 180, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 160, marginTop: 40 }}>
-                <div style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}>DOWNLOAD</div>
-              </div>
-
-
-
-            </div>
-
-
-
+</div>
           </Modal>
 
         </div>
@@ -561,12 +512,6 @@ export default function Ucreate() {
             style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
         </div>
       </div>
-
-
-
-
-
-
     </div>
   );
 }

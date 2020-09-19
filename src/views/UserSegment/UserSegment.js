@@ -63,8 +63,8 @@ const useStyles = makeStyles(styles);
 
 export default function UserSeg() {
     const classes = useStyles();
-  const [openNotification, setOpenNotification] = React.useState(null);
-  const [openProfile, setOpenProfile] = React.useState(null);
+  const [openNotification, setOpenNotification] = useState(null);
+  const [openProfile, setOpenProfile] = useState(null);
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);

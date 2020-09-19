@@ -18,6 +18,9 @@ export default function Dashboard() {
 	const [error,setError]=useState(false);
 	const [textError,setTextError]=useState(false)
 	const[errorMessage,setErrorMessage]=useState('')
+	const[userTextError,setUserTextError]=useState(false)
+	const[PasswordTextError,setPasswordTextError]=useState(false)
+	
 useEffect(()=>{
 		if(payload){
 			setRedirect(true);
@@ -26,28 +29,34 @@ useEffect(()=>{
 
 },[])
 
+if(redirect){
+	return(<Redirect to="admin/dashboard"/>)
+}
 	const handleChange=(e)=>{
 		console.log({[e.target.name]:e.target.value})
-		if(e.target.name==='password'&& e.target.value){
+		if(e.target.name==='password'&& e.target.value!==''){
 			setPassword(e.target.value)
-			setTextError(false);
+			// setUserTextError(false);
+			setPasswordTextError(false);
+
 		}
-		else if(e.target.name==='userId'&& e.target.value){
+		else if(e.target.name==='userId'&& e.target.value!==''){
 			setUserId(e.target.value)
-			setTextError(false);
+			// setTextError(false);
+			setUserTextError(false);
+
 		}
 		else if(e.target.name==='password'&& e.target.value===''){
-			setTextError(true)
+			setPasswordTextError(true);
+			
 		}
-		else if(e.target.name==='userId'&& e.target.value===''){
-			setTextError(true)
+		else{
+			setUserTextError(true);
 		}
 		
-	
-		
-
-
 	}
+
+	
 
 	const SubmitData=()=>{
 		console.log(Password)
@@ -59,15 +68,18 @@ useEffect(()=>{
 			setTextError(true)
 		}
 		
-		if(Password && userId){
+		if( Password!==''&& userId!==''){
+			setTextError(false)
+			
 			const data={"UserId":userId,"Password":Password}
 			console.log(data);
 			AdminLogin(data).then((res)=>{
 					console.log(res);
-					if(res.data.success==="200")
+
+					if(res.status===200)
 					{
-						setRedirect(true);
 						sessionStorage.setItem('payload',JSON.stringify(res.data))
+						setRedirect(true);
 					}
 					else{
 						setError(true);
@@ -79,12 +91,14 @@ useEffect(()=>{
       			setErrorMessage(err.response.data.message)
 			})
 		}
+		else{
+			setUserTextError(true);
+			setPasswordTextError(true);
+		}
 
 	}
 
-if(redirect){
-	return(<Redirect to="admin/dashboard"/>)
-}
+
 
 
 	return (
@@ -124,10 +138,11 @@ if(redirect){
                   User ID
                 </div>
                  <input onChange={(e)=>handleChange(e)} name="userId" type="text" placeholder="John Deo" style={{paddingLeft:10,fontSize:14,background:'transparent', width:340, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }} />
-				 {textError &&
-					 <div class="col-lg-6 col-sm-6 col-md-6" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
+				 {userTextError &&
+					 <div class="col-lg-12 col-sm-12 col-md-12" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
 					 paddingLeft:'10%'}}>
-						 UserId is Required
+					<div>	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  UserId is Required
+						 </div>
 						 </div>
 				 }
 				
@@ -141,10 +156,12 @@ if(redirect){
                 </input>
 				</div>
             
-				{textError &&
-					 <div class="col-lg-6 col-sm-6 col-md-6" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
+				{PasswordTextError &&
+					 <div class="col-lg-12 col-sm-12 col-md-12" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
 					 paddingLeft:'10%'}}>
-						 Password is Required
+						 <div>
+						<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Password is Required
+						 </div>
 						 </div>
 				 }
 				

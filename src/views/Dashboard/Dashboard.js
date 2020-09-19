@@ -56,10 +56,13 @@ export default function Dashboard() {
 	const classes = useStyles();
 	
 	
+	
 	useEffect(() => {
+		
 		if (!payload) {
-			return (<Redirect to="/" />)
-		}
+			setRedirect(true);
+			return;
+		  }
 		getChannelPartner().then((res)=>{
 			console.log(res)
 			if(res){
@@ -70,8 +73,9 @@ export default function Dashboard() {
 		})
 	}, [])
 
-	
-		
+	if (redirect) {
+		return (<Redirect to="/" />)
+	}
 	
 	return (
 
