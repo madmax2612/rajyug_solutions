@@ -58,13 +58,20 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { deactivateUser } from "utils/Services";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
-export default function UserSeg() {
+export default function UserSeg(props) {
     const classes = useStyles();
+    console.log(props);
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
+  const [data,setData]=useState(props.location.state?props.location.state.data:'');
+  const [show, setShow] = useState(false);
+  const [redirect,setRedirect]=useState(false)
+
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -86,16 +93,21 @@ export default function UserSeg() {
     setOpenProfile(null);
   };
 
-  const [show, setShow] = useState(false);
+ 
   const handleClose = () => setShow(false);
 
+const blockUser=()=>{
+  const datablock={
+    "UserId":data.UserId
+  }
+  
+}
+
+if(redirect){
+  return(<Redirect to="/admin/useruserview"/>)
+}
 	return (
     <div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height:"100vh", width:'100%' }} >
-
-
-			
-				
-
 		<div class="col-lg-8 col-sm-12" style={{ display: "flex", flexDirection: "column" , }}>
     <div   style={{ display: "flex", flexDirection: "row",marginTop:10  }}> 
 
@@ -131,10 +143,10 @@ export default function UserSeg() {
 
 
  <div className="col-lg-5 col-md-5 col-sm-5">
-<div  style={{fontSize:16, color:'black',   paddingTop:20}}>Channel Partner</div>
+  <div  style={{fontSize:16, color:'black',   paddingTop:20}}>{data.Segment}</div>
 <div style={{fontSize:16, color:'black',   paddingTop:20}} > Assistant Channel Partner</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >SACH@123</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Rg@123</div>  
+<div style={{fontSize:16, color:'black',  paddingTop:20}} >{data.UserId}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Password}</div>  
  </div>
 
 
@@ -173,12 +185,12 @@ export default function UserSeg() {
 
 
  <div className="col">
-<div style={{fontSize:16, color:'black', paddingTop:20}} >RamChandra Narayan</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}}> 20/06/1998</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Male</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >+91 9876543210</div>
-<div style={{fontSize:16, color:'black', paddingTop:20}} > abc@gmail.com</div>  
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >172/2 Ghandi Marg, near Nucleus Mall <br />
+<div style={{fontSize:16, color:'black', paddingTop:20}} >{data.Name}</div>
+<div style={{fontSize:16, color:'black',  paddingTop:20}}> {data.DOB}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Gender}</div>
+<div style={{fontSize:16, color:'black',  paddingTop:20}} >{data.MobileNo}</div>
+<div style={{fontSize:16, color:'black', paddingTop:20}} > {data.Email}</div>  
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.HouesNo} <br />
   Pune, Maharashtra, India <br />
   411001
   </div>
@@ -258,7 +270,7 @@ export default function UserSeg() {
  
      
   <div class="col-lg-8 col-sm-12" style={{ display: "flex", flexDirection: "row" , justifyContent:'center',marginTop:30, marginBottom:20}}>
-       <div  onClick={() => setShow(true)} style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:"#35A3EF", zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'#35A3EF' }}>
+       <div className="gradd" onClick={() => setShow(true)} style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:"#35A3EF", zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'#35A3EF' }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:40, marginTop:5}}> BLOCK</div>
        </div>
 
@@ -266,7 +278,7 @@ export default function UserSeg() {
         show={show}
         onHide={() => setShow(false)}
         
-        style={{paddingTop:320, 
+        style={{
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:1500, height:340 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />
@@ -276,11 +288,11 @@ export default function UserSeg() {
          <span style={{marginLeft:60}}> This acccount can be unblocked</span>
          </div>			
          
-         <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
+         <div className="graddbtn" onClick={()=>setShow(false)} style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
 
-       <div  style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:"#35A3EF", zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:"#35A3EF", marginLeft:255, marginTop:-35 }}>
+       <div className="graddbtn" onClick={()=>blockUser()} style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:"#35A3EF", zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:"#35A3EF", marginLeft:255, marginTop:-35 }}>
        <div  style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:40, marginTop:5}}> BLOCK</div>
        </div>
               
@@ -290,7 +302,7 @@ export default function UserSeg() {
          
       </Modal>
 
-       <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
+       <div className="graddbtn" style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white !important', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
        </div>  

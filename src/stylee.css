@@ -1,3 +1,10 @@
+/* .graddbtn{
+    background-image: linear-gradient(#707070,black);
+
+} */
+.graddbtn:hover{
+    cursor: pointer;
+}
 .gradd{
     background-image: linear-gradient(#707070,black);
 
@@ -19,6 +26,8 @@
 .abc :hover{
     color: teal;
 }
+
+
 
 .MuiButtonBase-root.MuiExpansionPanelSummary-root.Mui-expanded{
     background-image: linear-gradient(to left, #ff95,#111) !important;

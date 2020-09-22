@@ -11,7 +11,11 @@ const ENDPOINTS={
     ChannelPartnerCount:"ChannelPartnerCount",
     AddTier:"AddTier",
     EditTier:"EditTier",
-    AddUsers:"AddUsers"
+    AddUsers:"AddUsers",
+    EditUserProfile:"EditUserProfile",
+    DeleteTier:"DeleteTier",
+    GetStates:"GetStates",
+    DeactivateUser:"DeactivateUser"
 }
 
 
@@ -48,6 +52,36 @@ export const addUser=async (body)=>{
       );
 }
 
+export const deactivateUser =async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.DeactivateUser,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const editUsers=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.EditUserProfile,
+      body,
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+
+
+export const getStates= async ()=>{
+  return await axios.get(
+      URL + ENDPOINTS.GetStates,
+      {
+          timeout: 3*60 *1000
+      }
+  )
+}
+
 export const getAllTier= async ()=>{
     return await axios.get(
         URL + ENDPOINTS.GetAllTier,
@@ -76,6 +110,16 @@ export const editTier=async (body)=>{
           timeout: 3 * 60 * 1000
         }
       );
+}
+export const deleteTier=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.DeleteTier,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
 }
 
 export const getChannelPartner =async () => {

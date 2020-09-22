@@ -15,6 +15,7 @@ import '../../stylee.css';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { addTier } from 'utils/Services';
 import Rewards from 'views/Rewards/Redit';
+import { Redirect } from 'react-router-dom';
 const styles = {
   typo: {
     paddingLeft: "25%",
@@ -65,7 +66,7 @@ export default function Tier() {
   const [tierName, setTierName] = useState('')
   const [description, setDescription] = useState('')
   const [rewards, setRewards] = useState('')
-
+  const [redirect, setRedirect] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.name === 'customerpartner') {
@@ -124,21 +125,27 @@ export default function Tier() {
       setErrorMessage(err.response.data.message)
     })
   }
-  console.log(customer)
-  console.log(values)
+
+  const RedirectToView = () => {
+    setRedirect(true)
+  }
 
   const handleClose = () => {
     setShow(false)
-    
+
   };
 
-  const clearFunction=()=>{
+  const clearFunction = () => {
     setCustomer('');
     setValues('');
     setSelect('');
     setTierName('');
     setRewards('')
     setDescription('')
+  }
+
+  if (redirect) {
+    return (<Redirect to="/admin/tierview" />)
   }
   return (
     <div style={{ height: "100vh", width: '100%' }} >
@@ -150,10 +157,10 @@ export default function Tier() {
           </Modal.Header>
           <Modal.Body>{errorMessage}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={() => setErrorShow(false)}>
               Close
           </Button>
-            
+
           </Modal.Footer>
         </Modal>
       }
@@ -172,9 +179,14 @@ export default function Tier() {
       <div className="row m-3 p-4 " style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', marginTop: 40 }}>
 
         <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          
-          <FormControl variant="outlined" style={{ minWidth: "100%" }}>
-            <InputLabel id="demo-simple-select-outlined-label">Customer Partner</InputLabel>
+        
+        <span style={{ marginLeft: 15 }}>
+            Select
+        </span>
+        <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
+        
+          <FormControl variant="outlined" style={{ minWidth: "100%" ,padding:'5px'}}>
+         
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
@@ -182,6 +194,7 @@ export default function Tier() {
               onChange={handleChange}
               label="Age"
               name="select"
+              disableUnderline={true}          
             >
               <MenuItem value="">
                 <em>None</em>
@@ -191,8 +204,8 @@ export default function Tier() {
               <MenuItem value="ChannelPartner">Channel Partner</MenuItem>
             </Select>
           </FormControl>
+</div>
 
-   
         </div>
 
 
@@ -236,7 +249,7 @@ export default function Tier() {
           <span style={{ marginLeft: 15 }}>
             Tier Name
         </span>
-          
+
           <StarRate className={classes.icons} style={{ color: 'white', fontSize: 28 }} />
 
           <input className='col-lg-12 col-sm-12'
@@ -247,20 +260,25 @@ export default function Tier() {
             placeholder="Tier Name"
             style={{ paddingLeft: 10, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
 
-         
+
         </div>
 
 
         <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
+        <span style={{ marginLeft: 15 }}>
+            Select
+        </span>
+        <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
+        
+          <FormControl variant="outlined" style={{ padding: '5px', minWidth: "100%" }}>
           
-          <FormControl variant="outlined" style={{ padding: '10px', minWidth: "100%" }}>
-            <InputLabel id="demo-simple-select-outlined-label">Value</InputLabel>
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               value={values}
               onChange={handleChange}
-
+              disableUnderline={true}
+             
               name="values"
             >
               <MenuItem value="">
@@ -271,8 +289,8 @@ export default function Tier() {
               <MenuItem value="150000000-300000000">15-30 Cr</MenuItem>
             </Select>
           </FormControl>
+</div>
 
-         
         </div>
 
 
@@ -280,13 +298,13 @@ export default function Tier() {
           <span style={{ marginLeft: 15 }}>
             Available Rewards
  </span>
-          <input 
+          <input
             className='col-lg-12 col-sm-12'
             type="number"
             name="rewards"
             value={rewards}
             onChange={(e) => handleChange(e)}
-            type="text" placeholder="45" style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
+            placeholder="45" style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
         </div>
 
         <div className='col-lg-12 col-sm-12 mt-3' style={{ marginRight: 0 }} >
@@ -311,68 +329,35 @@ export default function Tier() {
       <Modal
         show={show}
         onHide={() => setShow(false)}
-
         style={{
-          paddingTop: 320,
           backgroundColor: 'rgba(100,100,100,0.6)'
         }}>
-        <div style={{ width: 600, height: 480, }}>
-          <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} />
-          <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
+        <div style={{ padding:'20px',display:'flex',alignItems:'center',justifyContent:'center' }}>
+          {/* <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} /> */}
+          <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   
+          <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
           <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 200, paddingTop: 10 }}> Successful</div>
           <div style={{ fontSize: 16, color: "gray", marginLeft: 100, paddingTop: 20 }}> Your Tier has been created successfully
          </div>
 
           <Divider style={{ marginTop: 20, marginLeft: 30, marginRight: 30, width: 430 }} />
+          <div style={{ display: "flex",alignItems:'center',justifyContent:'center',marginTop:'10px' }}>
 
-
-          <div style={{ display: "flex", flexDirection: "column", marginBottom: 20, marginLeft: 60 }}>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 130, fontSize: 16, fontWeight: "400" }}> User Segment</div>
-
-              <div style={{ fontSize: 14 }}>Channel Partner</div>
-
+            <div>
+              <Button
+                style={{
+                  borderWidth: 1,
+                  width: '150px',
+                  borderColor: 'black',
+                  borderRadius: 30
+                }}
+                onClick={RedirectToView}
+              >
+                OK
+            </Button>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 140, fontSize: 16, fontWeight: "400" }}> Subcategory</div>
-
-              <div style={{ fontSize: 14, width: 400 }}>Ast. Channel Partner</div>
-
-            </div>
-
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 175, fontSize: 16, fontWeight: "400" }}> User ID</div>
-
-              <div style={{ fontSize: 14 }}>SACH123</div>
-
-            </div>
-
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 155, fontSize: 16, fontWeight: "400" }}> Password</div>
-
-              <div style={{ fontSize: 14 }}>Rg@325</div>
-
-            </div>
-
           </div>
-
-          <div className="gradd" style={{ paddingBottom: 30, width: 180, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 160, marginTop: 40 }}>
-            <div style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}>DOWNLOAD</div>
-          </div>
-
-
-
         </div>
-
-
-
       </Modal>
 
 
@@ -387,10 +372,14 @@ export default function Tier() {
 
 
         </div>
-        <div className="gradd" style={{ background:'white',paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30, }}>
-          <div onClick={clearFunction} 
-          style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', 
-          letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
+        <div 
+        onClick={()=>RedirectToView()}
+        className="gradd" style={{ background: 'white', paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30, }}>
+          <div 
+            style={{
+              fontSize: 15, fontWeight: 'bolder', color: 'black',
+              letterSpacing: 10, marginLeft: 40, marginTop: 5
+            }}> CANCEL</div>
         </div>
       </div>
 

@@ -16,6 +16,7 @@ import Notifications from "@material-ui/icons/Notifications";
 import Lock from "@material-ui/icons/Lock";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import Search from "@material-ui/icons/Search";
+
 // core components
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
@@ -38,6 +39,9 @@ export default function AdminNavbarLinks() {
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
+  const handleClickAway=()=>{
+    setOpenNotification(null)
+  }
   const handleClickProfile = event => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
@@ -46,12 +50,15 @@ export default function AdminNavbarLinks() {
     }
   };
   const handleCloseProfile = () => {
-    setOpenProfile(null);
+   
   };
+ const handlelogout=()=>{
+   sessionStorage.clear();
+ }
   return (
     <div>
       
-      
+      <ClickAwayListener onClickAway={handleClickAway}>
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -70,6 +77,7 @@ export default function AdminNavbarLinks() {
             </p>
           </Hidden>
         </Button>
+        
         <Poppers
           open={Boolean(openNotification)}
           anchorEl={openNotification}
@@ -84,6 +92,7 @@ export default function AdminNavbarLinks() {
           
         </Poppers>
       </div>
+      </ClickAwayListener>
       <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           
@@ -146,7 +155,7 @@ export default function AdminNavbarLinks() {
 
                     <Link to="/">
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handlelogout}
                       className={classes.dropdownItem}
                     >
                       <ExitToApp style={{ fontSize:15, marginRight:10}}/>

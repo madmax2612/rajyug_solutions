@@ -6,12 +6,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
 import '../../stylee.css';
 import {ProgressBar, DropdownButton, Dropdown, Modal} from 'react-bootstrap';
-export default function UserSeg() 
+import { deactivateUser } from 'utils/Services';
+import { Redirect } from 'react-router-dom';
+export default function UserSeg(props) 
 
 {
 const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+const [data,setData]=useState(props.location.state.data);
+const [redirect,setRedirect]=useState(false)
 
+const handleClose = () => setShow(false);
+    
+   
+      const deactivate=()=>{
+        const datablock={
+          "UserId":data.UserId
+        }
+        deactivateUser(datablock).then((res)=>{
+    if(res){
+      setRedirect(true)
+    }
+  })
+    }
+
+
+    if(redirect){
+      return(<Redirect to="/admin/useruserview"/>)
+    }
         return (
           <div style={{height:"100vh", width:'100%'}}>
 <div  style={{marginLeft:18}}>
@@ -38,7 +59,7 @@ const [show, setShow] = useState(false);
 
 
 
-<div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row" , justifyContent:'flex-end', marginTop:30, marginBottom:20}}>
+      <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row" , justifyContent:'flex-end', marginTop:30, marginBottom:20}}>
        <div className="graddred" onClick={() => setShow(true)} style={{ paddingBottom:30,width:150, height:35, borderWidth:1, borderColor:'red', zIndex:5, borderRadius:30, borderStyle:'solid',  justifyContent:'center' }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:30, marginTop:5}}> DEACTIVATE</div>
        </div>
@@ -47,7 +68,8 @@ const [show, setShow] = useState(false);
         show={show}
         onHide={() => setShow(false)}
         
-        style={{paddingTop:320, 
+        style={{
+           
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:1500, height:340 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />
@@ -57,11 +79,11 @@ const [show, setShow] = useState(false);
          <span style={{marginLeft:60}}> This acccount cannot be restored</span>
          </div>			
          
-         <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
+         <div className="graddbtn"style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
 
-       <div className="graddred" style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'red', zIndex:5, borderRadius:30, borderStyle:'solid', marginLeft:255, marginTop:-35 }}>
+       <div onClick={()=>deactivate()} className="graddred" style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'red', zIndex:5, borderRadius:30, borderStyle:'solid', marginLeft:255, marginTop:-35 }}>
        <div  style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:25, marginTop:5}}> DEACTIVATE</div>
        </div>
               
@@ -72,7 +94,7 @@ const [show, setShow] = useState(false);
       </Modal>
 
        <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
-       <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
+       <div className="graddbtn"style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
        </div> 
 

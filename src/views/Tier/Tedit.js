@@ -16,6 +16,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { addTier } from 'utils/Services';
 import Rewards from 'views/Rewards/Redit';
 import { editTier } from 'utils/Services';
+import { Redirect } from 'react-router-dom';
 const styles = {
   typo: {
     paddingLeft: "25%",
@@ -68,7 +69,7 @@ export default function EditTier(props) {
   const [tierName, setTierName] = useState(props.location.state && props.location.state.data?props.location.state.data.TierName:'')
   const [description, setDescription] = useState(props.location.state && props.location.state.data?props.location.state.data.Description:'')
   const [rewards, setRewards] = useState(props.location.state && props.location.state.data?props.location.state.data.Rewards:'')
-
+  const [redirect,setRedirect]=useState(false)
 
   const handleChange = (event) => {
     if (event.target.name === 'customerpartner') {
@@ -100,6 +101,10 @@ export default function EditTier(props) {
     }
   };
 
+
+  const redirectToView =()=>{
+    setRedirect(true);
+  }
   const onSubmit = () => {
     const data = {
       "id":id,
@@ -143,6 +148,10 @@ export default function EditTier(props) {
     setTierName('');
     setRewards('')
     setDescription('')
+  }
+
+  if(redirect){
+    return(<Redirect to="/admin/tierview"/>)
   }
   return (
     <div style={{ height: "100vh", width: '100%' }} >
@@ -316,7 +325,7 @@ export default function EditTier(props) {
         onHide={() => setShow(false)}
 
         style={{
-          paddingTop: 320,
+          // paddingTop: 320,
           backgroundColor: 'rgba(100,100,100,0.6)'
         }}>
         <div style={{ width: 600, height: 480, }}>
@@ -330,44 +339,17 @@ export default function EditTier(props) {
 
 
           <div style={{ display: "flex", flexDirection: "column", marginBottom: 20, marginLeft: 60 }}>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
 
-              <div style={{ marginRight: 130, fontSize: 16, fontWeight: "400" }}> User Segment</div>
-
-              <div style={{ fontSize: 14 }}>Channel Partner</div>
-
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 140, fontSize: 16, fontWeight: "400" }}> Subcategory</div>
-
-              <div style={{ fontSize: 14, width: 400 }}>Ast. Channel Partner</div>
-
-            </div>
-
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 175, fontSize: 16, fontWeight: "400" }}> User ID</div>
-
-              <div style={{ fontSize: 14 }}>SACH123</div>
-
-            </div>
-
-
-            <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }} >
-
-              <div style={{ marginRight: 155, fontSize: 16, fontWeight: "400" }}> Password</div>
-
-              <div style={{ fontSize: 14 }}>Rg@325</div>
-
-            </div>
 
           </div>
 
-          <div className="gradd" style={{ paddingBottom: 30, width: 180, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 160, marginTop: 40 }}>
-            <div style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}>OK</div>
+          <div 
+          onClick={redirectToView}
+          className="gradd" 
+          style={{ paddingBottom: 30, width: 180, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 160, marginTop: 40 }}>
+            <div 
+            
+            style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}>OK</div>
           </div>
         </div>
       </Modal>
@@ -376,13 +358,13 @@ export default function EditTier(props) {
           //  onClick={() => setShow(true)}
           onClick={onSubmit}
           className="gradd" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', }}>
-          <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 45, marginTop: 5 }}> CREATE</div>
+          <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 45, marginTop: 5 }}> EDIT</div>
 
 
 
         </div>
         <div className="gradd" style={{ background:'white',paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30, }}>
-          <div onClick={clearFunction} 
+          <div onClick={()=>redirectToView()} 
           style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', 
           letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
         </div>

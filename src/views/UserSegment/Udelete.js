@@ -58,13 +58,35 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { deactivateUser } from "utils/Services";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
-export default function UserSeg() {
+export default function UserSeg(props) {
+  console.log(props);
     const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
+  const [data,setData]=useState(props.location.state.data?props.location.state.data:'');
+const [redirect,setRedirect]=useState(false);
+const [show, setShow] = useState(false);
+
+
+const deactivate=()=>{
+  const datablock={
+    "UserId":data.UserId
+  }
+  console.log(datablock);
+  deactivateUser(datablock).then((res)=>{
+if(res){
+setRedirect(true)
+}
+})
+}
+if(redirect){
+  return(<Redirect to="/admin/useruserview"/>)
+}
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -87,8 +109,7 @@ export default function UserSeg() {
   };
 
   
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+        const handleClose = () => setShow(false);
 
 	return (
     <div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height:"100vh", width:'100%' }} >
@@ -131,14 +152,12 @@ export default function UserSeg() {
  </div>
 
 
- <div className="col-lg-5 col-sm-5">
-<div  style={{fontSize:16, color:'black',   paddingTop:20}}>Channel Partner</div>
+ <div className="col-lg-5 col-md-5 col-sm-5">
+  <div  style={{fontSize:16, color:'black',   paddingTop:20}}>{data.Segment}</div>
 <div style={{fontSize:16, color:'black',   paddingTop:20}} > Assistant Channel Partner</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >SACH@123</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Rg@123</div>  
+<div style={{fontSize:16, color:'black',  paddingTop:20}} >{data.UserId}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Password}</div>  
  </div>
-
-
  <div className="col-lg-3 col-sm-4" style={{display:'flex'  }}>
 
  <div style={{ height:150, width:150,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:10, marginLeft:-22}}>
@@ -266,7 +285,7 @@ export default function UserSeg() {
         show={show}
         onHide={() => setShow(false)}
         
-        style={{paddingTop:320, 
+        style={{ 
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:1500, height:340 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />
@@ -276,11 +295,11 @@ export default function UserSeg() {
          <span style={{marginLeft:60}}> This acccount cannot be restored</span>
          </div>			
          
-         <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
+         <div onClick={()=>setShow(false)} style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
 
-       <div className="graddred" style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'red', zIndex:5, borderRadius:30, borderStyle:'solid', marginLeft:255, marginTop:-35 }}>
+       <div onClick={()=>deactivate()} className="graddred" style={{ paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'red', zIndex:5, borderRadius:30, borderStyle:'solid', marginLeft:255, marginTop:-35 }}>
        <div  style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:25, marginTop:5}}> DEACTIVATE</div>
        </div>
               

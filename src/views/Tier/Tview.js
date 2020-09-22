@@ -10,7 +10,7 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import StarRate from "@material-ui/icons/StarRate";
 import EditOutlined from "@material-ui/icons/EditOutlined";
 import Divider from "@material-ui/core/Divider";
@@ -24,15 +24,19 @@ import styles from "assets/jss/material-dashboard-react/views/iconsStyle.js";
 import { Link, Redirect } from 'react-router-dom'
 import { getAllTier } from "utils/Services";
 import { Table } from "@material-ui/core";
+import { deleteTier } from "utils/Services";
+
 const useStyles = makeStyles(styles);
 
 
 export default function TierView() {
-    const classes = useStyles();
     const [show, setShow] = useState(false);
     const [data, setData] = useState(null);
     const [redirect,setRedirect]=useState(false);
     const [editValue,setEditValue]=useState('')
+    const [showDelete,setShowDelete]=useState(false);
+    const [id,setId]=useState('');
+    const classes = useStyles();
 
     useEffect(() => {
         getAllTier().then((res) => {
@@ -47,7 +51,7 @@ export default function TierView() {
     }, [])
 
 const EditFunction=(e)=>{
-    console.log(e)
+    // console.log(e)
     if(e){
         setEditValue(e);
     }
@@ -56,18 +60,66 @@ const EditFunction=(e)=>{
 }
 
 
-    console.log(redirect)
+    // console.log(redirect)
 
     if(redirect){
         return <Redirect to={{pathname:"/admin/tedit",state:{data:editValue}}}/>
     }
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setShowDelete(false);
+    };
 
+    const DeleteFinal=(e)=>{
+        setShowDelete(true);
+        setId(e.id)
+    }
+
+   const DeleteFunction=(e)=>{
+       console.log(e)
+       const dataId={
+       "id" :id
+        }
+        
+        deleteTier(dataId).then((res)=>{
+                console.log(res);
+                if(res){
+                    setShowDelete(false);
+                    getAllTier().then((res) => {
+                        console.log(res)
+                        if (res.data.Tiers)
+                            setData(res.data.Tiers)
+                        else
+                            setData('Nothing found')
+                    }).catch((err) => {
+                        console.log(err)
+                    }) 
+                }
+        }).catch((err)=>{
+            console.log(err.response)
+        })
+   }
     return (
+        <>
+        <Modal 
+        show={showDelete}
+         onHide={handleClose}
+         centered
+        >
+   
+        <Modal.Body style={{padding:"20px"}}>Are Sure You Want to Delete?</Modal.Body>
+        <Modal.Footer>
+          <Button style={{backgroundColor:"red",border:'none',color:"white"}} onClick={DeleteFunction}>
+            Delete
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            CANCEL
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-
-        <div style={{ height: "100vh", width: '100%' }}>
+        <div style={{ width: '100%' }}>
             <div style={{ marginLeft: 15, marginTop: -10 }}>
 
                 <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Tier</div>
@@ -118,17 +170,17 @@ const EditFunction=(e)=>{
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {data ? data.map((res) => {
                         return (
                             <>
-                                <tr>
-                                    <td>{res.TierName}</td>
-                                    <td>{res.Description}</td>
-                                    <td>{res.Value}</td>
-                                    <td>{res.Rewards}</td>
-                                    <td>{res.Amount}</td>
-                                    <td>{res.Segment}</td>
+                                <tr style={{backgroundColor:'white'}}>
+                                    <td style={{padding:'15px'}}>{res.TierName}</td>
+                                    <td style={{paddingLeft:'15px'}}>{res.Description}</td>
+                                    <td style={{paddingLeft:'15px'}}>{res.Value}</td>
+                                    <td style={{paddingLeft:'15px'}}>{res.Rewards}</td>
+                                    <td style={{paddingLeft:'15px'}}>{res.Amount}</td>
+                                    <td style={{paddingLeft:'15px'}}>{res.Segment}</td>
                                     <td>
                                     
                                     <div className="delete" 
@@ -139,7 +191,7 @@ const EditFunction=(e)=>{
                                     </div>       
                                     </div>
                                     
-                                    <div  onClick={() => setShow(true)} className="delete" style={{width:"50%", borderRadius:'20px',display:"inline-block",backgroundColor: "#FF3B30"}}>
+                                    <div onClick={()=>DeleteFinal(res)} className="delete" style={{width:"50%", borderRadius:'20px',display:"inline-block",backgroundColor: "#FF3B30"}}>
                                     <div style={{justifyContent:'center',alignItems:'center',display:'flex'}}>
                                     <Delete  style={{ color: 'white' }} />
                                     </div>
@@ -157,11 +209,11 @@ const EditFunction=(e)=>{
             
 
 
-            <Modal
+            {/* <Modal
                 show={show}
                 onHide={() => setShow(false)}
                 style={{
-                    paddingTop: 320,
+                    // paddingTop: 320,
                     backgroundColor: 'rgba(100,100,100,0.6)'
                 }}
                 centered 
@@ -190,7 +242,7 @@ const EditFunction=(e)=>{
 
 
 
-            </Modal>
+            </Modal> */}
 
 
             <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row", justifyContent: 'flex-end', marginTop: 30, marginBottom: 20 }}>
@@ -205,5 +257,6 @@ const EditFunction=(e)=>{
 
 
         </div>
+        </>
     );
 }

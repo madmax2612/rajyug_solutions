@@ -26,8 +26,9 @@ const useStyles = makeStyles(styles);
 
 
 export default function TierDelete() {
-  const classes = useStyles();
   const [show, setShow] = useState(false);
+  const classes = useStyles();
+
 const handleClose = () => setShow(false);
   return (
 
@@ -276,7 +277,7 @@ const handleClose = () => setShow(false);
    <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row" , justifyContent:'flex-end', marginTop:20}}>
        
        <div className="gradd" onClick={() => setShow(true)} style={{paddingBottom:30,width:180, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid',  }}>
-       <div style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:55, marginTop:5}}>Delete Tier</div></div>
+       <div style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10,margin:'20px', marginLeft:55, marginTop:5}}>Delete Tier</div></div>
       
     </div>
 
@@ -284,7 +285,7 @@ const handleClose = () => setShow(false);
         show={show}
         onHide={() => setShow(false)}
         
-        style={{paddingTop:320, 
+        style={{ 
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:1500, height:340 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />

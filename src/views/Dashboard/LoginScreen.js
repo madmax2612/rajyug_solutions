@@ -141,7 +141,9 @@ if(redirect){
 				 {userTextError &&
 					 <div class="col-lg-12 col-sm-12 col-md-12" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
 					 paddingLeft:'10%'}}>
-					<div>	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  UserId is Required
+					<div>	
+						<img src={require('../../assets/img/warning.png')} style={{width:'20px',margin:'5px',height:'20px'}}/>  
+						UserId is Required
 						 </div>
 						 </div>
 				 }
@@ -160,7 +162,8 @@ if(redirect){
 					 <div class="col-lg-12 col-sm-12 col-md-12" style={{ color:"red",display: "flex", flexDirection: "column", padding:'5px' ,//alignItems:'center'
 					 paddingLeft:'10%'}}>
 						 <div>
-						<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Password is Required
+						 <img src={require('../../assets/img/warning.png')} style={{width:'20px',margin:'5px',height:'20px'}}/>  
+ 							Password is Required
 						 </div>
 						 </div>
 				 }

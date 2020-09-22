@@ -8,21 +8,21 @@ import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditOutlined from "@material-ui/icons/EditOutlined";
 import StarRate from "@material-ui/icons/StarRate";
 import SearchRounded from "@material-ui/icons/SearchRounded";
 import Block from '@material-ui/icons/Block';
 import Delete from '@material-ui/icons/Delete';
-import VisibilityOutlined from '@material-ui/icons/VisibilityOutlined';
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Clear from "@material-ui/icons/Clear";
 import { Modal, Table } from 'react-bootstrap';
 import ArrowForward from '@material-ui/icons/ArrowForward';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { getUsersProfile } from "utils/Services";
+import { FormControl, MenuItem, Select } from "@material-ui/core";
 
 const styles = {
   cardCategoryWhite: {
@@ -60,7 +60,15 @@ export default function TableList() {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   const [data, setData] = useState(null)
-
+  const [redirect, setRedirect] = useState(false);
+  const [block, setBlock] = useState(false);
+  const [editValue, setEditValue] = useState('')
+  const [blockData, setBlockData] = useState('')
+  const [deleteuser, setDeleteUser] = useState(false)
+  const [deleteData, setDeleteData] = useState('')
+  const [search,setSearch]=useState('')
+  const [selectSegment,setSelectSegment]=useState('')
+  const [selectTier,setSelectTier]=useState('')
 
   useEffect(() => {
 
@@ -80,10 +88,39 @@ export default function TableList() {
 
   }, [])
 
+const handleChange=(e)=>{
+
+if(e.target.name=="Segment"){
+  setSelectSegment(e.target.value)
+}
+if(e.target.name=="Tier"){
+  setSelectTier(e.target.value)
+}
+}
   const handleClose = () => setShow(false);
+  const openEdit = (e) => {
+    setEditValue(e);
+    setRedirect(true);
+  }
+  if (redirect) {
+    return <Redirect to={{ pathname: "/admin/uedit", state: { data: editValue } }} />
+  }
+  const openDeactivate = (value) => {
+    setBlockData(value);
+    setBlock(true);
+  }
+  const deleteUser = (value) => {
+    setDeleteData(value)
+    setDeleteUser(true)
+  }
 
-
-  console.log(data)
+  if (deleteuser) {
+    return <Redirect to={{ pathname: "/admin/udelete", state: { data: deleteData } }} />
+  }
+  if (block) {
+    return <Redirect to={{ pathname: "/admin/ublock", state: { data: blockData } }} />
+  }
+  // console.log(data)
 
   return (
 
@@ -101,10 +138,28 @@ export default function TableList() {
      </span>
               <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
 
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
                   <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5 }}> Channel Partner</div>
                   <div style={{ marginLeft: 'auto', padding: 6 }}>   	<ExpandMore /> </div>
-                </div>
+                </div> */}
+                <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={selectSegment}
+                    onChange={handleChange}
+                    name="Segment"
+                    disableUnderline={true}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="Customer">Customer</MenuItem>
+                    <MenuItem value="Employee">Employee</MenuItem>
+                    <MenuItem value="Channel Partner">Channel Partner</MenuItem>
+                  </Select>
+                </FormControl>
               </div>
             </div>
 
@@ -113,28 +168,47 @@ export default function TableList() {
                 Select Tier
          </span>
               <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-                <div style={{ height: 28, width: 28, backgroundColor: 'pink', borderRadius: 80, margin: 5 }}>
+                {/* <div style={{ height: 28, width: 28, backgroundColor: 'pink', borderRadius: 80, margin: 5 }}>
                   <StarRate className={classes.icons} style={{ color: 'white', fontSize: 28 }} />
-                </div>
+                </div> */}
+                <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
 
-                <div style={{ marginLeft: 40, marginBottom: -23, fontSize: 15, marginTop: -32, fontWeight: 'bolder' }}> Bronze</div>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={selectTier}
+                    onChange={handleChange}
+                    name="Tier"
+                    disableUnderline={true}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="Customer">Customer</MenuItem>
+                    <MenuItem value="Employee">Employee</MenuItem>
+                    <MenuItem value="Channel Partner">Channel Partner</MenuItem>
+                  </Select>
+                </FormControl>
+                {/* <div style={{ marginLeft: 40, marginBottom: -23, fontSize: 15, marginTop: -32, fontWeight: 'bolder' }}> Bronze</div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', padding: -6, marginRight: 8 }}>   	<ExpandMore /> </div>
+               */}
               </div>
             </div>
 
 
 
             <div className='col-lg-4 col-sm-12' style={{ marginRight: 0 }}  >
-              <span style={{ marginLeft: 15 }}>
-                Seach
-         </span>
-              <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} >
 
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5, color: 'black' }}>By User ID/Name/Email</div>
-                  <div style={{ marginLeft: 'auto', padding: 5, color: '#bf891b' }}>   	<SearchRounded /> </div>
-                </div>
+
+              <div style={{ marginLeft: 15 }}>
+                Search
               </div>
+
+              <input
+                value={search}
+                name="Email"
+                onChange={handleChange}
+                className='col-lg-12 col-sm-12' type="text" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
             </div>
           </div>
         </div>
@@ -150,7 +224,7 @@ export default function TableList() {
 
 
             <div className="row" style={{ display: "flex", flexDirection: "row", paddingTop: 15 }} >
-              <Table responsive style={{ margin: '20px', width: '100%' }}>
+              <Table responsive size="lg" style={{ margin: '20px' }}>
                 <thead style={{ backgroundColor: 'black' }}>
                   <tr >
                     <th >
@@ -191,11 +265,11 @@ export default function TableList() {
 
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ width: '100%' }}>
                   {data ? data.map((res) => {
                     return (
                       <>
-                        <tr key={res.UserId}>
+                        <tr key={res.UserId} style={{ backgroundColor: 'white' }} >
                           <td>{res.Name}</td>
                           <td>{res.UserId}</td>
                           <td>{res.MobileNo}</td>
@@ -203,37 +277,43 @@ export default function TableList() {
                           <td>{res.Segment}</td>
                           <td>{res.Amount}</td>
 
-                          <td>
-                            <Link to="/admin/useruserview">
-                              <div className="delete" style={{ padding:'5px',width: "33%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
-                                <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                  <VisibilityOutlined style={{ color: 'white', fontSize: 20, fontWieght: "1000" }} />
-                                </div>
+                          <td >
+                            {/* <Link to="/admin/useruserview"> */}
+                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#ffDB58" }}>
+                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
-                            </Link>
-                            <Link to="/admin/uedit">
-                              <div onClick={() => setShow(true)} className="delete" style={{ padding:'5px',width: "33%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
-                                <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                  <EditOutlined style={{ color: 'white', fontSize: 20, fontWieght: "1000" }} />
-                                </div>
+                            </div>
+                            <div className="delete" style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
+                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
-                            </Link>
+                            </div>
+                            {/* </Link> */}
+                            {/* <Link to="/admin/uedit"> */}
+                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
+                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
+                              </div>
+                            </div>
+                            {/* </Link> */}
                             {/* <Link to="/admin/ublock"> */}
-                              <div className="delete" style={{ padding:'5px',width: "33%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
-                                <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                  <Block style={{ color: 'white', fontSize: 20, fontWieght: "1000" }} />
-                                </div>
+                            <div className="delete" onClick={() => openDeactivate(res)} style={{ padding: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "blue" }}>
+                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                <Block style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
+                            </div>
                             {/* </Link> */}
                           </td>
                         </tr>
+                        <div style={{ marginBottom: '10px' }} />
                       </>
                     )
                   }) : data}
                 </tbody>
               </Table>
 
-             
+
             </div>
           </div>
         </div>
@@ -266,7 +346,7 @@ export default function TableList() {
         }}>
         <div style={{ width: 1500, height: 340, }}>
           <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} />
-          <div style={{ backgroundColor: "red", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 220, marginTop: 4 }}>   <VisibilityOffOutlined style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
+          <div style={{ backgroundColor: "red", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 220, marginTop: 4 }}>   <VisibilityOffIcon style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
           <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 120, paddingTop: 10 }}> Deactivate Confirmation</div>
           <div style={{ fontSize: 16, color: "black", marginLeft: 60, paddingTop: 30 }}> This if you want to permanenttly deactivate a teammate. <br />
             <span style={{ marginLeft: 60 }}> This acccount cannot be restored</span>
