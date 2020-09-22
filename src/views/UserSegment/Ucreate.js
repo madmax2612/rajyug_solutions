@@ -53,6 +53,7 @@ export default function Ucreate() {
   const [houseNo, setHouseNo] = useState('')
   const [redirect, setRedirect] = useState(false);
   const [stateData,setStateData]=useState('')
+  const[country,setCountry]=useState('')
 
     useEffect(()=>{
 getStates().then((res)=>{
@@ -104,6 +105,10 @@ setStateData(res.data.States)
     else if (event.target.name === 'DOB') {
       console.log(event.target.name);
       setDob(event.target.value);
+    }
+    else if (event.target.name === 'Country') {
+      console.log(event.target.name);
+      setCountry(event.target.value);
     }
     else {
       setHouseNo(event.target.value)
@@ -468,19 +473,31 @@ setStateData(res.data.States)
           <span style={{ marginLeft: 15 }}>
             Country
          </span>
-          {/* <div style={{ background: 'transparent', marginBottom: 15, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} > */}
+          <div style={{ background: 'transparent', marginBottom: 15, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} >
 
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <input
-              // value={country}
-              name="Country"
-              // onChange={handleChange}
-              className='col-lg-12 col-sm-12' type="text" placeholder="" style={{ paddingLeft: 10, marginBottom: 30, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
-
-            {/* <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5 }}>India</div>
-              <div style={{ marginLeft: 'auto', padding: 6 }}>   	<ExpandMore /> </div> */}
+          <FormControl variant="outlined" style={{ minWidth: "100%", padding: "5px" }}>
+              {/* <InputLabel id="demo-simple-select-outlined-label"></InputLabel> */}
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={country}
+                onChange={handleChange}
+                name="Country"
+                disableUnderline={true}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Male">India</MenuItem>
+                
+              </Select>
+            </FormControl>
+           
+    
           </div>
           {/* </div> */}
+        </div>
         </div>
 
 

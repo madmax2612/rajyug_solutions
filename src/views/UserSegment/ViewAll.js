@@ -23,6 +23,7 @@ import ArrowForward from '@material-ui/icons/ArrowForward';
 import { Link, Redirect } from 'react-router-dom'
 import { getUsersProfile } from "utils/Services";
 import { FormControl, MenuItem, Select } from "@material-ui/core";
+import { getAllTier } from "utils/Services";
 
 const styles = {
   cardCategoryWhite: {
@@ -69,6 +70,7 @@ export default function TableList() {
   const [search,setSearch]=useState('')
   const [selectSegment,setSelectSegment]=useState('')
   const [selectTier,setSelectTier]=useState('')
+  const [tierData,setTierData]=useState('')
 
   useEffect(() => {
 
@@ -86,6 +88,11 @@ export default function TableList() {
       }
     })
 
+    getAllTier().then((res)=>{
+      console.log(res.data.Tiers);
+      setTierData(res.data.Tiers);
+    })
+
   }, [])
 
 const handleChange=(e)=>{
@@ -93,8 +100,11 @@ const handleChange=(e)=>{
 if(e.target.name=="Segment"){
   setSelectSegment(e.target.value)
 }
-if(e.target.name=="Tier"){
+else if(e.target.name==="Tier"){
   setSelectTier(e.target.value)
+}
+else if(e.target.name==='Search'){
+  setSearch(e.target.value)
 }
 }
   const handleClose = () => setShow(false);
@@ -184,9 +194,10 @@ if(e.target.name=="Tier"){
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value="Customer">Customer</MenuItem>
-                    <MenuItem value="Employee">Employee</MenuItem>
-                    <MenuItem value="Channel Partner">Channel Partner</MenuItem>
+                   { tierData&& tierData.map((res)=>{
+                   return( <MenuItem value="Customer">{res.TierName}</MenuItem>)
+                   })}
+                    
                   </Select>
                 </FormControl>
                 {/* <div style={{ marginLeft: 40, marginBottom: -23, fontSize: 15, marginTop: -32, fontWeight: 'bolder' }}> Bronze</div>
@@ -206,7 +217,7 @@ if(e.target.name=="Tier"){
 
               <input
                 value={search}
-                name="Email"
+                name="Search"
                 onChange={handleChange}
                 className='col-lg-12 col-sm-12' type="text" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
             </div>

@@ -200,6 +200,7 @@ const EditFunction=(e)=>{
                                         
                                     </td>
                                 </tr>
+                                <div style={{ marginBottom: '10px' }} />
                             </>
                         )
                     }) : data}

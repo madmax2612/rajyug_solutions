@@ -68,7 +68,7 @@ export default function UserSeg(props) {
     const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
-  const [data,setData]=useState(props.location.state.data?props.location.state.data:'');
+  const [data,setData]=useState(props.location.state?props.location.state.data:'');
 const [redirect,setRedirect]=useState(false);
 const [show, setShow] = useState(false);
 
@@ -193,12 +193,12 @@ if(redirect){
 
 
  <div className="col">
-<div style={{fontSize:16, color:'black', paddingTop:20}} >RamChandra Narayan</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}}> 20/06/1998</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Male</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >+91 9876543210</div>
-<div style={{fontSize:16, color:'black', paddingTop:20}} > abc@gmail.com</div>  
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >172/2 Ghandi Marg, near Nucleus Mall <br />
+<div style={{fontSize:16, color:'black', paddingTop:20}} >{data.Name}</div>
+<div style={{fontSize:16, color:'black',  paddingTop:20}}> {data.DOB}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Gender}</div>
+<div style={{fontSize:16, color:'black',  paddingTop:20}} >{data.MobileNo}</div>
+<div style={{fontSize:16, color:'black', paddingTop:20}} > {data.Email}</div>  
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.HouesNo} <br />
   Pune, Maharashtra, India <br />
   411001
   </div>
@@ -295,7 +295,7 @@ if(redirect){
          <span style={{marginLeft:60}}> This acccount cannot be restored</span>
          </div>			
          
-         <div onClick={()=>setShow(false)} style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
+         <div className="graddbtn" onClick={()=>setShow(false)} style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
 
@@ -309,7 +309,7 @@ if(redirect){
          
       </Modal>
 
-       <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
+       <div onClick={()=>setRedirect(true)} className="graddbtn"style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
        </div>      

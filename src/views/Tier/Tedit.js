@@ -185,15 +185,20 @@ export default function EditTier(props) {
       <div className="row m-3 p-4 " style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', marginTop: 40 }}>
 
         <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
+        <span style={{ marginLeft: 15 }}>
+            Customer Partner
+        </span>
+        <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
           
-          <FormControl variant="outlined" style={{ minWidth: "100%" }}>
-            <InputLabel id="demo-simple-select-outlined-label">Customer Partner</InputLabel>
+          <FormControl variant="outlined" style={{ minWidth: "100%",padding:'5px' }}>
+            
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               onChange={handleChange}
               value={select}
               name="select"
+              disableUnderline={true}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -204,7 +209,7 @@ export default function EditTier(props) {
             </Select>
           </FormControl>
 
-   
+   </div>
         </div>
 
 
@@ -265,15 +270,19 @@ export default function EditTier(props) {
 
 
         <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
+        <span style={{ marginLeft: 15 }}>
+            Customer Partner
+        </span>
+        <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
           
-          <FormControl variant="outlined" style={{ padding: '10px', minWidth: "100%" }}>
-            <InputLabel id="demo-simple-select-outlined-label">Value</InputLabel>
+          <FormControl variant="outlined" style={{ padding: '5px', minWidth: "100%" }}>
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
               value={values}
               onChange={handleChange}
               name="values"
+              disableUnderline={true}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -284,7 +293,7 @@ export default function EditTier(props) {
             </Select>
           </FormControl>
 
-         
+         </div>
         </div>
 
 

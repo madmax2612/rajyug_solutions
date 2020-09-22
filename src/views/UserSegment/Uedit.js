@@ -68,6 +68,7 @@ export default function Ucreate(props) {
   const [id,setId] = useState(props.location.state && props.location.state.data?props.location.state.data.UserId:'')
   const [stateData,setStateData]=useState('')
   const[redirect,setRedirect]=useState(false)
+  const [country,setCountry]=useState('')
 
   useEffect(()=>{
 getStates().then((res)=>{
@@ -131,7 +132,12 @@ setStateData(res.data.States)
     else if (event.target.name === 'DOB') {
       console.log(event.target.name);
 
-      setPincode(event.target.value);
+      setDob(event.target.value);
+    }
+    else if (event.target.name === 'Country') {
+      console.log(event.target.name);
+
+      setCountry(event.target.value);
     }
     else {
       setHouseNo(event.target.value)
@@ -470,21 +476,34 @@ setStateData(res.data.States)
         </div>
 
         <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
+        <span style={{ marginLeft: 15 }}>
             Country
          </span>
-          {/* <div style={{ background: 'transparent', marginBottom: 15, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} > */}
+          <div style={{ background: 'transparent', marginBottom: 15, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} >
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <input 
-          // value={country}
-          name="Country"
-          // onChange={handleChange}
-          className='col-lg-12 col-sm-12' type="text" placeholder="" style={{ paddingLeft: 10, marginBottom: 30, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
-
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <FormControl variant="outlined" style={{ minWidth: "100%", padding: "5px" }}>
+              {/* <InputLabel id="demo-simple-select-outlined-label"></InputLabel> */}
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={country}
+                onChange={handleChange}
+                name="Country"
+                disableUnderline={true}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Male">India</MenuItem>
+                
+              </Select>
+            </FormControl>
            
-            </div>
-          
+    
+          </div>
+          {/* </div> */}
+        </div>          
         </div>
 
 
@@ -548,7 +567,7 @@ setStateData(res.data.States)
         </div>
         <div
         className="delete"
-        onClick={clearFunction}
+        onClick={()=>setRedirect(true)}
           style={{
             paddingBottom: 30, width: 140, height: 35,
             borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30,
