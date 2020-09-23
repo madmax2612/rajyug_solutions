@@ -250,7 +250,7 @@ setStateData(res.data.States)
 
         <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
         <span style={{ marginLeft: 15 }}>
-            Country
+            Channel Partner
          </span>
 
           <input className='col-lg-12 col-sm-12'

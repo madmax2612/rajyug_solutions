@@ -195,7 +195,7 @@ else if(e.target.name==='Search'){
                       <em>None</em>
                     </MenuItem>
                    { tierData&& tierData.map((res)=>{
-                   return( <MenuItem value="Customer">{res.TierName}</MenuItem>)
+                   return( <MenuItem value={res.TierName}>{res.TierName}</MenuItem>)
                    })}
                     
                   </Select>

@@ -337,28 +337,19 @@ export default function EditTier(props) {
           // paddingTop: 320,
           backgroundColor: 'rgba(100,100,100,0.6)'
         }}>
-        <div style={{ width: 600, height: 480, }}>
+        <div style={{ width: 600, paddingBottom:'30px' }}>
           <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} />
           <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
           <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 200, paddingTop: 10 }}> Successful</div>
           <div style={{ fontSize: 16, color: "gray", marginLeft: 100, paddingTop: 20 }}> Your Tier has been created successfully
          </div>
-
-          <Divider style={{ marginTop: 20, marginLeft: 30, marginRight: 30, width: 430 }} />
-
-
-          <div style={{ display: "flex", flexDirection: "column", marginBottom: 20, marginLeft: 60 }}>
-
-
-          </div>
-
           <div 
           onClick={redirectToView}
           className="gradd" 
           style={{ paddingBottom: 30, width: 180, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 160, marginTop: 40 }}>
             <div 
             
-            style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}>OK</div>
+            style={{ fontSize: 20, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 74, marginTop: 5 }}>OK</div>
           </div>
         </div>
       </Modal>

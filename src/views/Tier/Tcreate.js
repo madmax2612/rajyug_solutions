@@ -332,16 +332,15 @@ export default function Tier() {
         style={{
           backgroundColor: 'rgba(100,100,100,0.6)'
         }}>
-        <div style={{ padding:'20px',display:'flex',alignItems:'center',justifyContent:'center' }}>
+        <div style={{ padding:'20px'}}>
           {/* <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} /> */}
-          <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   
+          <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 220, marginTop: 4 }}>   
           <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
-          <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 200, paddingTop: 10 }}> Successful</div>
+          <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 180, paddingTop: 10 }}> Successful</div>
           <div style={{ fontSize: 16, color: "gray", marginLeft: 100, paddingTop: 20 }}> Your Tier has been created successfully
          </div>
 
-          <Divider style={{ marginTop: 20, marginLeft: 30, marginRight: 30, width: 430 }} />
-          <div style={{ display: "flex",alignItems:'center',justifyContent:'center',marginTop:'10px' }}>
+          <div style={{marginTop:'10px',display:'flex',alignItems:'center',justifyContent:'center'  }}>
 
             <div>
               <Button
@@ -349,7 +348,9 @@ export default function Tier() {
                   borderWidth: 1,
                   width: '150px',
                   borderColor: 'black',
-                  borderRadius: 30
+                  borderRadius: 30,
+                  color:'white',
+                  backgroundColor:'black'
                 }}
                 onClick={RedirectToView}
               >
