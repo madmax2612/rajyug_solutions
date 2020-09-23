@@ -1,7 +1,7 @@
 {
   "name": "material-dashboard-react",
   "version": "1.8.0",
-  "homepage": "http://3.136.26.186/",
+  "homepage": "http://3.136.26.186:5000/",
   "description": "Material Dashboard React. Coded by Rajyug Solutions",
   "private": false,
   "main": "dist/index.js",
