@@ -142,7 +142,7 @@ else if(e.target.name==='Search'){
 
 
           <div className="row mb-2" style={{ display: "flex", flexDirection: "row" }} >
-            <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
+            <div className='col-lg-3 col-sm-12  ' style={{ marginRight: 0 }}  >
               <span style={{ marginLeft: 15 }}>
                 Select Segments
      </span>
@@ -173,7 +173,7 @@ else if(e.target.name==='Search'){
               </div>
             </div>
 
-            <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
+            <div className='col-lg-3 col-sm-12  ' style={{ marginRight: 0 }}  >
               <span style={{ marginLeft: 15 }}>
                 Select Tier
          </span>
@@ -208,7 +208,7 @@ else if(e.target.name==='Search'){
 
 
 
-            <div className='col-lg-4 col-sm-12' style={{ marginRight: 0 }}  >
+            <div className='col-lg-3 col-sm-12' style={{ marginRight: 0 }}  >
 
 
               <div style={{ marginLeft: 15 }}>
@@ -221,6 +221,13 @@ else if(e.target.name==='Search'){
                 onChange={handleChange}
                 className='col-lg-12 col-sm-12' type="text" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
             </div>
+            <div className='col-lg-3 col-sm-12'   >
+            <div 
+            // onClick={}
+            className="gradd" style={{  width: "100%", height: 35, borderWidth: 1, borderColor: '#bf891b', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white',marginTop:23 }}>
+            <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white',justifyContent:'center',display:'flex',alignItems:'center',padding:'5px'}}> FETCH ALL</div>
+          </div>
+          </div>
           </div>
         </div>
 

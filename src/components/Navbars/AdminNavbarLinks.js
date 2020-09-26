@@ -50,7 +50,7 @@ export default function AdminNavbarLinks() {
     }
   };
   const handleCloseProfile = () => {
-   
+   setOpenProfile(null)
   };
  const handlelogout=()=>{
    sessionStorage.clear();
