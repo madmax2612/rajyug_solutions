@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -54,7 +54,13 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 export default function Adminn() {
+
+	const [userData,setUserData]=useState(sessionStorage.getItem('Payload'))
 	const classes = useStyles();
+
+	const newPayload=JSON.parse(userData);
+
+	console.log(userData,"hello");
 	return (
 		<div style={{ display: "flex", flex: "1", flexDirection: "row",  height:"100vh", width:'100%'}}>
 			

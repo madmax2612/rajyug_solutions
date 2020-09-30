@@ -15,7 +15,10 @@ const ENDPOINTS={
     EditUserProfile:"EditUserProfile",
     DeleteTier:"DeleteTier",
     GetStates:"GetStates",
-    DeactivateUser:"DeactivateUser"
+    DeactivateUser:"DeactivateUser",
+    Upload:"UploadProfileImage",
+    GetNotification:"GetNotification",
+    Resetpassword:"Resetpassword"
 }
 
 
@@ -121,6 +124,16 @@ export const deleteTier=async (body)=>{
       }
     );
 }
+export const profileUpload=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.Upload,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
 
 export const getChannelPartner =async () => {
     return await axios.get(
@@ -130,4 +143,24 @@ export const getChannelPartner =async () => {
         }
       );
     
+}
+export const getNotification =async (body) => {
+  return await axios.post(
+      URL + ENDPOINTS.GetNotification, 
+      body,
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+  
+}
+export const resetPassword =async (body) => {
+  return await axios.post(
+      URL + ENDPOINTS.Resetpassword, 
+      body,
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+  
 }

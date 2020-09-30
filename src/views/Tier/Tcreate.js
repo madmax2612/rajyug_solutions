@@ -67,7 +67,10 @@ export default function Tier() {
   const [description, setDescription] = useState('')
   const [rewards, setRewards] = useState('')
   const [redirect, setRedirect] = useState(false);
+  const [data,setData]=useState(sessionStorage.getItem('payload'))
 
+  const newPayload=JSON.parse(data)
+  const userId=newPayload.UserProfile.UserId
   const handleChange = (event) => {
     if (event.target.name === 'customerpartner') {
       console.log(event.target.name)
@@ -105,7 +108,7 @@ export default function Tier() {
       "Segment": select,
       "Value": values,
       "Rewards": rewards,
-
+      "UserId":userId
     }
     console.log(data);
 

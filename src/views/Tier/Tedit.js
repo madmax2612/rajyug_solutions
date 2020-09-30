@@ -70,6 +70,9 @@ export default function EditTier(props) {
   const [description, setDescription] = useState(props.location.state && props.location.state.data?props.location.state.data.Description:'')
   const [rewards, setRewards] = useState(props.location.state && props.location.state.data?props.location.state.data.Rewards:'')
   const [redirect,setRedirect]=useState(false)
+  const [viewData,setviewData]=useState(sessionStorage.getItem('payload'))
+  const newPayload=JSON.parse(viewData)
+  const userId=newPayload.UserProfile.UserId
 
   const handleChange = (event) => {
     if (event.target.name === 'customerpartner') {
@@ -113,7 +116,7 @@ export default function EditTier(props) {
       "Segment": select,
       "Value": values,
       "Rewards": rewards,
-
+      "UserId":userId
     }
     console.log(data);
 

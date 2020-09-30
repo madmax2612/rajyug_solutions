@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -38,8 +38,8 @@ import EditOutlined from "@material-ui/icons/EditOutlined";
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
 import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
-
-
+import ImageUploader from "react-images-upload";
+import {profileUpload} from '../../utils/Services'
 
 import { bugs, website, server } from "variables/general.js";
 
@@ -50,11 +50,47 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-
+import '../../admin.css'
 const useStyles = makeStyles(styles);
 
 export default function Adminn() {
-	const classes = useStyles();
+
+	const [userData,setUserData]=useState(sessionStorage.getItem('payload'))
+	const [image,setImage]=useState(sessionStorage.getItem('image'))
+	
+	const [pictures, setPictures] = useState('');
+
+	const newPayload=JSON.parse(userData);
+	console.log(newPayload);
+	const userPayload=newPayload.UserProfile
+	const onDrop = e => {
+		setPictures(e);
+		// console.log(e[0].name)
+		const data={
+			"myFile":e,
+			"UserId":userPayload.UserId
+
+		}
+		const formData = new FormData();
+		formData.append("myFile",e[0],e[0].name);
+		formData.append("UserId",userPayload.UserId)
+		profileUpload(formData).then((res)=>{
+			console.log(res);
+			if(res){
+				setPictures(res.data.UserProfile.ProfileImage)
+				sessionStorage.setItem('payload',JSON.stringify(res.data))
+			}
+		}
+		).catch((err)=>{
+			if(err){
+				console.log(err.response) 
+			}
+		})
+		console.log(e)
+	  };
+	  const classes = useStyles();
+
+console.log(userPayload)
 	return (
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height:"100vh", width:'100%' }}>
 			
@@ -94,18 +130,32 @@ export default function Adminn() {
 
 
  <div  className="col-lg-5 col-sm-5">
-<div  style={{fontSize:16, color:'black',   paddingTop:20}}>Channel Partner</div>
+<div  style={{fontSize:16, color:'black',   paddingTop:20}}>{userPayload.Segment}</div>
 <div style={{fontSize:16, color:'black',   paddingTop:20}} > Assistant Channel Partner</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >SACH@123</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Rg@123</div>  
+<div style={{fontSize:16, color:'black',  paddingTop:20}} >{userPayload.UserId}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{userPayload.Password}</div>  
  </div>
 
 
  <div  className="col-lg-3 col-sm-4">
 
- <div style={{ height:150, width:150,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:10, marginLeft:-22}}>
-    <Person   className={classes.icons}   style={{  marginTop:20, marginLeft:25, color:"white", fontSize:100}}/>
-	<div  style={{backgroundColor:"#28D179", height:32, width:32, borderRadius:35, marginTop:10, marginLeft:100, marginTop:-5}}>   <EditOutlined  style={{color:'white', fontSize:18, marginLeft:8, marginTop:4}} /></div>
+ <div style={{ height:150,backgroundSize:'150px 150px',backgroundImage:`url(${pictures?pictures:userPayload.ProfileImage})` ,backgroundPosition:'center', width:150,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:10, marginLeft:-22}}>
+ <ImageUploader
+	//   {...props}
+	withLabel={false}
+	  withIcon={false}
+	  singleImage={true}
+	  buttonText={<EditOutlined style={{color:'white', fontSize:18}} />}
+	  buttonStyles={{color:'red',borderRadius:'20px'}}
+      onChange={onDrop}
+      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+      maxFileSize={5242880}
+    />
+  
+  
+    {/* <Person   className={classes.icons}   style={{  marginTop:20, marginLeft:25, color:"white", fontSize:100}}/>
+	<div onClick={editImage} style={{backgroundColor:"#28D179", height:32, width:32, borderRadius:35, marginTop:10, marginLeft:100, marginTop:-5}}>
+		   <EditOutlined  onClick={()=>editImage()} style={{color:'white', fontSize:18, marginLeft:8, marginTop:4}} /></div> */}
   </div>
                               
    
@@ -135,14 +185,13 @@ export default function Adminn() {
 
 
  <div className="col">
-<div style={{fontSize:16, color:'black', paddingTop:20}} >RamChandra Narayan</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}}> 20/06/1998</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >Male</div>
-<div style={{fontSize:16, color:'black',  paddingTop:20}} >+91 9876543210</div>
-<div style={{fontSize:16, color:'black', paddingTop:20}} > abc@gmail.com</div>  
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >172/2 Ghandi Marg, near Nucleus Mall <br />
-  Pune, Maharashtra, India <br />
-  411001
+	<div style={{fontSize:16, color:'black', paddingTop:20}} >{userPayload.Name}</div>
+<div style={{fontSize:16, color:'black',  paddingTop:20}}> {userPayload.DOB}</div>
+<div style={{fontSize:16, color:'black',   paddingTop:20}} >{userPayload.Gender}</div>
+	<div style={{fontSize:16, color:'black',  paddingTop:20}} >{userPayload.MobileNo}</div>
+<div style={{fontSize:16, color:'black', paddingTop:20}} > {userPayload.Email}</div>  
+<div style={{fontSize:16, color:'black',   paddingTop:20}} > <br />{userPayload.HouesNo}<br/>
+{userPayload.State}
   </div>
  </div>
 

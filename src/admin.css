@@ -9,3 +9,15 @@ overflow-y: hidden;
 body{
     overflow: hidden;
 }
+.fileContainer {
+    background:none;
+    box-shadow: none;
+    padding-top: 100px;
+    padding-left: 40px;
+}
+.fileContainer .chooseFileButton {
+    background-color: #28D179;
+    padding: none;
+    padding-top: 10px;
+    border-radius: 30px;
+}

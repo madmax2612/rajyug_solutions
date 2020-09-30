@@ -97,7 +97,7 @@ else if(e.target.name==='condition'){
                 id="demo-simple-select-outlined"
                 value={tier}
                 onChange={handleChange}
-                name="segment"
+                name="tier"
                 disableUnderline={true}
               >
                 <MenuItem value="">
@@ -133,7 +133,7 @@ else if(e.target.name==='condition'){
                 id="demo-simple-select-outlined"
                 value={condition}
                 onChange={handleChange}
-                name="segment"
+                name="condition"
                 disableUnderline={true}
               >
                 <MenuItem value="">

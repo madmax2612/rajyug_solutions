@@ -202,7 +202,7 @@ setStateData(res.data.States)
         <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
 
           <div style={{ marginLeft: 15 }}>
-            Channel Partner
+            Select
 </div>
 
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
@@ -236,7 +236,7 @@ setStateData(res.data.States)
         <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
 
           <div style={{ marginLeft: 15 }}>
-            Last Name
+            Select
 </div>
           <input className='col-lg-12 col-sm-12'
             name=""

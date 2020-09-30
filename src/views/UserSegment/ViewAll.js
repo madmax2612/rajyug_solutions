@@ -60,7 +60,7 @@ const useStyles = makeStyles(styles);
 export default function TableList() {
   const classes = useStyles();
   const [show, setShow] = useState(false);
-  const [data, setData] = useState(null)
+  const [data, setData] = useState('')
   const [redirect, setRedirect] = useState(false);
   const [block, setBlock] = useState(false);
   const [editValue, setEditValue] = useState('')
@@ -83,8 +83,8 @@ export default function TableList() {
         setData('NO DATA FOUND')
       }
     }).catch((err) => {
-      if (err) {
-        setData('NO DATA FOUND')
+      if (err.response) {
+        setData(err.response)
       }
     })
 
@@ -284,7 +284,7 @@ else if(e.target.name==='Search'){
                   </tr>
                 </thead>
                 <tbody style={{ width: '100%' }}>
-                  {data ? data.map((res) => {
+                  {  data ? data && data.map((res) => {
                     return (
                       <>
                         <tr key={res.UserId} style={{ backgroundColor: 'white' }} >
@@ -327,7 +327,7 @@ else if(e.target.name==='Search'){
                         <div style={{ marginBottom: '10px' }} />
                       </>
                     )
-                  }) : data}
+                  }):data }
                 </tbody>
               </Table>
 

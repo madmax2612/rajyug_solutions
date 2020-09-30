@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./login.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Image} from 'react-bootstrap';
+import { resetPassword } from "utils/Services";
 
 
 
 
 export default function Dashboard() {
 	
+	const [Password,setPassword]=useState('')
+	
+	const handleChange=(e)=>{
+		if(e){
+			setPassword(e.target.value);
+		}
+	}
+
+	const onSubmit=()=>{
+
+		const body={
+
+		}
+		
+	}
 	return (
 		<div class="row" style={{ display: "flex", flexDirection: "row",  height:"100vh", width:'100%'}}>
 			<div class="col-lg-6 col-sm-6 col-md-6 bgimage " style={{ display: "flex", flexDirection: "column", }}>
@@ -29,12 +45,12 @@ export default function Dashboard() {
 				<div style={{marginLeft:10, fontSize:13}}>
 				Email ID
                 </div>
-                 <input type="text" placeholder="John Deo" style={{paddingLeft:10,fontSize:14,background:'transparent', width:340, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }} />
+                 <input type="text" name="reset" onChange={handleChange} placeholder="John Deo" style={{paddingLeft:10,fontSize:14,background:'transparent', width:340, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }} />
 				 
 				
 				<div>
 			   
-				<button style={{background:'transparent', width:340, borderStyle:'solid', borderWidth:1, backgroundColor:'#bf891b' ,borderColor:'#bf891b',height:40, borderRadius:40,  marginTop:20}}>
+				<button onClick={onSubmit} style={{background:'transparent', width:340, borderStyle:'solid', borderWidth:1, backgroundColor:'#bf891b' ,borderColor:'#bf891b',height:40, borderRadius:40,  marginTop:20}}>
 				<span style={{lineHeight:2,fontSize:17, fontWeight:'bold',  color:'white', alignSelf:'center'}}> S U B M I T</span>
 				</button>	
 				

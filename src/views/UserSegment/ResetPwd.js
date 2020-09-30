@@ -72,7 +72,7 @@ export default function ResetPwd() {
               <div>
 
                   <div style={{fontSize:15, fontWeight:'400', marginBottom:40}}>
-                      This password replace the old one: evertything else about <br />
+                      This password replace the old one: everything else about <br />
                       <span style={{marginLeft:15, fontSize:15, fontWeight:'400'}}> the user account will remains unchanged </span>
                   </div>
 
@@ -82,7 +82,7 @@ export default function ResetPwd() {
                 <div style={{marginLeft:15, fontSize:12}}>
                   Enter new password
                 </div>
-                 <input placeholder="Solitaitre32567" style={{fontSize:15, lineHeight:2, fontWeight:'bolder', paddingLeft:10,background:'transparent', width:400, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40 , borderRadius:40, }}/>
+                 <input name="NewPassword" placeholder="Solitaitre32567" style={{fontSize:15, lineHeight:2, fontWeight:'bolder', paddingLeft:10,background:'transparent', width:400, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40 , borderRadius:40, }}/>
                  
               </div>
             </div>
@@ -95,7 +95,7 @@ export default function ResetPwd() {
                     <div style={{marginLeft:15, fontSize:12}}>
                         Re-enter password
                     </div>
-                    <input placeholder="Solitaitre32567" style={{fontSize:15, lineHeight:2, fontWeight:'bolder', paddingLeft:10,background:'transparent', width:400, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }}/>
+                    <input name="" placeholder="Solitaitre32567" style={{fontSize:15, lineHeight:2, fontWeight:'bolder', paddingLeft:10,background:'transparent', width:400, borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:40, borderRadius:40, }}/>
 
                   </div>
              </div>

@@ -45,6 +45,7 @@ import {
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { Redirect } from "react-router-dom";
 import { getChannelPartner } from "utils/Services";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -52,31 +53,40 @@ export default function Dashboard() {
 
 	const [payload, setpayload] = useState(sessionStorage.getItem('payload'))
 	const [redirect, setRedirect] = useState(false);
-	const [channelCount,setChannelCount] =useState(null)
+	const [channelCount, setChannelCount] = useState(null)
+	const [graphSelect, setGraphSelect] = useState('')
 	const classes = useStyles();
-	
-	
-	
+
+
+
 	useEffect(() => {
-		
+
 		if (!payload) {
 			setRedirect(true);
 			return;
-		  }
-		getChannelPartner().then((res)=>{
+		}
+		getChannelPartner().then((res) => {
 			console.log(res)
-			if(res){
-			setChannelCount(res.data.Data)
+			if (res) {
+				setChannelCount(res.data.Data)
 			}
-		}).catch((err)=>{
+		}).catch((err) => {
 			console.log(err)
 		})
 	}, [])
 
+
+	const handleChange = (e) => {
+		if (e) {
+			setGraphSelect(
+				e.target.value
+			)
+		}
+	}
 	if (redirect) {
 		return (<Redirect to="/" />)
 	}
-	
+
 	return (
 
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height: "100vh", width: '100%', }}>
@@ -176,9 +186,24 @@ export default function Dashboard() {
 						<div class="col-lg-8 col-sm-12 pl-0">
 							<div class="p-3 rounded m-2 mt-3" style={{ backgroundColor: '#fff' }}>
 
-								<div style={{ marginTop: 3, background: 'transparent', width: 140, borderStyle: 'solid', borderWidth: 1, borderColor: 'black', height: 30, borderRadius: 30, marginLeft: 'auto' }}>
-									<span style={{ marginLeft: 10, fontSize: 12, padding: 10 }}> Select Quater</span>
-									<ExpandMore className={classes.icons} style={{ marginLeft: 5 }} />
+								<div style={{  background: 'transparent', width: 140, borderStyle: 'solid', borderWidth: 1, borderColor: 'black', height: 30, borderRadius: 30, marginLeft: 'auto' }}>
+									{/* <span style={{ marginLeft: 10, fontSize: 12, padding: 10 }}> Select Quater</span>
+									<ExpandMore className={classes.icons} style={{ marginLeft: 5 }} /> */}
+									<FormControl style={{width:'100%',paddingLeft:'5px'}} className={classes.formControl}>
+										
+										<Select
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={graphSelect}
+											onChange={handleChange}
+											disableUnderline={true}
+											
+										>
+											<MenuItem value={10}>Ten</MenuItem>
+											<MenuItem value={20}>Twenty</MenuItem>
+											<MenuItem value={30}>Thirty</MenuItem>
+										</Select>
+									</FormControl>
 								</div>
 								<CardHeader color="success" style={{ marginTop: 10, marginBottom: 50, height: 320 }}>
 									<ChartistGraph
