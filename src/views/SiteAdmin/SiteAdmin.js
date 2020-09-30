@@ -79,6 +79,7 @@ export default function Adminn() {
 			if(res){
 				setPictures(res.data.UserProfile.ProfileImage)
 				sessionStorage.setItem('payload',JSON.stringify(res.data))
+				window.location.reload();
 			}
 		}
 		).catch((err)=>{
