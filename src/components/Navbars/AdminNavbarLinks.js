@@ -177,6 +177,9 @@ console.log(notification)
         <img style={{ height:30, width:30, borderRadius:30}} 
         src={Image} 
         alt="avatar" />
+        <div style={{paddingLeft:'10px',marginTop:'15px'}}>
+        <p>{newPayload.UserProfile.Name}</p>
+        </div>
         </Button>
       <div className={classes.manager}>
 
