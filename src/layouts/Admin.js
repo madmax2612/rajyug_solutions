@@ -17,7 +17,7 @@ import routes2 from "routes2.js";
 import routes3 from "routes3.js";
 import routes4 from "routes4.js";
 import routes5 from "routes5.js";
-
+import routes7 from "routes7.js"
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
@@ -121,6 +121,22 @@ const switchRoutes = (
       return null;
     })}
 
+{routes7.map((prop, key) => {
+  console.log(prop)
+      if (prop.layout === "/admin") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+
+            component={prop.component}
+            // key={key}
+
+          />
+        );
+      }
+      return null;
+    })}
+
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
@@ -188,7 +204,7 @@ export default function Admin({ ...rest }) {
         routes3={routes3}
         routes4={routes4}
         routes5={routes5}
-
+        routes7={routes7}
         logoText={"Creative Tim"}
         logo={logo}
         image={image}
@@ -207,8 +223,7 @@ export default function Admin({ ...rest }) {
           routes3={routes3}
           routes4={routes4}
           routes5={routes5}
-
-
+          routes7={routes7}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
         />

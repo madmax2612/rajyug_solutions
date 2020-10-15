@@ -34,12 +34,12 @@ export default function AdminNavbarLinks() {
   const [notification,setNotification]=useState('')
 
   const newPayload=JSON.parse(userData);
-  console.log(newPayload.UserProfile.ProfileImage);
-  const Image=newPayload.UserProfile.ProfileImage
+  // console.log(newPayload.UserProfile.ProfileImage);
+  const Image=newPayload?newPayload.UserProfile.ProfileImage:''
    
   useEffect(()=>{
     const body={
-      "UserId":newPayload.UserProfile.UserId
+      "UserId":newPayload?newPayload.UserProfile.UserId:''
     }
     getNotification(body).then((res)=>{
       console.log(res);
@@ -178,7 +178,7 @@ console.log(notification)
         src={Image} 
         alt="avatar" />
         <div style={{paddingLeft:'10px',marginTop:'15px'}}>
-        <p>{newPayload.UserProfile.Name}</p>
+        <p>{newPayload?newPayload.UserProfile.Name:''}</p>
         </div>
         </Button>
       <div className={classes.manager}>

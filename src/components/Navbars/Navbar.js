@@ -76,6 +76,13 @@ export default function Header(props) {
       return null;
     });
 
+    props.routes7.map(prop => {
+      console.log(prop);
+      if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+        name = props.rtlActive ? prop.rtlName : prop.name;
+      }
+      return null;
+    });
 
     props.routes5.map(prop => {
       if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
@@ -85,12 +92,13 @@ export default function Header(props) {
     });
     return name;
   }
+  
   const { color } = props;
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
 
-
+console.log(props.rtlActive)
   return (
     <AppBar className={classes.appBar + appBarClasses} style={{ background: 'white', }}>
       <Toolbar className={classes.container}>

@@ -102,7 +102,7 @@ export default function Sidebar(props) {
 
   }
 
-  const { color, logo, image, logoText, routes, routes1, routes2, routes3, routes4, routes5, routes6 } = props;
+  const { color, logo, image, logoText, routes, routes1, routes2, routes3, routes4, routes5, routes6, routes7 } = props;
 
 
   var Dashboard = (
@@ -338,7 +338,69 @@ export default function Sidebar(props) {
     </List>
   );
 
+var Advertisement =(
+  <List className={classes.list}>
+      {routes7.map((prop, key) => {
+        console.log(prop);
+        var activePro = " ";
+        var listItemClasses;
+        if (prop.path === "/upgrade-to-pro") {
+          activePro = classes.activePro + " ";
+          listItemClasses = classNames({
+            [" " + classes[color]]: true
+          });
+        } else {
+          listItemClasses = classNames({
+            [" " + classes[color]]: activeRoute(prop.layout + prop.path)
+          });
+        }
+        const whiteFontClasses = classNames({
+          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+        });
 
+        const display = prop.name === "Advertisement" ? { display:"none" } : {display: "block"}
+        return (
+          <NavLink
+            to={prop.layout + prop.path}
+            className={activePro + classes.item}
+            activeClass
+            Name="active"
+            key={key}
+          >
+
+            {typeof prop.icon && prop.name!==''?<ListItem  style={display} button className={classes.itemLink + listItemClasses}>
+              {typeof prop.icon === "string" ? (
+                
+                <Icon
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive
+                  })}
+                >
+                  {prop.icon}
+                </Icon>
+              ) : (
+                  <prop.icon
+                    className={classNames(classes.itemIcon, whiteFontClasses, {
+                      [classes.itemIconRTL]: props.rtlActive
+                    })}
+                  />
+                )}
+
+
+              <ListItemText
+                primary={props.rtlActive ? prop.rtlName : prop.name}
+                className={classNames(classes.itemText, whiteFontClasses, {
+                  [classes.itemTextRTL]: props.rtlActive
+                })}
+                disableTypography={true}
+              />
+            </ListItem>:null}
+          </NavLink>
+        );
+      })}
+    </List>
+
+)
   var Rewards = (
     <List className={classes.list}>
       {routes4.map((prop, key) => {
@@ -365,7 +427,7 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
-            <ListItem  style={display}button className={classes.itemLink + listItemClasses}>
+            <ListItem  style={display} button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
@@ -542,7 +604,6 @@ export default function Sidebar(props) {
               {Users}
             </ExpansionPanel>
 
-
             <ExpansionPanel className={classes.list1}
               expanded3={expanded3 === 'panel1'} onChange={handleChange3('panel1')} >
               <ExpansionPanelSummary
@@ -571,6 +632,18 @@ export default function Sidebar(props) {
               {Tier}
             </ExpansionPanel>
 
+            <ExpansionPanel className={classes.list1}
+              expanded5={expanded5 === 'panel1'} onChange={handleChange5('panel1')} >
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+                // aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <Redeem style={{ color: 'white', marginRight: 15 }} />
+                <Link to="/admin/advt">  <Typography style={{ color: 'white' }} >Advertisement</Typography></Link>
+              </ExpansionPanelSummary>
+              {Advertisement}
+            </ExpansionPanel>
 
             <ExpansionPanel className={classes.list1}
               expanded5={expanded5 === 'panel1'} onChange={handleChange5('panel1')} >
@@ -584,15 +657,6 @@ export default function Sidebar(props) {
               </ExpansionPanelSummary>
               {Rewards}
             </ExpansionPanel>
-
-
-
-
-
-
-
-
-
           </div>
           {image !== undefined ? (
             <div
@@ -678,7 +742,18 @@ export default function Sidebar(props) {
               {SiteAdmin}
             </ExpansionPanel>
 
-
+            <ExpansionPanel className={classes.list1}
+              expanded5={expanded5 === 'panel1'} onChange={handleChange5('panel1')} >
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
+                // aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <Redeem style={{ color: 'white', marginRight: 15 }} />
+                <Link to="/admin/advt">  <Typography style={{ color: 'white' }} >Advertisement</Typography></Link>
+              </ExpansionPanelSummary>
+              {Advertisement}
+            </ExpansionPanel>
 
             <ExpansionPanel className={classes.list1}
               expanded4={expanded4 === 'panel1'} onChange={handleChange4('panel1')} >
@@ -706,16 +781,6 @@ export default function Sidebar(props) {
               </ExpansionPanelSummary>
               {Rewards}
             </ExpansionPanel>
-
-
-
-
-
-
-
-
-
-
 
           </div>  {/*  ////////// */}
 

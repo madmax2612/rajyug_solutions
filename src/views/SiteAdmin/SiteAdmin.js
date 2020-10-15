@@ -29,7 +29,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ProgressBar, DropdownButton, Dropdown} from 'react-bootstrap';
+import {ProgressBar, DropdownButton, Dropdown, Alert} from 'react-bootstrap';
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Notifications from "@material-ui/icons/Notifications";
 import Divider from "@material-ui/core/Divider";
@@ -51,21 +51,36 @@ import {
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import '../../admin.css'
+import { Snackbar } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 export default function Adminn() {
 
 	const [userData,setUserData]=useState(sessionStorage.getItem('payload'))
 	const [image,setImage]=useState(sessionStorage.getItem('image'))
-	
+	const [imageError,setImageError]=useState(false);
 	const [pictures, setPictures] = useState('');
+	const [open, setOpen] = React.useState(false);
 
+	const handleClick = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = (event, reason) => {
+	  if (reason === 'clickaway') {
+		return;
+	  }
+  
+	  setOpen(false);
+	};
 	const newPayload=JSON.parse(userData);
 	console.log(newPayload);
 	const userPayload=newPayload.UserProfile
 	const onDrop = e => {
 		setPictures(e);
 		// console.log(e[0].name)
+		console.log(e.length===0)
+		if(e.length!==0){
 		const data={
 			"myFile":e,
 			"UserId":userPayload.UserId
@@ -87,14 +102,24 @@ export default function Adminn() {
 				console.log(err.response) 
 			}
 		})
-		console.log(e)
+	}
+	else{
+		setImageError(true)
+		setOpen(true);
+	}
+		// console.log(e)
 	  };
 	  const classes = useStyles();
 
 console.log(userPayload)
 	return (
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height:"100vh", width:'100%' }}>
-			
+			{
+				imageError && 
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+				<Alert severity="error">Image version not allowed</Alert>
+				</Snackbar>
+			}
 			
 		<div class="col-lg-8 col-sm-12" style={{ display: "flex", flexDirection: "column" , }}>
     <div   style={{ display: "flex", flexDirection: "row",marginTop:15  }}> 
@@ -149,7 +174,7 @@ console.log(userPayload)
 	  buttonText={<EditOutlined style={{color:'white', fontSize:18}} />}
 	  buttonStyles={{color:'red',borderRadius:'20px'}}
       onChange={onDrop}
-      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+      imgExtension={[".jpg", ".gif", ".png", ".svg",".jpeg"]}
       maxFileSize={5242880}
     />
   
