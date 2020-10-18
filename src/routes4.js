@@ -80,17 +80,17 @@ const dashboardRoutes = [
     
       {
         path: "/Rdel",
-        name: "Delete",
+        name: "",
         rtlName: "Rewards",
-        icon: Delete,
+        icon: "",
         component: Rdel,
         layout: "/admin"
       },
       {
         path: "/REdit",
-        name: "Edit",
+        name: "",
         rtlName: "Rewards",
-        icon: Edit,
+        icon: "",
         component: Redit,
         layout: "/admin"
       },

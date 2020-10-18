@@ -87,8 +87,14 @@ if(redirect){
 			}).catch((err)=>{
 				console.log("error Found",err);
 				setError(true);
+				if(err.response){
 				console.log(err.response.data.message)
-      			setErrorMessage(err.response.data.message)
+				  setErrorMessage(err.response.data.message)
+				}
+				else
+				{
+					setErrorMessage("Network Error!!")
+				}
 			})
 		}
 		else{
@@ -97,10 +103,6 @@ if(redirect){
 		}
 
 	}
-
-
-
-
 	return (
 		
 		<div class="row" style={{ display: "flex", flexDirection: "row", height:"100vh", width:'100%'}}>

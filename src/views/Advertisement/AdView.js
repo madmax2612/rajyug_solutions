@@ -1,11 +1,12 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
 import { Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, withStyles } from '@material-ui/core';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { getAdvertisement } from 'utils/Services';
 // const MenuItems = withStyles({
 //     root: {
 //       justifyContent: "flex-end"
@@ -14,15 +15,43 @@ import { Link } from 'react-router-dom';
 
 export const AdView = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [Advertisement,setAdvertisement]=useState('');
+    const [editValue,setEditValue]=useState('')
+    const [redirect,setRedirecttoedit]=useState(false);
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
     const handleClose = () => {
+        
         setAnchorEl(null);
+
       };
+      useEffect(()=>{
+getAdvertisement().then((res)=>{
+    console.log(res.data.advertisement)
+    if(res.data.advertisement)
+        setAdvertisement(res.data.advertisement)
+else{
+    setAdvertisement('')
+}
+        })
+      },[])
+
+  const handleEdit=(value)=>{
+   if(value){
+    setEditValue(value);
+    setRedirecttoedit(true)
+   }
+    setAnchorEl(null);
+      }
       
+   if(redirect){
+    return( <Redirect to={{ pathname: "/admin/Adedit", state: { data: editValue } }} />
+    )}   
+    
+      console.log(Advertisement)
     return (
         <div style={{ height: "100vh", width: '100%' }}>
 
@@ -111,18 +140,12 @@ export const AdView = () => {
         </MenuItem>
         <MenuItem value="Customer">Sales Value</MenuItem>
         <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
+       
       </Select>
    
     </FormControl>
 
 
-    {/* <div style={{height:28, width:28, backgroundColor:'#bf891b', borderRadius:80, margin:5 }}>
-          <StarRate className={classes.icons}  style={{ color:'white', fontSize:28 }}/>
-          </div>
-       
-        <div style={{marginLeft:40, marginBottom:-23, fontSize:15, marginTop:-32, fontWeight:'bolder' }}> Bronze</div> 
-        <div style={{display:'flex', justifyContent:'flex-end', padding:-6, marginRight:8}}>   	<ExpandMore /> </div>	 */}
   </div>
   </div>
 </div>
@@ -130,6 +153,9 @@ export const AdView = () => {
 
 <div class="row">
 
+
+{Advertisement && Advertisement.map((res)=>{
+  return(
   <div class="col-lg-4 col-sm-12">
     <div class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
 
@@ -137,7 +163,7 @@ export const AdView = () => {
       <div className="row" style={{ display: 'flex',padding:'20px' ,flexDirection: 'row' }}>
       <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
       <p style={{ fontSize:'14px',color:"black", fontWeight: 'bold', marginBottom: 0}}>
-      Advertisement 1
+      Advertisement {res.id}
       </p>
       </div>
       <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
@@ -167,20 +193,26 @@ export const AdView = () => {
                    <CloseIcon/>
                 </div>
                 </MenuItem>
-             <Link to="/admin/Adedit" >   
-            <MenuItem onClick={handleClose}><EditIcon/>&nbsp;  Edit</MenuItem>
-            </Link>
-            <Link>
+                
+            <MenuItem onClick={()=>handleEdit(res)}><EditIcon/>&nbsp;  Edit</MenuItem>
+        
+            
             <MenuItem onClick={handleClose}><DeleteIcon/>&nbsp; Delete</MenuItem>
-            </Link>
+            
           </Popper>
           </div>
+
+      
+            
         <div class="col-lg-12  col-md-12 col-sm-12 " style={{ display: 'flex', flexDirection: 'column', }}>
 
-          <div style={{ height: 150, width: "100%", backgroundColor: "#E2E3E2", marginBottom: 10, display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center' }}>
+            <div style={{ height: 150, width: "100%", backgroundColor: "#E2E3E2", marginBottom: 10, display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center' }}>
             <img style={{ height: 100, width: "100%", }}
-              src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
-          </div>
+              src={res.AdvImage} alt="#Advertisement"/>
+            </div>
+        </div>
+
+           
 
 
           {/* <div style={{ height: 30, width: 30, backgroundColor: "#bf891b", borderRadius: 35, marginTop: -28, display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 35 }}>
@@ -189,7 +221,8 @@ export const AdView = () => {
         </div>
         </div>
         </div>
-        </div>
+         )
+        })  }
         </div>
         </div>
 </div>  

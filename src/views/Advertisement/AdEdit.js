@@ -15,13 +15,19 @@ import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
 //     }
 //   })();
 
-export const AdEdit = () => {
+export const AdEdit = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [picture,setPictures]=useState('')
+    const [terms,setTerms]=useState(props.location.state?props.location.state.data.TermAndConditions:'')
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
+    const handleChange=(e)=>{
+        if(e.target.name==='terms'){
+            setTerms(e.target.value)
+        }
+    }
     const handleClose = () => {
         setAnchorEl(null);
       };
@@ -37,7 +43,7 @@ export const AdEdit = () => {
         // }
     }
 }
-      
+      console.log(props);
     return (
         <div style={{ height: "100vh", width: '100%' }}>
 
@@ -136,7 +142,7 @@ export const AdEdit = () => {
       <div className="row" style={{ display: 'flex',padding:'20px' ,flexDirection: 'row' }}>
       <div class="col-lg-12  col-md-12 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
       <p style={{ fontSize:'14px',color:"black", fontWeight: 'bold', marginBottom: 0}}>
-      Advertisement 1
+      Advertisement {props? props.location.state.data.id:""}
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: 0, }}></div>
 
       </p>
@@ -173,6 +179,7 @@ export const AdEdit = () => {
         Terms & Conditions
             <div style={{ padding:'10px',background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', borderRadius: 40, marginBottom: 15 }}>
             <TextareaAutosize 
+            value={terms}
             rowsMin={3} 
             cols={43}
             

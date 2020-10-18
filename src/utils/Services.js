@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from "axios";
 
-export const URL="http://18.222.54.135:8080/api/"
+// export const URL="http://18.222.54.135:8080/api/"
+export const URL="http://18.216.36.135:8080/api/"
 
 
 const ENDPOINTS={
@@ -18,7 +19,8 @@ const ENDPOINTS={
     DeactivateUser:"DeactivateUser",
     Upload:"UploadProfileImage",
     GetNotification:"GetNotification",
-    Resetpassword:"Resetpassword"
+    Resetpassword:"Resetpassword",
+    Advertisement:"GetAdvertisement"
 }
 
 
@@ -143,6 +145,15 @@ export const getChannelPartner =async () => {
         }
       );
     
+}
+export const getAdvertisement =async () => {
+  return await axios.get(
+      URL + ENDPOINTS.Advertisement, 
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+  
 }
 export const getNotification =async (body) => {
   return await axios.post(

@@ -427,6 +427,7 @@ var Advertisement =(
             activeClassName="active"
             key={key}
           >
+            { typeof prop.icon && prop.name!==''? 
             <ListItem  style={display} button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -450,7 +451,7 @@ var Advertisement =(
                 })}
                 disableTypography={true}
               />
-            </ListItem>
+            </ListItem>:null}
           </NavLink>
         );
       })}

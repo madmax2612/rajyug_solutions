@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
@@ -24,8 +24,16 @@ import Delete from '@material-ui/icons/Delete';
 import Clear from '@material-ui/icons/Clear';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Button, FormControl, Select, TextField } from "@material-ui/core";
-
+import { Button, FormControl, Grid, Popper, Select, TextField } from "@material-ui/core";
+import DateFnsUtils from '@date-io/date-fns';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(styles);
 
@@ -34,7 +42,13 @@ export default function RewardsView() {
   const [tier, setTier] = useState('')
   const [condition, setCondition] = useState('');
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [editValue,setEditValue]=useState('')
+  const [redirect,setRedirecttoedit]=useState(false);
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,6 +69,18 @@ else if(e.target.name==='condition'){
   setCondition(e.target.value);
 }
   }
+
+  const handleEdit=(value)=>{
+    if(value){
+     setEditValue(value);
+     setRedirecttoedit(true)
+    }
+     setAnchorEl(null);
+       }
+       
+    if(redirect){
+     return( <Redirect to={{ pathname: "/admin/REdit", state: { data: editValue } }} />
+     )}   
   return (
     <div style={{ height: "100vh", width: '100%' }}>
 
@@ -96,10 +122,7 @@ else if(e.target.name==='condition'){
                 <MenuItem value="Channel Partner">Channel Partner</MenuItem>
               </Select>
             </FormControl>
-            {/* <div style={{display:'flex', flexDirection:'row'}}>
-    <div style={{marginLeft:10, fontSize:15, lineHeight:2.5}}> Customer</div> 
-      <div style={{marginLeft:'auto', padding:6}}>   	<ExpandMore /> </div>		
-    </div> */}
+          
           </div>
           <span style={{ marginLeft: 15 }}>
             Select Condition
@@ -131,31 +154,28 @@ else if(e.target.name==='condition'){
             From
          </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-around">
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
+          InputProps={{
+            disableUnderline:true
+          }}
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </Grid>
+     </MuiPickersUtilsProvider>
 
-            <TextField
-              id="date"
-              // label="Birthday"
-              type="date"
-              // defaultValue="2017-05-24"
-              // className={classes.textField}
-              InputProps={{
-                disableUnderline:true
-              }}
-              InputLabelProps={{
-                shrink: true,
-                disableUnderline:true
-              }}
-            />
-            </FormControl>
-
-
-            {/* <div style={{height:28, width:28, backgroundColor:'#bf891b', borderRadius:80, margin:5 }}>
-                  <StarRate className={classes.icons}  style={{ color:'white', fontSize:28 }}/>
-                  </div>
-               
-                <div style={{marginLeft:40, marginBottom:-23, fontSize:15, marginTop:-32, fontWeight:'bolder' }}> Bronze</div> 
-                <div style={{display:'flex', justifyContent:'flex-end', padding:-6, marginRight:8}}>   	<ExpandMore /> </div>	 */}
+          
           </div>
         
 
@@ -190,23 +210,28 @@ else if(e.target.name==='condition'){
             To
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-            <TextField
-              id="date"
-              // label="Birthday"
-              type="date"
-              // defaultValue="2017-05-24"
-              // className={classes.textField}
-              InputProps={{
-                disableUnderline:true
-              }}
-              InputLabelProps={{
-                shrink: true,
-                disableUnderline:true
-              }}
-            />
-            </FormControl>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-around">
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
+          InputProps={{
+            disableUnderline:true
+          }}
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </Grid>
+     </MuiPickersUtilsProvider>
+     
+      
           </div>
           </div>
           <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
@@ -236,7 +261,7 @@ else if(e.target.name==='condition'){
           </div>
           <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
           <span style={{ marginLeft: 15 }}>
-Count
+            Count
           </span>
         
          
@@ -301,17 +326,38 @@ Count
               </div>
               <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
                   <MoreHoriz style={{ marginLeft: 'auto', color: 'gray', fontWeight: 'bold', }} onClick={handleClick}/>
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
-                  </Menu>
+                  <Popper
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            style={{backgroundColor:'white',width:'200px',marginRight:'180px '}}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              
+          >
+            <MenuItem onClick={handleClose} style={{backgroundColor:'black',color:'white',display:'flex',justifyContent:'space-between'}}>
+                <div>
+                Options
+                </div>
+                <div onClick={handleClose}>
+                   <CloseIcon/>
+                </div>
+                </MenuItem>
+                
+            <MenuItem onClick={()=>handleEdit()}><EditIcon/>&nbsp;  Edit</MenuItem>
+        
+            
+            <MenuItem onClick={handleClose}><DeleteIcon/>&nbsp; Delete</MenuItem>
+            
+          </Popper>
                   </div>
                 <div class="col-lg-12  col-md-12 col-sm-12 " style={{ display: 'flex', flexDirection: 'column', }}>
 
