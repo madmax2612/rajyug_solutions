@@ -233,7 +233,7 @@ console.log(res)
             value={terms}
             rowsMin={3} 
             cols={43}
-            
+            onChange={handleChange}
             style={{borderStyle:'none'}}
             placeholder="Minimum 3 rows" />
             </div>
