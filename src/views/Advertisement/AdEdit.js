@@ -20,7 +20,7 @@ export const AdEdit = (props) => {
     
     const [terms,setTerms]=useState(props.location.state?props.location.state.data.TermAndConditions:'')
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [picture,setPictures]=useState([])
+    const [picture,setPictures]=useState(props.location.state?props.location.state.data.AdvImage:[])
     const [addArray,setAddArray]=useState([]);
     const [disableBtn,setDisableBtn]=useState(0)
     const [id,setId]=useState(props.location.state?props.location.state.data.id:'')
@@ -41,10 +41,11 @@ export const AdEdit = (props) => {
       };
       const onDrop = e => {
         setPictures([...picture,e]);
-        console.log(e);       
-		console.log(e[0].name)
-		console.log(e.length===0)
-		if(e.length!==0){
+        console.log(e);  
+         
+		// console.log(e[0].name)
+		// console.log(e.length===0)
+		if(e.length>0){
       setFileName(e[0].name)
       setFileLength(e[0])
 		
@@ -80,7 +81,7 @@ const Submit=()=>{
           editAdvertisment(formData).then((res)=>{
   console.log("here Edit")
 console.log(res)
-              if(res.data.success===200){
+              if(res.data.success==="200"){
                 // showAdButton(true)
                 setRedirect(true);
               }
@@ -168,7 +169,6 @@ console.log(res)
         name="location"
         value={location}
         onChange={(e) => handleChange(e)}
-      
         style={{ 
           fontSize: 15, 
           borderStyle:'none',
@@ -215,7 +215,9 @@ console.log(res)
                 singleImage={true}
                 buttonText="Select File" 
                 buttonStyles={{color:'white',padding:'4px',marginTop:'-130px',fontSize:"14px",marginRight:'40px',borderRadius:'20px'}}
-                    onChange={onDrop}
+                // withPreview={true}
+                defaultImage={picture}
+                onChange={onDrop}
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
                     maxFileSize={5242880}
                 />
@@ -233,7 +235,9 @@ console.log(res)
             value={terms}
             rowsMin={3} 
             cols={43}
+            name="terms"
             onChange={handleChange}
+            // onChange={(e)=>handleChange(e)}
             style={{borderStyle:'none'}}
             placeholder="Minimum 3 rows" />
             </div>
