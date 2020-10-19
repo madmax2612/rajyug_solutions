@@ -40,8 +40,13 @@ const useStyles = makeStyles(styles);
 export default function CreateReward() {
   const [segment, setSegment] = useState('');
   const [tier, setTier] = useState('')
-  const [condition, setCondition] = useState('');
+  const [condition, setCondition] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [addRow,setAddRow]=useState([])
+  const [firstRow,setFirstRow]=useState(false)
+  const [secondRow,setSecondRow]=useState(false)
+  const [conditionOne,setConditionOne]=useState('')
+  const [conditionTwo,setConditionTwo]=useState('')
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
   const handleDateChange = (date) => {
@@ -74,13 +79,26 @@ if(e.length!==0){
 if(e.target.name==="segment"){
   setSegment(e.target.value);
 }
-else if(e.target.name==='tier'){
-  setTier(e.target.value);
+else if(e.target.name==='conditionone'){
+  setConditionOne(e.target.value);
 }
 else if(e.target.name==='condition'){
+  console.log(e.target.value);
   setCondition(e.target.value);
+
 }
+
   }
+
+const addConditionFunction =()=>{
+  const addCondition =(
+    <>
+        
+    </>
+  )
+  setAddRow(...addRow,addCondition)
+} 
+  console.log(condition);
   return (
     <div style={{ height: "100vh", width: '100%' }}>
 
@@ -133,17 +151,17 @@ else if(e.target.name==='condition'){
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                value={segment}
-                onChange={handleChange}
-                name="segment"
+                value={condition}
+                onChange={(e)=>handleChange(e)}
+                name="condition"
                 disableUnderline={true}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Customer">Sales Value</MenuItem>
+                <MenuItem value="Sales Value">Sales Value</MenuItem>
                 <MenuItem value="Registeration">Registeration</MenuItem>
-                <MenuItem value="Booking Confirm">Booking Confirm</MenuItem>
+                <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
                 <MenuItem value="Site Visit">Site Visit</MenuItem>
               </Select>
             </FormControl>
@@ -176,13 +194,70 @@ else if(e.target.name==='condition'){
         />
         </Grid>
      </MuiPickersUtilsProvider>
+     
           </div>
+          {condition!=="Sales Value"&&condition!==''?<> <span style={{ marginLeft: 15 }}>
+            Count
+          </span>
         
-
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="rewards"
+            // value={rewards}
+            // onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+          :
+          condition==="Sales Value"?
+          <> <span style={{ marginLeft: 15 }}>
+            Amount
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="rewards"
+            // value={rewards}
+            // onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+         :null }
 
         
         
           </div>
+         
           <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
           <span style={{ marginLeft: 15 }}>
             To
@@ -211,88 +286,63 @@ else if(e.target.name==='condition'){
      
       
           </div>
+          {condition!==""&&<Button 
+          style={{
+            border:'1px solid black',
+            borderRadius:'20px',
+            padding:"5px",
+            height:'20px',
+            minWidth:'0px',
+            marginTop:'35px',
+            fontSize:'20px',
+            color:'black'
+          }}
+          color="primary"
+          onClick={()=>setFirstRow(true)}
+          >
+              +
+            </Button>}
+
           </div>
+          
           <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
-            Select Condition
-          </span>
+         
+          </div>
+        
+          <div class="col-lg-12 col-sm-12" style={{  backgroundColor: 'white',display: "flex", flexDirection: "column" }}>
+        <div class="row">
+        {
+        firstRow
+         &&
+          <>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+            <span>
+              Select Condition
+            </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
             <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                value={condition}
-                onChange={handleChange}
-                name="condition"
+                value={conditionOne}
+                onChange={(e)=>handleChange(e)}
+                name="conditionone"
                 disableUnderline={true}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Customer">Customer</MenuItem>
-                <MenuItem value="Employee">Employee</MenuItem>
-                <MenuItem value="Channel Partner">Channel Partner</MenuItem>
+                <MenuItem value="Sales Value">Sales Value</MenuItem>
+                <MenuItem value="Registeration">Registeration</MenuItem>
+                <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                <MenuItem value="Site Visit">Site Visit</MenuItem>
               </Select>
             </FormControl>
           </div>
           </div>
-          <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-         
-          { <><span style={{ marginLeft: 15 }}>
-            Amount
-          </span>
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-            <input
-            className='col-lg-12 col-sm-12'
-            type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
-            placeholder="45" 
-            style={{ 
-             fontSize: 15, 
-             borderStyle:'none',
-             background: 'transparent',  
-             borderWidth: 1, 
-             height: 40, 
-             }}
-              />
-            </FormControl>
-          </div>
-          
-         
-          <span style={{ marginLeft: 15 }}>
-          Count
-        </span>
-        <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-          <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-          <input
-          className='col-lg-12 col-sm-12'
-          type="number"
-          name="rewards"
-          // value={rewards}
-          // onChange={(e) => handleChange(e)}
-          placeholder="45" 
-          style={{ 
-           fontSize: 15, 
-           borderStyle:'none',
-           background: 'transparent',  
-           borderWidth: 1, 
-           height: 40, 
-           }}
-            />
-          </FormControl>
-        </div>
-       
-       </> 
-       
-       }
-         
-          <span style={{ marginLeft: 15 }}>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+          {conditionOne!=="Sales Value"&& conditionOne!==''?<> <span style={{ marginLeft: 15 }}>
             Count
           </span>
         
@@ -318,9 +368,39 @@ else if(e.target.name==='condition'){
             </FormControl>
             
           </div>
+          </>
+          :
+          conditionOne==="Sales Value"?
+          <> <span style={{ marginLeft: 15 }}>
+            Amount
+          </span>
+        
          
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="rewards"
+            // value={rewards}
+            // onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
           </div>
-          <Button 
+          </>
+         :null }
+          </div>
+          {conditionOne!==""&&<Button 
           style={{
             border:'1px solid black',
             borderRadius:'20px',
@@ -331,10 +411,75 @@ else if(e.target.name==='condition'){
             fontSize:'20px',
             color:'black'
           }}
-          color="primary">
+          color="primary"
+          onClick={()=>setSecondRow(true)}
+          >
               +
-            </Button>
+            </Button>}
+        </>
+}      
+<div class="col-lg-4 col-sm-12 col-md-4">
+          {conditionOne!=="Sales Value"&& conditionOne!==''?<> <span style={{ marginLeft: 15 }}>
+            Count
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="rewards"
+            // value={rewards}
+            // onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+          :
+          conditionOne==="Sales Value"?
+          <> <span style={{ marginLeft: 15 }}>
+            Amount
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="rewards"
+            // value={rewards}
+            // onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+         :null }
+</div>
 
+    </div>
+          </div>
       </div>
 
 
@@ -429,7 +574,9 @@ else if(e.target.name==='condition'){
         <div class="row">
         </div>
       </div>
-      <Button style={{margin:'20px'}}>
+      <Button 
+      
+      style={{margin:'20px'}}>
       Add More Rewards
       </Button>
 

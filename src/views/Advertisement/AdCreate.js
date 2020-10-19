@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ImageUploader from "react-images-upload";
 import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
+import {addAdvertisment} from '../../utils/Services'
 // const MenuItems = withStyles({
 //     root: {
 //       justifyContent: "flex-end"
@@ -20,7 +21,13 @@ export const AdCreate = () => {
     const [picture,setPictures]=useState([])
     const [addArray,setAddArray]=useState([]);
     const [disableBtn,setDisableBtn]=useState(0)
-
+    const [segment,setSegment]=useState('')
+    const [Advertisement,setAdvertisment]=useState('')
+    const [location,setLocation]=useState('')
+    const [terms,setTerms]=useState('')
+    const [fileName,setFileName]=useState('')
+    const [fileLength,setFileLength]=useState('')
+    const [showAdButton,setShowAdButton]=useState(false);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -29,12 +36,29 @@ export const AdCreate = () => {
     const handleClose = () => {
         setAnchorEl(null);
       };
+     const handleChange =(e)=>{
+      if(e.target.name==="segment"){
+        setSegment(e.target.value)
+      }
+      if(e.target.name==="advertisment"){
+        setAdvertisment(e.target.value)
+      }
+      if(e.target.name==="location"){
+        setLocation(e.target.value)
+      }
+      if(e.target.name==="terms"){
+        setTerms(e.target.value)
+      }
+      
+     }
       const onDrop = e => {
         setPictures([...picture,e]);
         console.log(e);       
 		console.log(e[0].name)
 		console.log(e.length===0)
 		if(e.length!==0){
+      setFileName(e[0].name)
+      setFileLength(e[0])
 		// const data={
 		// 	"myFile":e,
 		// 	"UserId":userPayload.UserId
@@ -95,7 +119,9 @@ const onAddition=()=>{
                 placeholder="Minimum 3 rows" />
                 </div>
                <div>
-                <Button block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
+                <Button block 
+                onClick={Submit}
+                style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
                     SAVE
                 </Button>
     
@@ -134,6 +160,28 @@ const onAddition=()=>{
 // }
 console.log(disableBtn)
       console.log(picture)
+
+      const Submit=()=>{
+  console.log("Submit")
+  console.log(fileLength,fileLength)
+        const formData = new FormData();
+        if(fileLength && fileName &&Advertisement&&location&&segment&&terms)
+          formData.append("myFile",fileLength,fileName);
+          formData.append("AdvertisementPlacement",Advertisement)
+          formData.append("Location",location)
+          formData.append("Segment",segment)
+          formData.append("TermAndConditions",terms)     
+         
+          addAdvertisment(formData).then((res)=>{
+              if(res.data.success===200){
+                showAdButton(true)
+              };
+         }).catch((err)=>{
+           console.log(err)
+         })
+      }
+      
+
     return (
         <div style={{ height: "100vh", width: '100%' }}>
 
@@ -159,9 +207,9 @@ console.log(disableBtn)
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
+        value={Advertisement}
+        onChange={handleChange}
+        name="advertisment"
         disableUnderline={true}
       >       
         <MenuItem value="HomePage" >HomePage</MenuItem>  
@@ -179,17 +227,17 @@ console.log(disableBtn)
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
+        value={segment}
+        onChange={handleChange}
         name="segment"
         disableUnderline={true}
       >
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
+        <MenuItem value="Customer">Customer </MenuItem>
+        <MenuItem value="Employee">Employee</MenuItem>
+        <MenuItem value="Channel Partner">Channel Partner</MenuItem>
       </Select>
     </FormControl>
   </div>
@@ -200,23 +248,23 @@ console.log(disableBtn)
     Location
  </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-    <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-    <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
-        disableUnderline={true}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
-      </Select>
-   
+  <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+    <input
+        className='col-lg-12 col-sm-12'
+        type="text"
+        name="location"
+        value={location}
+        onChange={(e) => handleChange(e)}
+        
+        style={{ 
+          fontSize: 15, 
+          borderStyle:'none',
+          background: 'transparent',  
+          borderWidth: 1, 
+          height: 40, 
+          }}
+          />
+            
     </FormControl>
   </div>
   </div>
@@ -269,12 +317,16 @@ console.log(disableBtn)
             <TextareaAutosize 
             rowsMin={3} 
             cols={43}
-            
+            name="terms"
+            value={terms}
+            onChange={handleChange}
             style={{borderStyle:'none'}}
             placeholder="Minimum 3 rows" />
             </div>
            <div>
-            <Button block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
+            <Button 
+            onClick={Submit}
+            block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
                 SAVE
             </Button>
 
@@ -301,7 +353,7 @@ console.log(disableBtn)
             </div>
             
         {addArray}
-        <Button onClick={onAddition} disabled={disableBtn===9?true:false}>Add More Advertisement</Button>
+        <Button onClick={onAddition} disabled={disableBtn===9|| !showAdButton?true:false}>Add More Advertisement</Button>
         </div>
         </div>
     

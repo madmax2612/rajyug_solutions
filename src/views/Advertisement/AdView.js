@@ -7,6 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link, Redirect } from 'react-router-dom';
 import { getAdvertisement } from 'utils/Services';
+import { deleteAdvertisment } from 'utils/Services';
 // const MenuItems = withStyles({
 //     root: {
 //       justifyContent: "flex-end"
@@ -22,7 +23,28 @@ export const AdView = () => {
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
-  
+   const handleDelete =(value)=>{
+    console.log(value);
+    const data={
+      "id":value.id
+    }
+    deleteAdvertisment(data).then((res)=>{
+      console.log(res)
+      if(res.data.success==='200'){
+        setAnchorEl(null);
+        getAdvertisement().then((res)=>{
+          console.log(res.data.advertisement)
+          if(res.data.advertisement)
+              setAdvertisement(res.data.advertisement)
+      else{
+          setAdvertisement('')
+      }
+              })
+      }
+    }).catch(err=>{
+      console.log(err)
+    })
+   }
     const handleClose = () => {
         
         setAnchorEl(null);
@@ -197,7 +219,7 @@ else{
             <MenuItem onClick={()=>handleEdit(res)}><EditIcon/>&nbsp;  Edit</MenuItem>
         
             
-            <MenuItem onClick={handleClose}><DeleteIcon/>&nbsp; Delete</MenuItem>
+            <MenuItem onClick={()=>handleDelete(res)}><DeleteIcon/>&nbsp; Delete</MenuItem>
             
           </Popper>
           </div>

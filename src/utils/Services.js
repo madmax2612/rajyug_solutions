@@ -20,7 +20,10 @@ const ENDPOINTS={
     Upload:"UploadProfileImage",
     GetNotification:"GetNotification",
     Resetpassword:"Resetpassword",
-    Advertisement:"GetAdvertisement"
+    Advertisement:"GetAdvertisement",
+    AddAdvertisement:"UploadAdvertisement",
+    EditAdvertisment:'EditAdvertisement',
+    DeleteAdvertisement:'DeleteAdvertisement'
 }
 
 
@@ -154,6 +157,33 @@ export const getAdvertisement =async () => {
       }
     );
   
+}
+export const addAdvertisment=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.AddAdvertisement,
+      body,  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const editAdvertisment=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.EditAdvertisment,
+      body,  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const deleteAdvertisment=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.DeleteAdvertisement,
+      body,  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
 }
 export const getNotification =async (body) => {
   return await axios.post(

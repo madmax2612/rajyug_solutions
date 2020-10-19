@@ -5,9 +5,10 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ImageUploader from "react-images-upload";
+import {addAdvertisment, editAdvertisment} from '../../utils/Services'
 import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
 // const MenuItems = withStyles({
 //     root: {
@@ -16,33 +17,83 @@ import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
 //   })();
 
 export const AdEdit = (props) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [picture,setPictures]=useState('')
+    
     const [terms,setTerms]=useState(props.location.state?props.location.state.data.TermAndConditions:'')
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [picture,setPictures]=useState([])
+    const [addArray,setAddArray]=useState([]);
+    const [disableBtn,setDisableBtn]=useState(0)
+    const [id,setId]=useState(props.location.state?props.location.state.data.id:'')
+    const [segment,setSegment]=useState(props.location.state?props.location.state.data.Segment:'')
+    const [Advertisement,setAdvertisment]=useState(props.location.state?props.location.state.data.AdvertisementPlacement:'')
+    const [location,setLocation]=useState(props.location.state?props.location.state.data.Location:'')
+    const [fileName,setFileName]=useState('')
+    const [fileLength,setFileLength]=useState('')
+    const[imgurl,setImgUrl]=useState(props.location.state?props.location.state.data.AdvImage:'')
+    const [redirect,setRedirect]=useState(false)
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
-    const handleChange=(e)=>{
-        if(e.target.name==='terms'){
-            setTerms(e.target.value)
-        }
-    }
+   
     const handleClose = () => {
         setAnchorEl(null);
       };
       const onDrop = e => {
-		setPictures(e);
-		// console.log(e[0].name)
+        setPictures([...picture,e]);
+        console.log(e);       
+		console.log(e[0].name)
 		console.log(e.length===0)
 		if(e.length!==0){
-		// const data={
-		// 	"myFile":e,
-		// 	"UserId":userPayload.UserId
-
-        // }
+      setFileName(e[0].name)
+      setFileLength(e[0])
+		
     }
 }
+const handleChange =(e)=>{
+  if(e.target.name==="segment"){
+    setSegment(e.target.value)
+  }
+  if(e.target.name==="advertisment"){
+    setAdvertisment(e.target.value)
+  }
+  if(e.target.name==="location"){
+    setLocation(e.target.value)
+  }
+  if(e.target.name==="terms"){
+    setTerms(e.target.value)
+  }
+  
+ }
+const Submit=()=>{
+  console.log("here Edit")
+  console.log(fileLength,fileLength)
+        const formData = new FormData();
+        if(fileLength && fileName &&Advertisement&&location&&segment&&terms &&id)
+          formData.append("id",id)
+          formData.append("myFile",fileLength,fileName);
+          formData.append("AdvertisementPlacement",Advertisement)
+          formData.append("Location",location)
+          formData.append("Segment",segment)
+          formData.append("TermAndConditions",terms)     
+         
+          editAdvertisment(formData).then((res)=>{
+  console.log("here Edit")
+console.log(res)
+              if(res.data.success===200){
+                // showAdButton(true)
+                setRedirect(true);
+              }
+              else{
+                setRedirect(false)
+              }
+         }).catch((err)=>{
+           console.log(err)
+         })
+      }
+      if(redirect){
+        return <Redirect to="/admin/adview"/>
+      }
       console.log(props);
     return (
         <div style={{ height: "100vh", width: '100%' }}>
@@ -69,9 +120,9 @@ export const AdEdit = (props) => {
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
+        value={Advertisement}
+        onChange={handleChange}
+        name="Advertisement"
         disableUnderline={true}
       >       
         <MenuItem value="HomePage" >HomePage</MenuItem>  
@@ -89,17 +140,17 @@ export const AdEdit = (props) => {
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
+        value={segment}
+        onChange={handleChange}
+        name=""
         disableUnderline={true}
       >
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
+        <MenuItem value="Customer">Customer </MenuItem>
+        <MenuItem value="Employee">Employee</MenuItem>
+        <MenuItem value="Channel Partner">Channel Partner</MenuItem>
       </Select>
     </FormControl>
   </div>
@@ -110,23 +161,23 @@ export const AdEdit = (props) => {
     Location
  </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-    <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-    <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
-        disableUnderline={true}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
-      </Select>
-   
+  <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+    <input
+        className='col-lg-12 col-sm-12'
+        type="text"
+        name="location"
+        value={location}
+        onChange={(e) => handleChange(e)}
+      
+        style={{ 
+          fontSize: 15, 
+          borderStyle:'none',
+          background: 'transparent',  
+          borderWidth: 1, 
+          height: 40, 
+          }}
+          />
+            
     </FormControl>
   </div>
   </div>
@@ -187,11 +238,15 @@ export const AdEdit = (props) => {
             placeholder="Minimum 3 rows" />
             </div>
            <div>
-            <Button block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
+            <Button 
+            onClick={Submit}
+            block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
                 SAVE
             </Button>
 
-            <Button style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
+            <Button 
+            onClick={()=>setRedirect(true)}
+            style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
                 CANCEL
             </Button>
             </div> 
@@ -206,7 +261,7 @@ export const AdEdit = (props) => {
       <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Preview</div>
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -20, }}></div>
   <img style={{ height: 100, width: "100%", }}
-              src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
+              src={imgurl} />
 
       </div>
       </div>

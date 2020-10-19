@@ -71,6 +71,7 @@ export default function Tier() {
 
   const newPayload=JSON.parse(data)
   const userId=newPayload.UserProfile.UserId
+  
   const handleChange = (event) => {
     if (event.target.name === 'customerpartner') {
       console.log(event.target.name)
@@ -100,7 +101,7 @@ export default function Tier() {
       setDescription(event.target.value)
     }
   };
-
+console.log(values)
   const onSubmit = () => {
     const data = {
       "TierName": tierName,
