@@ -5,7 +5,7 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ImageUploader from "react-images-upload";
 import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
@@ -28,6 +28,7 @@ export const AdCreate = () => {
     const [fileName,setFileName]=useState('')
     const [fileLength,setFileLength]=useState('')
     const [showAdButton,setShowAdButton]=useState(false);
+    
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -173,15 +174,15 @@ console.log(disableBtn)
           formData.append("TermAndConditions",terms)     
          
           addAdvertisment(formData).then((res)=>{
-              if(res.data.success===200){
-                showAdButton(true)
+              
+            if(res.data.success==="200"){
+                setShowAdButton(true)
               };
          }).catch((err)=>{
            console.log(err)
          })
       }
-      
-
+     
     return (
         <div style={{ height: "100vh", width: '100%' }}>
 

@@ -148,23 +148,23 @@ else{
     Location
  </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-    <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-    <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
-        disableUnderline={true}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-       
-      </Select>
-   
+  <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+    <input
+        className='col-lg-12 col-sm-12'
+        type="text"
+        name="location"
+        // value={location}
+        // onChange={(e) => handleChange(e)}
+        
+        style={{ 
+          fontSize: 15, 
+          borderStyle:'none',
+          background: 'transparent',  
+          borderWidth: 1, 
+          height: 40, 
+          }}
+          />
+            
     </FormControl>
 
 
