@@ -98,6 +98,7 @@ const addConditionFunction =()=>{
   )
   setAddRow(...addRow,addCondition)
 } 
+
   console.log(condition);
   return (
     <div style={{ height: "100vh", width: '100%' }}>
