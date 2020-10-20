@@ -18,6 +18,9 @@ export const AdView = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [Advertisement,setAdvertisement]=useState('');
     const [editValue,setEditValue]=useState('')
+    const [location,setLocation]=useState('')
+    const [placement,setPlacement]=useState('')
+    const [segment,setSegment]=useState('')
     const [redirect,setRedirecttoedit]=useState(false);
 
     const handleClick = (event) => {
@@ -68,7 +71,17 @@ else{
    }
     setAnchorEl(null);
       }
-      
+     const handleChange=(e)=>{
+       if(e.target.name==="placement"){
+         setPlacement(e.target.value)
+       }
+      else if(e.target.name==="segment"){
+        setSegment(e.target.value)
+      }
+     else if(e.target.name==="location"){
+        setLocation(e.target.value)
+      }
+     }
    if(redirect){
     return( <Redirect to={{ pathname: "/admin/Adedit", state: { data: editValue } }} />
     )}   
@@ -99,9 +112,9 @@ else{
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
-        name="segment"
+        value={placement}
+        onChange={handleChange}
+        name="placement"
         disableUnderline={true}
       >
         <MenuItem value="">
@@ -127,8 +140,8 @@ else{
       <Select
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"
-        // value={segment}
-        // onChange={handleChange}
+        value={segment}
+        onChange={handleChange}
         name="segment"
         disableUnderline={true}
       >
@@ -153,8 +166,8 @@ else{
         className='col-lg-12 col-sm-12'
         type="text"
         name="location"
-        // value={location}
-        // onChange={(e) => handleChange(e)}
+        value={location}
+        onChange={handleChange}
         
         style={{ 
           fontSize: 15, 
