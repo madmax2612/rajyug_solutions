@@ -16,7 +16,7 @@ import DateRangeOutlined from "@material-ui/icons/DateRangeOutlined";
 import Divider from "@material-ui/core/Divider";
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
-
+import DateTimePicker from 'react-datetime-picker';
 import styles from "assets/jss/material-dashboard-react/views/iconsStyle.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal } from 'react-bootstrap';
@@ -27,13 +27,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Button, FormControl, Grid, Select, TextField } from "@material-ui/core";
 import DateFnsUtils from '@date-io/date-fns';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-
+import '../../admin.css'
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import ImageUploader from "react-images-upload";
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 const useStyles = makeStyles(styles);
 
@@ -45,12 +48,57 @@ export default function CreateReward() {
   const [addRow,setAddRow]=useState([])
   const [firstRow,setFirstRow]=useState(false)
   const [secondRow,setSecondRow]=useState(false)
+  const [thirdRow,setThirdRow]=useState(false)
   const [conditionOne,setConditionOne]=useState('')
+  const [count,setCount]=useState('');
+  const [countOne,setCountOne]=useState('');
+  const [countTwo,setCountTwo]=useState('');
+  const [countThree,setCountThree]=useState('');
   const [conditionTwo,setConditionTwo]=useState('')
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [conditionThree,setConditionThree]=useState('')
+  const [amount,setAmount]=useState('')
+  const [rewardName,setRewardName]=useState('')
+  const [rewardDescription,setRewardDescription]=useState('')
+  const [priority,setPriority]=useState('')
+
+  const [from,setFrom]=useState(new Date('2014-08-18T21:11:54'))
+  const [to,setTo]=useState(new Date('2014-08-18T21:11:54'))
+  const [selectedDateTo, setSelectedDateTo] = React.useState(new Date('2014-08-18'));
+  const [selectedDateFrom, setSelectedDateFrom] = React.useState(new Date('2014-08-18'));
+
+  console.log(selectedDateFrom)
+  console.log(JSON.stringify(selectedDateTo))
+  console.log(selectedDateTo)
+  console.log(JSON.stringify(selectedDateTo))
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setSelectedDateTo(date)
+    // console.log(selectedDateFrom)
+    // console.log(selectedDateTo)
+
+    console.log(date)
+    // if(e==='from'){
+    //   console.log(e.target.value)
+    //   setFrom(e.target.value);
+    // }
+    // else if(e.target.name==='to'){
+    //   console.log(e.target.value)
+    //   setTo(e.target.value);
+    // }
+    
+  };
+  const handleDate = (date) => {
+    setSelectedDateFrom(date)
+    console.log(date)
+    // if(e==='from'){
+    //   console.log(e.target.value)
+    //   setFrom(e.target.value);
+    // }
+    // else if(e.target.name==='to'){
+    //   console.log(e.target.value)
+    //   setTo(e.target.value);
+    // }
+    
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,27 +127,79 @@ if(e.length!==0){
 if(e.target.name==="segment"){
   setSegment(e.target.value);
 }
+
 else if(e.target.name==='conditionone'){
   setConditionOne(e.target.value);
 }
+else if(e.target.name==='conditiontwo'){
+  setConditionTwo(e.target.value);
+}
+else if(e.target.name==='conditionthree'){
+  setConditionThree(e.target.value);
+}
 else if(e.target.name==='condition'){
   console.log(e.target.value);
-  setCondition(e.target.value);
-
+  setCondition(e.target.value)
+}
+else if(e.target.name==='amount'){
+  console.log(e.target.value);
+  setAmount(e.target.value)
+}
+else if(e.target.name==='rewardname'){
+  console.log(e.target.value);
+  setRewardName(e.target.value)
+}
+else if(e.target.name==='count'){
+  console.log(e.target.value);
+  setCount(e.target.value)
+}else if(e.target.name==='countone'){
+  console.log(e.target.value);
+  setCountOne(e.target.value)
+}else if(e.target.name==='counttwo'){
+  console.log(e.target.value);
+  setCountTwo(e.target.value)
+}else if(e.target.name==='countthree'){
+  console.log(e.target.value);
+  setCountThree(e.target.value)
+}
+else if(e.target.name==='amount'){
+  console.log(e.target.value);
+  setAmount(e.target.value)
+}
+else if(e.target.name==='rewardDescription'){
+  console.log(e.target.value);
+  setRewardDescription(e.target.value)
 }
 
+else if(condition==="Sales Value"||conditionOne==="Sales Value"|| conditionTwo==="Sales Value" || conditionThree==="Sales Value"){
+ setPriority()
+}
   }
+const Submit=()=>{
+  const data={
+    "Segment":segment ,
+"RewardName": rewardName,
+"RewardDiscription":rewardDescription,
+"DateFrom":selectedDateFrom,
+"DateTo":selectedDateTo,
 
-const addConditionFunction =()=>{
-  const addCondition =(
-    <>
-        
-    </>
-  )
-  setAddRow(...addRow,addCondition)
-} 
+"Condition1" :conditio,
+ 
 
-  console.log(condition);
+"Count1":count,
+"Count2":countOne,
+"Count3":countTwo,
+"Count4":countThree,
+
+"ConditionPriority1":"",
+"ConditionPriority2":"",
+"ConditionPriority3":"",
+"ConditionPriority4":"",
+
+  }
+}
+console.log(selectedDateTo,selectedDateFrom)
+  // console.log(condition);
   return (
     <div style={{ height: "100vh", width: '100%' }}>
 
@@ -128,7 +228,7 @@ const addConditionFunction =()=>{
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                // value={segment}
+                value={segment}
                 onChange={handleChange}
                 name="segment"
                 disableUnderline={true}
@@ -160,10 +260,22 @@ const addConditionFunction =()=>{
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Sales Value">Sales Value</MenuItem>
+                { conditionOne!=='Sales Value'&&conditionTwo!=="Sales Value"&&
+                conditionThree!=="Sales Value"?
+                  <MenuItem value="Sales Value">Sales Value</MenuItem>
+                :null}
+                { conditionOne!=='Registeration'&&conditionTwo!=="Registeration"&&
+                conditionThree!=="Registeration"?
                 <MenuItem value="Registeration">Registeration</MenuItem>
+                :null}
+                 { conditionOne!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
+                conditionThree!=="Booking Confirmed"?
                 <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                :null}
+                { conditionOne!=='Site Visit' && conditionTwo!=="Site Visit"&&
+                conditionThree!=="Site Visit"?
                 <MenuItem value="Site Visit">Site Visit</MenuItem>
+                :null}
               </Select>
             </FormControl>
           </div>
@@ -174,7 +286,14 @@ const addConditionFunction =()=>{
             From
          </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          {/* <DatePicker 
+          locale={false}
+          format="yyyy/MM/dd"
+          selected={selectedDateFrom} 
+          style={{paddingLeft:'10px',borderBottom:'none',marginTop:'2px',marginBottom:"180px"}}
+          onChange={date => setSelectedDateFrom(date)} 
+          /> */}
+   <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
@@ -182,20 +301,19 @@ const addConditionFunction =()=>{
           format="yyyy/MM/dd"
           margin="normal"
           id="date-picker-inline"
+          value={selectedDateFrom}
+          onChange={handleDate}
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
             disableUnderline:true
           }}
-        
-          value={selectedDate}
-          onChange={handleDateChange}
+          
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
         />
         </Grid>
-     </MuiPickersUtilsProvider>
-     
+        </MuiPickersUtilsProvider>
           </div>
           {condition!=="Sales Value"&&condition!==''?<> <span style={{ marginLeft: 15 }}>
             Count
@@ -207,9 +325,9 @@ const addConditionFunction =()=>{
             <input
             className='col-lg-12 col-sm-12'
             type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
+            name="count"
+            value={count}
+            onChange={(e) => handleChange(e)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -236,9 +354,9 @@ const addConditionFunction =()=>{
             <input
             className='col-lg-12 col-sm-12'
             type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
+            name="amount"
+            value={amount}
+            onChange={(e) => handleChange(e)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -264,6 +382,14 @@ const addConditionFunction =()=>{
             To
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+          {/* <DatePicker 
+         format="yyyy/MM/dd"
+          selected={selectedDateTo} 
+          style={{paddingLeft:'10px',borderBottom:'none',marginTop:'2px',marginBottom:"180px"}}
+          value={selectedDateTo}
+          onChange={date => setSelectedDateTo(date)} 
+          
+          /> */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
@@ -272,12 +398,13 @@ const addConditionFunction =()=>{
           format="yyyy/MM/dd"
           margin="normal"
           id="date-picker-inline"
+          value={selectedDateTo}
+          onChange={handleDateChange}
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
             disableUnderline:true
           }}
-          value={selectedDate}
-          onChange={handleDateChange}
+          
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
@@ -334,10 +461,22 @@ const addConditionFunction =()=>{
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Sales Value">Sales Value</MenuItem>
+                { condition!=='Sales Value'&&conditionTwo!=="Sales Value"&&
+                conditionThree!=="Sales Value"?
+                  <MenuItem value="Sales Value">Sales Value</MenuItem>
+                :null}
+                { condition!=='Registeration'&&conditionTwo!=="Registeration"&&
+                conditionThree!=="Registeration"?
                 <MenuItem value="Registeration">Registeration</MenuItem>
+                :null}
+                 { condition!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
+                conditionThree!=="Booking Confirmed"?
                 <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                :null}
+                { condition!=='Site Visit' && conditionTwo!=="Site Visit"&&
+                conditionThree!=="Site Visit"?
                 <MenuItem value="Site Visit">Site Visit</MenuItem>
+                :null}
               </Select>
             </FormControl>
           </div>
@@ -353,9 +492,9 @@ const addConditionFunction =()=>{
             <input
             className='col-lg-12 col-sm-12'
             type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
+            name="countone"
+            value={countOne}
+            onChange={(e) => handleChange(e)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -382,9 +521,9 @@ const addConditionFunction =()=>{
             <input
             className='col-lg-12 col-sm-12'
             type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
+            name="amount"
+            value={amount}
+            onChange={(e) => handleChange(e)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -419,7 +558,7 @@ const addConditionFunction =()=>{
             </Button>}
         </>
 }      
-<div class="col-lg-4 col-sm-12 col-md-4">
+{/* <div class="col-lg-4 col-sm-12 col-md-4">
           {conditionOne!=="Sales Value"&& conditionOne!==''?<> <span style={{ marginLeft: 15 }}>
             Count
           </span>
@@ -477,10 +616,245 @@ const addConditionFunction =()=>{
           </div>
           </>
          :null }
-</div>
+</div> */}
 
     </div>
           </div>
+          <div class="col-lg-12 col-sm-12" style={{  backgroundColor: 'white',display: "flex", flexDirection: "column" }}>
+        <div class="row">
+        {
+        secondRow
+         &&
+          <>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+            <span>
+              Select Condition
+            </span>
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={conditionTwo}
+                onChange={(e)=>handleChange(e)}
+                name="conditiontwo"
+                disableUnderline={true}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                { conditionOne!=='Sales Value'&&condition!=="Sales Value"&&
+                conditionThree!=="Sales Value"?
+                  <MenuItem value="Sales Value">Sales Value</MenuItem>
+                :null}
+                { conditionOne!=='Registeration'&&condition!=="Registeration"&&
+                conditionThree!=="Registeration"?
+                <MenuItem value="Registeration">Registeration</MenuItem>
+                :null}
+                 { conditionOne!=='Booking Confirmed'&&condition!=="Booking Confirmed"&&
+                conditionThree!=="Booking Confirmed"?
+                <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                :null}
+                { conditionOne!=='Site Visit' && condition!=="Site Visit"&&
+                conditionThree!=="Site Visit"?
+                <MenuItem value="Site Visit">Site Visit</MenuItem>
+                :null}
+              </Select>
+            </FormControl>
+          </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+          {conditionTwo!=="Sales Value"&& conditionTwo!==''?<> <span style={{ marginLeft: 15 }}>
+            Count
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="counttwo"
+            value={countTwo}
+            onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+          :
+          conditionTwo==="Sales Value"?
+          <> <span style={{ marginLeft: 15 }}>
+            Amount
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="amount"
+            value={amount}
+            onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+         :null }
+          </div>
+          {conditionTwo!==""&&<Button 
+          style={{
+            border:'1px solid black',
+            borderRadius:'20px',
+            padding:"5px",
+            height:'20px',
+            minWidth:'0px',
+            marginTop:'35px',
+            fontSize:'20px',
+            color:'black'
+          }}
+          color="primary"
+          onClick={()=>setThirdRow(true)}
+          >
+              +
+            </Button>}
+        </>
+}      
+
+    </div>
+          </div>
+
+          <div class="col-lg-12 col-sm-12" style={{  backgroundColor: 'white',display: "flex", flexDirection: "column" }}>
+        <div class="row">
+        {
+        thirdRow
+         &&
+          <>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+            <span>
+              Select Condition
+            </span>
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={conditionThree}
+                onChange={(e)=>handleChange(e)}
+                name="conditionthree"
+                disableUnderline={true}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                { conditionOne!=='Sales Value'&&conditionTwo!=="Sales Value"&&
+                condition!=="Sales Value"?
+                  <MenuItem value="Sales Value">Sales Value</MenuItem>
+                :null}
+                { conditionOne!=='Registeration'&&conditionTwo!=="Registeration"&&
+                condition!=="Registeration"?
+                <MenuItem value="Registeration">Registeration</MenuItem>
+                :null}
+                 { conditionOne!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
+                condition!=="Booking Confirmed"?
+                <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                :null}
+                { conditionOne!=='Site Visit' && conditionTwo!=="Site Visit"&&
+                condition!=="Site Visit"?
+                <MenuItem value="Site Visit">Site Visit</MenuItem>
+                :null}
+              </Select>
+            </FormControl>
+          </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 col-md-4">
+          {conditionThree!=="Sales Value"&& conditionThree!==''?<> <span style={{ marginLeft: 15 }}>
+            Count
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="countthree"
+            value={countThree}
+            onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+          :
+          conditionThree==="Sales Value"?
+          <> <span style={{ marginLeft: 15 }}>
+            Amount
+          </span>
+        
+         
+          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
+            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="number"
+            name="amount"
+            value={amount}
+            onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+            
+          </div>
+          </>
+         :null }
+          </div>
+          
+        </>
+}      
+    </div>
+          </div>
+
+      
       </div>
 
 
@@ -498,7 +872,7 @@ const addConditionFunction =()=>{
       <div className="row" style={{ display: 'flex',padding:'20px' ,flexDirection: 'row' }}>
       <div class="col-lg-12  col-md-12 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
       <p style={{ fontSize:'14px',color:"black", fontWeight: 'bold', marginBottom: 0}}>
-      Advertisement 1
+      Rewards
       </p>
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: 0, }}></div>
       </div>
@@ -527,12 +901,39 @@ const addConditionFunction =()=>{
           </div>
         </div>
         <div class="col-lg-8  col-md-8 col-sm-12 " style={{ display: 'flex', flexDirection: 'column', }}>
+        <span>
+          Reward Name
+        </span>
+        <div style={{ padding:'10px',background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', borderRadius: 40, marginBottom: 15 }}>
+        <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <input
+            className='col-lg-12 col-sm-12'
+            type="text"
+            name="rewardname"
+            value={rewardName}
+            onChange={(e) => handleChange(e)}
+            placeholder="45" 
+            style={{ 
+             fontSize: 15, 
+             borderStyle:'none',
+             background: 'transparent',  
+             borderWidth: 1, 
+             height: 40, 
+             }}
+              />
+            
+            </FormControl>
+
+        </div>
+        
+        
         Terms & Conditions
             <div style={{ padding:'10px',background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', borderRadius: 40, marginBottom: 15 }}>
             <TextareaAutosize 
             rowsMin={3} 
             cols={43}
-            
+            name="rewardDescription"
+            value={rewardDescription}
             style={{borderStyle:'none'}}
             placeholder="Minimum 3 rows" />
             </div>
@@ -575,11 +976,11 @@ const addConditionFunction =()=>{
         <div class="row">
         </div>
       </div>
-      <Button 
+      {/* <Button 
       
       style={{margin:'20px'}}>
       Add More Rewards
-      </Button>
+      </Button> */}
 
     </div>
 

@@ -70,17 +70,21 @@ const Submit=()=>{
   console.log("here Edit")
   console.log(fileLength,fileLength)
         const formData = new FormData();
-        if(fileLength && fileName &&Advertisement&&location&&segment&&terms &&id)
-          formData.append("id",id)
+        if (Advertisement && location && segment && terms &&id)
+          
+          
+          if(fileLength!==''&& fileName!==''){
           formData.append("myFile",fileLength,fileName);
+            }
+          formData.append("id",id)
           formData.append("AdvertisementPlacement",Advertisement)
           formData.append("Location",location)
           formData.append("Segment",segment)
           formData.append("TermAndConditions",terms)     
          
           editAdvertisment(formData).then((res)=>{
-  console.log("here Edit")
-console.log(res)
+          console.log("here Edit")
+          console.log(res)
               if(res.data.success==="200"){
                 // showAdButton(true)
                 setRedirect(true);

@@ -176,7 +176,7 @@ else{
 <div class="row">
 
 
-{Advertisement && Advertisement.map((res)=>{
+{Advertisement && Advertisement.map((res,id)=>{
   return(
   <div class="col-lg-4 col-sm-12">
     <div class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
@@ -185,7 +185,7 @@ else{
       <div className="row" style={{ display: 'flex',padding:'20px' ,flexDirection: 'row' }}>
       <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
       <p style={{ fontSize:'14px',color:"black", fontWeight: 'bold', marginBottom: 0}}>
-      Advertisement {res.id}
+      Advertisement {id+1}
       </p>
       </div>
       <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
