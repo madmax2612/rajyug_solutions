@@ -82,33 +82,33 @@ const dashboardRoutes = [
     
       {
         path: "/udelete",
-        name: "Deactivate",
+        name: "",
         rtlName: "User Segment/delete",
-        icon: VisibilityOffOutlined,
+        icon: "",
         component: Udelete,
         layout: "/admin"
       },
       {
         path: "/uedit",
-        name: "Edit",
+        name: "",
         rtlName: "User Segment/edit",
-        icon: Edit,
+        icon: "",
         component: Uedit,
         layout: "/admin"
       },
       {
         path: "/ublock",
-        name: "Block or Bar",
+        name: "",
         rtlName: "User Segment/block",
-        icon: Block,
+        icon: "",
         component: Ublock,
         layout: "/admin"
       },
       {
         path: "/resetpwdd",
-        name: "Reset Password",
+        name: "",
         rtlName: "Reset Password",
-        icon:  Lock,
+        icon:  "",
         component: ResetPwd,
         layout: "/admin"
       },

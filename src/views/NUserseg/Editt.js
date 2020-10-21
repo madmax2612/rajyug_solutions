@@ -1,9 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import '../../stylee.css';
+import { Link } from 'react-router-dom';
+import { FormControl, MenuItem, Select } from '@material-ui/core';
 
-class Createe extends Component {
-    render() {
+const Create=()=> {
+    const [Advertisement,setAdvertisement]=useState('')
+  const handleChange=(e)=>{
+if(e.target.name==="management")
+{
+    setAdvertisement(e.target.value)
+}
+  }
+
         return (
             <div style={{height:"100vh", width:'100%'}}>
 <div  style={{marginLeft:18}}>  
@@ -24,11 +33,26 @@ class Createe extends Component {
            Select
          </span>
         <div  style={{background:'transparent',  borderStyle:'solid', borderWidth:1, borderColor:'#bf891b',height:35, borderRadius:40, }} >     
-        
-        <div style={{display:'flex', flexDirection:'row'}}>
+        <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+
+            <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={Advertisement}
+            onChange={handleChange}
+            name="mangement"
+            disableUnderline={true}
+            >       
+            <MenuItem value="HomePage" >Management</MenuItem>  
+            </Select>
+            </FormControl>
+        {/* <div style={{display:'flex', flexDirection:'row'}}>
         <div style={{marginLeft:10, fontSize:15, lineHeight:2}}> Management</div> 
 					<div style={{marginLeft:'auto', padding:5}}>   	<ExpandMore /> </div>		
-        </div>
+        </div> */}
+        
+        
+        
         </div>
         </div>
 
@@ -66,9 +90,11 @@ Segment who has referred more than X number and achieved X amount for the curren
       
 
        </div>
+       <Link to="/admin/dashboard">
        <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
+      </Link>
        </div>
 
 </div>
@@ -76,7 +102,7 @@ Segment who has referred more than X number and achieved X amount for the curren
         
         
         );
-    }
+    
 }
 
-export default Createe;
+export default Create;

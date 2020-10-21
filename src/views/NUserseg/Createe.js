@@ -4,6 +4,7 @@ import { Modal} from 'react-bootstrap';
 import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
 import Divider from "@material-ui/core/Divider";
+import { Link } from 'react-router-dom';
 export default function UserSeg() 
 
 {
@@ -45,7 +46,7 @@ Segment who has referred more than X number and achieved X amount for the curren
   </div>
 
 
-  <Modal
+  {/* <Modal
         show={show}
         onHide={() => setShow(false)}
         
@@ -108,7 +109,7 @@ Segment who has referred more than X number and achieved X amount for the curren
         
         
          
-      </Modal>
+      </Modal> */}
 
 
 
@@ -119,11 +120,12 @@ Segment who has referred more than X number and achieved X amount for the curren
       
 
        </div>
+       <Link to="/admin/dashboard">
        <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
+       </Link>
        </div>
-
 </div>
         
         

@@ -7,7 +7,7 @@ import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
 import '../../stylee.css';
 import { ProgressBar, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 import { deactivateUser } from 'utils/Services';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 export default function UserSeg(props) {
   const [show, setShow] = useState(false);
@@ -102,11 +102,11 @@ if(e.target.name="select"){
             <div style={{ fontSize: 16, color: "black", marginLeft: 60, paddingTop: 30 }}> This if you want to permanenttly deactivate a teammate. <br />
               <span style={{ marginLeft: 60 }}> This acccount cannot be restored</span>
             </div>
-
+            <Link to="/admin/dashboard">
             <div className="graddbtn" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 95, marginTop: 40 }}>
               <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
             </div>
-
+            </Link>
             <div onClick={() => deactivate()} className="graddred" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'red', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 255, marginTop: -35 }}>
               <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 25, marginTop: 5 }}> DEACTIVATE</div>
             </div>
@@ -116,10 +116,11 @@ if(e.target.name="select"){
 
 
         </Modal>
-
+        <Link to="/admin/dashboard">
         <div style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30, }}>
           <div className="graddbtn" style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
         </div>
+        </Link>
       </div>
 
     </div>

@@ -132,6 +132,7 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
+              {typeof prop.icon && prop.name!==''?
             <ListItem style={display} button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -156,6 +157,7 @@ export default function Sidebar(props) {
                 disableTypography={true}
               />
             </ListItem>
+            :null}
           </NavLink>
         );
       })}
@@ -192,6 +194,7 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
+              {typeof prop.icon && prop.name!==''?
             <ListItem  style={display} button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -216,6 +219,7 @@ export default function Sidebar(props) {
                 disableTypography={true}
               />
             </ListItem>
+            :null}
           </NavLink>
         );
       })}
@@ -250,6 +254,7 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
+              {typeof prop.icon && prop.name!==''?
             <ListItem  style={display}button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -274,6 +279,7 @@ export default function Sidebar(props) {
                 disableTypography={true}
               />
             </ListItem>
+            :null}
           </NavLink>
         );
       })}
@@ -282,61 +288,61 @@ export default function Sidebar(props) {
 
 
 
-  var Tier = (
-    <List className={classes.list}>
-      {routes3.map((prop, key) => {
-        var activePro = " ";
-        var listItemClasses;
-        if (prop.path === "/upgrade-to-pro") {
-          activePro = classes.activePro + " ";
-          listItemClasses = classNames({
-            [" " + classes[color]]: true
-          });
-        } else {
-          listItemClasses = classNames({
-            [" " + classes[color]]: activeRoute(prop.layout + prop.path)
-          });
-        }
-        const whiteFontClasses = classNames({
-          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
-        });
-        const display = prop.name === "Tier" ? { display:"none" } : {display: "block"}
-        return (
-          <NavLink
-            to={prop.layout + prop.path}
-            className={activePro + classes.item}
-            activeClassName="active"
-            key={key}
-          >
-            <ListItem  style={ display}button className={classes.itemLink + listItemClasses}>
-              {typeof prop.icon === "string" ? (
-                <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
-                >
-                  {prop.icon}
-                </Icon>
-              ) : (
-                  <prop.icon
-                    className={classNames(classes.itemIcon, whiteFontClasses, {
-                      [classes.itemIconRTL]: props.rtlActive
-                    })}
-                  />
-                )}
-              <ListItemText
-                primary={props.rtlActive ? prop.rtlName : prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
-                })}
-                disableTypography={true}
-              />
-            </ListItem>
-          </NavLink>
-        );
-      })}
-    </List>
-  );
+  // var Tier = (
+  //   <List className={classes.list}>
+  //     {routes3.map((prop, key) => {
+  //       var activePro = " ";
+  //       var listItemClasses;
+  //       if (prop.path === "/upgrade-to-pro") {
+  //         activePro = classes.activePro + " ";
+  //         listItemClasses = classNames({
+  //           [" " + classes[color]]: true
+  //         });
+  //       } else {
+  //         listItemClasses = classNames({
+  //           [" " + classes[color]]: activeRoute(prop.layout + prop.path)
+  //         });
+  //       }
+  //       const whiteFontClasses = classNames({
+  //         [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+  //       });
+  //       const display = prop.name === "Tier" ? { display:"none" } : {display: "block"}
+  //       return (
+  //         <NavLink
+  //           to={prop.layout + prop.path}
+  //           className={activePro + classes.item}
+  //           activeClassName="active"
+  //           key={key}
+  //         >
+  //           <ListItem  style={ display}button className={classes.itemLink + listItemClasses}>
+  //             {typeof prop.icon === "string" ? (
+  //               <Icon
+  //                 className={classNames(classes.itemIcon, whiteFontClasses, {
+  //                   [classes.itemIconRTL]: props.rtlActive
+  //                 })}
+  //               >
+  //                 {prop.icon}
+  //               </Icon>
+  //             ) : (
+  //                 <prop.icon
+  //                   className={classNames(classes.itemIcon, whiteFontClasses, {
+  //                     [classes.itemIconRTL]: props.rtlActive
+  //                   })}
+  //                 />
+  //               )}
+  //             <ListItemText
+  //               primary={props.rtlActive ? prop.rtlName : prop.name}
+  //               className={classNames(classes.itemText, whiteFontClasses, {
+  //                 [classes.itemTextRTL]: props.rtlActive
+  //               })}
+  //               disableTypography={true}
+  //             />
+  //           </ListItem>
+  //         </NavLink>
+  //       );
+  //     })}
+  //   </List>
+  // );
 
 var Advertisement =(
   <List className={classes.list}>
@@ -368,7 +374,8 @@ var Advertisement =(
             key={key}
           >
 
-            {typeof prop.icon && prop.name!==''?<ListItem  style={display} button className={classes.itemLink + listItemClasses}>
+            {typeof prop.icon && prop.name!==''?
+            <ListItem  style={display} button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 
                 <Icon
@@ -488,6 +495,7 @@ var Advertisement =(
             activeClassName="active"
             key={key}
           >
+          {typeof prop.icon!=='' && prop.name!==''?
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
@@ -512,6 +520,7 @@ var Advertisement =(
                 disableTypography={true}
               />
             </ListItem>
+            :null}
           </NavLink>
         );
       })}
@@ -586,7 +595,7 @@ var Advertisement =(
                 id="panel1bh-header"
               >
                 <DashboardIcon style={{ color: 'white', marginRight: 15 }} />
-                <Link to="/admin/create">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
+                <Link to="/admin/ucreate">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
               </ExpansionPanelSummary>
               {Useg}
             </ExpansionPanel>
@@ -620,7 +629,7 @@ var Advertisement =(
 
 
 
-            <ExpansionPanel className={classes.list1}
+            {/* <ExpansionPanel className={classes.list1}
               expanded4={expanded4 === 'panel1'} onChange={handleChange4('panel1')} >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
@@ -631,7 +640,7 @@ var Advertisement =(
                 <Link to="/admin/tier1"> <Typography style={{ color: 'white' }} >Tier</Typography></Link>
               </ExpansionPanelSummary>
               {Tier}
-            </ExpansionPanel>
+            </ExpansionPanel> */}
 
             <ExpansionPanel className={classes.list1}
               expanded5={expanded5 === 'panel1'} onChange={handleChange5('panel1')} >
@@ -710,7 +719,7 @@ var Advertisement =(
                 id="panel1bh-header"
               >
                 <DashboardIcon style={{ color: 'white', marginRight: 15 }} />
-                <Link to="/admin/create">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
+                <Link to="/admin/view">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
               </ExpansionPanelSummary>
               {Useg}
             </ExpansionPanel>
@@ -756,7 +765,7 @@ var Advertisement =(
               {Advertisement}
             </ExpansionPanel>
 
-            <ExpansionPanel className={classes.list1}
+            {/* <ExpansionPanel className={classes.list1}
               expanded4={expanded4 === 'panel1'} onChange={handleChange4('panel1')} >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
@@ -767,7 +776,7 @@ var Advertisement =(
                 <Link to="/admin/tier1"> <Typography style={{ color: 'white' }} >Tier</Typography></Link>
               </ExpansionPanelSummary>
               {Tier}
-            </ExpansionPanel>
+            </ExpansionPanel> */}
 
 
             <ExpansionPanel className={classes.list1}

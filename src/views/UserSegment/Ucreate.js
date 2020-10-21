@@ -519,9 +519,11 @@ setStateData(res.data.States)
 
       <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row", justifyContent: 'flex-end', marginTop: 30, marginBottom: 20 }}>
         <div className="gradd" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', }}>
-          <div onClick={() => onSubmit()} style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CREATE</div>
+          <div 
+          // onClick={() => onSubmit()} 
+          style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CREATE</div>
 
-          <Modal
+          {/* <Modal
             show={show}
             onHide={() => setShow(false)}
 
@@ -554,7 +556,7 @@ setStateData(res.data.States)
               </div>
 
             </div>
-          </Modal>
+          </Modal> */}
 
         </div>
         <div
@@ -565,6 +567,7 @@ setStateData(res.data.States)
             borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30,
             borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30,
           }}>
+
           <div
             style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
         </div>

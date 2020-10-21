@@ -124,118 +124,15 @@ else if(e.target.name==='condition'){
             </FormControl>
           
           </div>
-          <span style={{ marginLeft: 15 }}>
-            Select Condition
-          </span>
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={segment}
-                onChange={handleChange}
-                name="segment"
-                disableUnderline={true}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="Customer">Sales Value</MenuItem>
-                <MenuItem value="Employee">Booking Confirm</MenuItem>
-                {/* <MenuItem value="Channel Partner"></MenuItem> */}
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-
-        <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
-            From
-         </span>
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
-          InputProps={{
-            disableUnderline:true
-          }}
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-        </Grid>
-     </MuiPickersUtilsProvider>
-
+         
           
           </div>
-        
+          
 
 
-        
-          <span style={{ marginLeft: 15 }}>
-            Amount
-          </span>
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-            <input
-            className='col-lg-12 col-sm-12'
-            type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
-            placeholder="45" 
-            style={{ 
-             fontSize: 15, 
-             borderStyle:'none',
-             background: 'transparent',  
-             borderWidth: 1, 
-             height: 40, 
-             }}
-              />
-            </FormControl>
-          </div>
-          </div>
-          <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
-            To
-          </span>
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
-          InputProps={{
-            disableUnderline:true
-          }}
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-        </Grid>
-     </MuiPickersUtilsProvider>
-     
       
-          </div>
-          </div>
-          <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
+                    <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
+                    <span style={{ marginLeft: 15 }}>
             Select Condition
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
@@ -258,10 +155,15 @@ else if(e.target.name==='condition'){
               </Select>
             </FormControl>
           </div>
+          
+                    
           </div>
-          <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-          <span style={{ marginLeft: 15 }}>
-            Count
+          
+<div>
+{/* <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  > */}
+
+<span style={{ marginLeft: 15 }}>
+            Amount
           </span>
         
          
@@ -285,26 +187,11 @@ else if(e.target.name==='condition'){
             
             </FormControl>
             
-          </div>
-         
-          </div>
-          <Button 
-          style={{
-            border:'1px solid black',
-            borderRadius:'20px',
-            padding:"5px",
-            height:'20px',
-            minWidth:'0px',
-            marginTop:'35px',
-            fontSize:'20px',
-            color:'black'
-          }}
-          color="primary">
-              +
-            </Button>
+          </div> 
+</div>
+</div>
 
-      </div>
-
+     
 
 
 

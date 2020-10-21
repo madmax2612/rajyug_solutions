@@ -22,8 +22,9 @@ import { Modal, Table } from 'react-bootstrap';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import { Link, Redirect } from 'react-router-dom'
 import { getUsersProfile } from "utils/Services";
-import { FormControl, MenuItem, Select } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select, Typography } from "@material-ui/core";
 import { getAllTier } from "utils/Services";
+import { Button } from "react-bootstrap";
 
 const styles = {
   cardCategoryWhite: {
@@ -71,7 +72,8 @@ export default function TableList() {
   const [selectSegment,setSelectSegment]=useState('')
   const [selectTier,setSelectTier]=useState('')
   const [tierData,setTierData]=useState('')
-
+  const [open, setOpen] = React.useState(false);
+  const [UserView,setUserView]=useState('')
   useEffect(() => {
 
     getUsersProfile().then((res) => {
@@ -94,6 +96,9 @@ export default function TableList() {
     })
 
   }, [])
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
 
 const handleChange=(e)=>{
 
@@ -111,6 +116,11 @@ else if(e.target.name==='Search'){
   const openEdit = (e) => {
     setEditValue(e);
     setRedirect(true);
+  }
+  const handleView=(res)=>{
+    setUserView(res)
+    setOpen(true)
+    console.log(res);
   }
   if (redirect) {
     return <Redirect to={{ pathname: "/admin/uedit", state: { data: editValue } }} />
@@ -135,6 +145,56 @@ else if(e.target.name==='Search'){
   return (
 
     <div style={{ height: "100vh", width: '100%' }}>
+      {
+  <Dialog 
+  onClose={handleCloseModal} 
+  aria-labelledby="customized-dialog-title" 
+  open={open}
+  fullWidth={true}
+  >
+        <DialogTitle id="customized-dialog-title" 
+        onClose={handleCloseModal}
+        >
+          View ALL
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+          
+          <strong>UserId :</strong> {UserView.UserId}
+          </Typography>
+          <Typography gutterBottom>
+            <strong>
+          MobileNo: 
+          </strong>
+          {UserView.MobileNo}
+          </Typography>
+          <Typography gutterBottom>
+            <strong>
+          Email: 
+          </strong>
+          {UserView.Email}
+          </Typography>
+          <Typography gutterBottom>
+          <strong>
+          Segment:
+          </strong>
+           {UserView.Segment}
+          </Typography>
+          <Typography gutterBottom>
+            <strong>
+          Tier: 
+          </strong>
+          {UserView.Tier}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseModal} color="primary">
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+}
+
       <div class="col-lg-12 col-sm-12" style={{ width: '100%' }}>
         <div class="pl-4 pr-4 rounded mt-3 pt-4 pb-3" style={{ backgroundColor: 'white', }}>
 
@@ -209,8 +269,6 @@ else if(e.target.name==='Search'){
 
 
             <div className='col-lg-3 col-sm-12' style={{ marginRight: 0 }}  >
-
-
               <div style={{ marginLeft: 15 }}>
                 Search
               </div>
@@ -237,10 +295,6 @@ else if(e.target.name==='Search'){
       <div class="col-lg-12 col-sm-12" style={{ alignItems: 'center' }}>
         <div class="p-1 rounded  mt-3 " >
           <div class="col-lg-12 col-sm-12">
-
-
-
-
             <div className="row" style={{ display: "flex", flexDirection: "row", paddingTop: 15 }} >
               <Table responsive size="lg" style={{ margin: '20px' }}>
                 <thead style={{ backgroundColor: 'black' }}>
@@ -297,30 +351,33 @@ else if(e.target.name==='Search'){
 
                           <td >
                             {/* <Link to="/admin/useruserview"> */}
-                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#ffDB58" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
-                              </div>
-                            </div>
-                            <div className="delete" style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
+                            
+                            <div 
+                            onClick={()=>handleView(res)}
+                            className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
                             {/* </Link> */}
                             {/* <Link to="/admin/uedit"> */}
-                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
+                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
+                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#ffDB58" }}>
+                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                                <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
+                              </div>
+                            </div>
                             {/* </Link> */}
                             {/* <Link to="/admin/ublock"> */}
-                            <div className="delete" onClick={() => openDeactivate(res)} style={{ padding: '3px', width: "22%", borderRadius: '20px', display: "inline-block", backgroundColor: "blue" }}>
+                            {/* <div className="delete" onClick={() => openDeactivate(res)} style={{ padding: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "blue" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <Block style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
-                            </div>
+                            </div> */}
                             {/* </Link> */}
                           </td>
                         </tr>

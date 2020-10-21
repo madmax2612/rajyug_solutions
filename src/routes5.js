@@ -27,7 +27,18 @@ import Editt from 'views/NUserseg/Editt';
 import Add from "@material-ui/icons/AddCircleOutlineOutlined";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
+import Visible from "@material-ui/icons/VisibilityOutlined";
+import { view } from "views/NUserseg/view";
 const dashboardRoutes = [
+
+  {
+    path: "/view",
+    name: "View All",
+    rtlName: "",
+    icon: Visible,
+    component: view,
+    layout: "/admin"
+  },
   {
     path: "/create",
     name: "Create",
@@ -39,21 +50,22 @@ const dashboardRoutes = [
 
   {
     path: "/deact",
-    name: "Deactivate",
+    name: "",
     rtlName: "لوحة القيادة",
-    icon: VisibilityOffOutlined,
+    icon: "",
     component: Deactivatee,
     layout: "/admin"
   },
 
   {
     path: "/ediit",
-    name: "Edit",
+    name: "",
     rtlName: "لوحة القيادة",
-    icon: EditIcon,
+    icon: "",
     component: Editt,
     layout: "/admin"
   },
+  
   
 ];
 

@@ -23,7 +23,9 @@ const ENDPOINTS={
     Advertisement:"GetAdvertisement",
     AddAdvertisement:"UploadAdvertisement",
     EditAdvertisment:'EditAdvertisement',
-    DeleteAdvertisement:'DeleteAdvertisement'
+    DeleteAdvertisement:'DeleteAdvertisement',
+    UploadRewards:"UploadRewards",
+    createRewards:"createRewards"
 }
 
 
@@ -180,6 +182,26 @@ export const deleteAdvertisment=async (body)=>{
   return await axios.post(
       URL + ENDPOINTS.DeleteAdvertisement,
       body,  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const AddRewards=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.UploadRewards,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const createRewards=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.createRewards,
+      body,
+  
       {
         timeout: 3 * 60 * 1000
       }

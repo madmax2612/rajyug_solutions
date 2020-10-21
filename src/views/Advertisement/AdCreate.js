@@ -163,8 +163,8 @@ console.log(disableBtn)
       console.log(picture)
 
       const Submit=()=>{
-  console.log("Submit")
-  console.log(fileLength,fileLength)
+        console.log("Submit")
+        console.log(fileLength,fileLength)
         const formData = new FormData();
         if(fileLength && fileName &&Advertisement&&location&&segment&&terms)
           formData.append("myFile",fileLength,fileName);

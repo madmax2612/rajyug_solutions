@@ -60,7 +60,7 @@ export default function CreateReward() {
   const [rewardName,setRewardName]=useState('')
   const [rewardDescription,setRewardDescription]=useState('')
   const [priority,setPriority]=useState('')
-
+  const [pictures,setPictures]=useState([])
   const [from,setFrom]=useState(new Date('2014-08-18T21:11:54'))
   const [to,setTo]=useState(new Date('2014-08-18T21:11:54'))
   const [selectedDateTo, setSelectedDateTo] = React.useState(new Date('2014-08-18'));
@@ -111,7 +111,7 @@ export default function CreateReward() {
   const onDrop = e => {
     setPictures([...picture,e]);
     console.log(e);       
-console.log(e[0].name)
+  console.log(e[0].name)
 console.log(e.length===0)
 if(e.length!==0){
 // const data={
@@ -176,27 +176,74 @@ else if(condition==="Sales Value"||conditionOne==="Sales Value"|| conditionTwo==
 }
   }
 const Submit=()=>{
-  const data={
-    "Segment":segment ,
-"RewardName": rewardName,
-"RewardDiscription":rewardDescription,
-"DateFrom":selectedDateFrom,
-"DateTo":selectedDateTo,
 
-"Condition1" :conditio,
- 
-
-"Count1":count,
-"Count2":countOne,
-"Count3":countTwo,
-"Count4":countThree,
-
-"ConditionPriority1":"",
-"ConditionPriority2":"",
-"ConditionPriority3":"",
-"ConditionPriority4":"",
+  if(condition){
 
   }
+const data=[
+{"data":[ {
+    "Condition":condition,
+    "Amount":amount,
+    "Count":count,
+    "ConditionPriority":2
+},
+{
+    "Condition":conditionOne,
+    "Amount":amount,
+    "Count":countOne,
+    "ConditionPriority":1
+},
+{
+    "Condition":conditionTwo,
+    "Amount":amount,
+    "Count":countTwo,
+    "ConditionPriority":2
+}
+,
+{
+  "Condition":conditionThree,
+  "Amount":"",
+  "Count":countThree,
+  "ConditionPriority":2
+}
+],
+"reward":[{
+  "Segment":segment,
+  "RewardName":rewardName,
+  "RewardDiscription":rewardDescription,
+  "DateFrom":selectedDateFrom,
+  "ToDate":selectedDateTo
+  
+}],
+"myFile":pictures
+}]
+
+
+//   const data={
+//     "Segment":segment ,
+// "RewardName": rewardName,
+// "RewardDiscription":rewardDescription,
+// "DateFrom":selectedDateFrom,
+// "DateTo":selectedDateTo,
+
+// "Condition1" :condition,
+// "Condition2" :conditionOne,
+// "Condition3" :conditionTwo,
+// "Condition4" :conditionThree,
+
+// "Count1":count,
+// "Count2":countOne,
+// "Count3":countTwo,
+// "Count4":countThree,
+
+// // "ConditionPriority1":"",
+// // "ConditionPriority2":"",
+// // "ConditionPriority3":"",
+// // "ConditionPriority4":"",
+
+//   }
+  const formData = new FormData();
+
 }
 console.log(selectedDateTo,selectedDateFrom)
   // console.log(condition);
