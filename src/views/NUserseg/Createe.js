@@ -46,11 +46,11 @@ Segment who has referred more than X number and achieved X amount for the curren
   </div>
 
 
-  {/* <Modal
+  <Modal
         show={show}
         onHide={() => setShow(false)}
         
-        style={{paddingTop:320, 
+        style={{ 
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:600, height:480 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />
@@ -109,7 +109,7 @@ Segment who has referred more than X number and achieved X amount for the curren
         
         
          
-      </Modal> */}
+      </Modal>
 
 
 
@@ -120,7 +120,7 @@ Segment who has referred more than X number and achieved X amount for the curren
       
 
        </div>
-       <Link to="/admin/dashboard">
+       <Link to="/admin/view">
        <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>

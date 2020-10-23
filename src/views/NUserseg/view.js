@@ -27,7 +27,16 @@ import { getAllTier } from "utils/Services";
 import { Button } from "react-bootstrap";
 
 
-export const view = () => {
+ export default function View() {
+    const [RedirectToEdit,setRedirectToEdit]=useState(false);
+    const [redirectToBlock,setRedirectToBlock]=useState(false);
+
+    if(RedirectToEdit){
+      return <Redirect to="/admin/ediit" />
+    }
+    if(redirectToBlock){
+        return <Redirect to="/admin/deact" />
+      }
     return (
         <div style={{ height: "100vh", width: '100%' }}>
             
@@ -65,13 +74,16 @@ export const view = () => {
                           
                           <td >
                             <div  
+                            onClick={()=>setRedirectToEdit(true)}
                             className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
                             <div className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                              <div 
+                              onClick={()=>setRedirectToBlock(true)}
+                              style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
@@ -89,7 +101,9 @@ export const view = () => {
                               </div>
                             </div>
                             <div className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                              <div 
+                              onClick={()=>setRedirectToBlock(true)}
+                              style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
@@ -102,15 +116,22 @@ export const view = () => {
                           <td >
                             <div  
                             className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                              <div 
+                              onClick={()=>setRedirectToEdit(true)}
+                              style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
-                            <div className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                            
+                            <div 
+                            className="delete" style={{ padding: '3px', marginRight: '3px', width: "40%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
+                              <div 
+                              onClick={()=>setRedirectToBlock(true)}
+                              style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
+                            
                           </td>
                         </tr>
                         <div style={{ marginBottom: '10px' }} />

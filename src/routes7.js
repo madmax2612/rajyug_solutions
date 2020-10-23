@@ -22,7 +22,7 @@ import Delete from "@material-ui/icons/DeleteOutlineOutlined";
 import Edit from "@material-ui/icons/EditOutlined";
 
 import Redeem from "@material-ui/icons/Redeem";
-
+// import videoAdvertisement from '../public'
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserSegment from "views/UserSegment/UserSegment.js";
@@ -50,7 +50,7 @@ import { AdView } from "views/Advertisement/AdView";
 import { AdCreate } from "views/Advertisement/AdCreate";
 import { AdEdit } from "views/Advertisement/AdEdit";
 
-
+const Image=require('./assets/img/video-advertising.png')
 
 const dashboardRoutes = [
 
@@ -59,7 +59,7 @@ const dashboardRoutes = [
         path: "/advt",
         name: "Advertisement",
         rtlName: "Advertisement",
-        icon: Redeem,
+        icon: Image,
         component:AdView ,
         layout: "/admin"
       },

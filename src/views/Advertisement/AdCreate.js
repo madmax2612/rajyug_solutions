@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
-import { Button, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, withStyles } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,8 +27,13 @@ export const AdCreate = () => {
     const [terms,setTerms]=useState('')
     const [fileName,setFileName]=useState('')
     const [fileLength,setFileLength]=useState('')
+    const [Image,setImage]=useState()
     const [showAdButton,setShowAdButton]=useState(false);
-    
+    const [open, setOpen] = React.useState(false);
+    const [askOpen, setAskOpen] = React.useState(false);
+    const [error, setError] = React.useState(false);
+
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -70,6 +75,7 @@ export const AdCreate = () => {
 
 const onAddition=()=>{
     console.log("done")
+    
     const newdata = (<div>
      <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "column" }}>
 
@@ -141,7 +147,7 @@ const onAddition=()=>{
           <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Preview</div>
       <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -25, }}></div>
       <img style={{ height: 100,marginTop:20, width: "100%" }}
-                  src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
+                  src={Image} />
     
           </div>
           </div>
@@ -174,19 +180,78 @@ console.log(disableBtn)
           formData.append("TermAndConditions",terms)     
          
           addAdvertisment(formData).then((res)=>{
-              
+              console.log(res);
             if(res.data.success==="200"){
+                setOpen(true)
                 setShowAdButton(true)
+                setImage(res.data.Image)
               };
          }).catch((err)=>{
            console.log(err)
+           if(err){
+             console.log(err.response);
+           }
          })
       }
-     
+     const handleCloseModal=()=>{
+       
+      setOpen(false);
+     }
+     const handleCloseAskModal=()=>{
+       setImage()
+       setTerms('')
+      setAskOpen(false);
+     }
     return (
         <div style={{ height: "100vh", width: '100%' }}>
-
-
+ {
+  <Dialog 
+  onClose={handleCloseAskModal} 
+  aria-labelledby="customized-dialog-title" 
+  open={askOpen}
+  fullWidth={true}
+  >
+        <DialogTitle id="customized-dialog-title" 
+        onClose={handleCloseAskModal}
+        >
+          Success
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+          Succesfully Submitted the Advertisement
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseAskModal} style={{backgroundColor:'green',color:'white'}}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+}
+{
+  <Dialog 
+  onClose={handleCloseModal} 
+  aria-labelledby="customized-dialog-title" 
+  open={open}
+  fullWidth={true}
+  >
+        <DialogTitle id="customized-dialog-title" 
+        onClose={handleCloseModal}
+        >
+          Success
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+          Succesfully Submitted the Advertisement
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseModal} style={{backgroundColor:'green',color:'white'}}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+}
         <div className='row' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: 20, paddingLeft: 0, marginTop: -10, marginBottom: 0 }} >
           <div style={{ dispaly: 'flex', flexDirection: 'column' }}>
             <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Create</div>
@@ -212,8 +277,11 @@ console.log(disableBtn)
         onChange={handleChange}
         name="advertisment"
         disableUnderline={true}
-      >       
-        <MenuItem value="HomePage" >HomePage</MenuItem>  
+      >  
+      <MenuItem value="">
+      <em>None</em>
+    </MenuItem>     
+        <MenuItem value="HomePage">HomePage</MenuItem>  
       </Select>
     </FormControl>
   </div>
@@ -305,9 +373,7 @@ console.log(disableBtn)
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
                     maxFileSize={5242880}
                 />
-            {/* <Button style={{backgroundColor:'#28D179',borderRadius:'20px',color:'white',marginTop:'5px',padding:'8px'}}>
-            Select File
-            </Button> */}
+           
            </div>
            </div>
           </div>
@@ -346,7 +412,7 @@ console.log(disableBtn)
       <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Preview</div>
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -25, }}></div>
   <img style={{ height: 100,marginTop:20, width: "100%" }}
-              src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
+              src={Image} />
 
       </div>
       </div>

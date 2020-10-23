@@ -226,7 +226,7 @@ export default function Dashboard() {
 				</div>
 			</div>
 
-			<div class="col-lg-3 col-sm-12" style={{ display: "flex", flexDirection: "column", }}>
+			{/* <div class="col-lg-3 col-sm-12" style={{ display: "flex", flexDirection: "column", }}>
 				<h style={{ marginTop: 30, fontSize: 20, paddingLeft: 5, fontWeight: 'bold' }}>Activities</h>
 				<span style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginLeft: 10 }}></span>
 				<div class="col-lg-12 col-sm-12 pl-0">
@@ -288,7 +288,7 @@ export default function Dashboard() {
 
 						</div>
 					</div></div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

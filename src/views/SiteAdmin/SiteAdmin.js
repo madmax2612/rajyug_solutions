@@ -240,7 +240,7 @@ console.log(userPayload)
 
 
 
-<div class="col-lg-4 col-sm-12" style={{ display: "flex",  flexDirection: "column"}}>
+{/* <div class="col-lg-4 col-sm-12" style={{ display: "flex",  flexDirection: "column"}}>
   <div class="row">
 <div class="col-lg-12 col-sm-12 pr-0 p-3">
 
@@ -356,7 +356,7 @@ console.log(userPayload)
 							</div>
 						</div>
   </div>
-  </div>
+  </div> */}
 
 
 			

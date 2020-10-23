@@ -148,9 +148,9 @@ else{
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value="Customer">Sales Value</MenuItem>
-        <MenuItem value="Employee">Booking Confirm</MenuItem>
-        {/* <MenuItem value="Channel Partner"></MenuItem> */}
+        <MenuItem value="Customer">Customer</MenuItem>
+        <MenuItem value="Employee">Employee</MenuItem>
+        <MenuItem value="Channel Partner">Channel Partner</MenuItem>
       </Select>
     </FormControl>
   </div>

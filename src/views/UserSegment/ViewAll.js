@@ -74,6 +74,8 @@ export default function TableList() {
   const [tierData,setTierData]=useState('')
   const [open, setOpen] = React.useState(false);
   const [UserView,setUserView]=useState('')
+
+  
   useEffect(() => {
 
     getUsersProfile().then((res) => {
@@ -145,6 +147,7 @@ else if(e.target.name==='Search'){
   return (
 
     <div style={{ height: "100vh", width: '100%' }}>
+      
       {
   <Dialog 
   onClose={handleCloseModal} 
@@ -205,7 +208,7 @@ else if(e.target.name==='Search'){
             <div className='col-lg-3 col-sm-12  ' style={{ marginRight: 0 }}  >
               <span style={{ marginLeft: 15 }}>
                 Select Segments
-     </span>
+                </span>
               <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
 
                 {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -232,42 +235,6 @@ else if(e.target.name==='Search'){
                 </FormControl>
               </div>
             </div>
-
-            <div className='col-lg-3 col-sm-12  ' style={{ marginRight: 0 }}  >
-              <span style={{ marginLeft: 15 }}>
-                Select Tier
-         </span>
-              <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-                {/* <div style={{ height: 28, width: 28, backgroundColor: 'pink', borderRadius: 80, margin: 5 }}>
-                  <StarRate className={classes.icons} style={{ color: 'white', fontSize: 28 }} />
-                </div> */}
-                <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-
-                  <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={selectTier}
-                    onChange={handleChange}
-                    name="Tier"
-                    disableUnderline={true}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                   { tierData&& tierData.map((res)=>{
-                   return( <MenuItem value={res.TierName}>{res.TierName}</MenuItem>)
-                   })}
-                    
-                  </Select>
-                </FormControl>
-                {/* <div style={{ marginLeft: 40, marginBottom: -23, fontSize: 15, marginTop: -32, fontWeight: 'bolder' }}> Bronze</div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', padding: -6, marginRight: 8 }}>   	<ExpandMore /> </div>
-               */}
-              </div>
-            </div>
-
-
-
             <div className='col-lg-3 col-sm-12' style={{ marginRight: 0 }}  >
               <div style={{ marginLeft: 15 }}>
                 Search
@@ -349,9 +316,7 @@ else if(e.target.name==='Search'){
                           <td>{res.Segment}</td>
                           <td>{res.Amount}</td>
 
-                          <td >
-                            {/* <Link to="/admin/useruserview"> */}
-                            
+                          <td > 
                             <div 
                             onClick={()=>handleView(res)}
                             className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
@@ -359,8 +324,6 @@ else if(e.target.name==='Search'){
                                 <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
-                            {/* </Link> */}
-                            {/* <Link to="/admin/uedit"> */}
                             <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
@@ -371,14 +334,6 @@ else if(e.target.name==='Search'){
                                 <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
                               </div>
                             </div>
-                            {/* </Link> */}
-                            {/* <Link to="/admin/ublock"> */}
-                            {/* <div className="delete" onClick={() => openDeactivate(res)} style={{ padding: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "blue" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <Block style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
-                              </div>
-                            </div> */}
-                            {/* </Link> */}
                           </td>
                         </tr>
                         <div style={{ marginBottom: '10px' }} />

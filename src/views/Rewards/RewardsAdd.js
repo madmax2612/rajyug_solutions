@@ -10,7 +10,8 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
 import StarRate from "@material-ui/icons/StarRate";
 import DateRangeOutlined from "@material-ui/icons/DateRangeOutlined";
 import Divider from "@material-ui/core/Divider";
@@ -24,7 +25,7 @@ import Delete from '@material-ui/icons/Delete';
 import Clear from '@material-ui/icons/Clear';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Button, FormControl, Grid, Select, TextField } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, Select, TextField, Typography } from "@material-ui/core";
 import DateFnsUtils from '@date-io/date-fns';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import '../../admin.css'
@@ -37,10 +38,13 @@ import ImageUploader from "react-images-upload";
 import DatePicker from "react-datepicker";
  
 import "react-datepicker/dist/react-datepicker.css";
+import { AddRewards } from "utils/Services";
+import { createRewards } from "utils/Services";
 
 const useStyles = makeStyles(styles);
 
-export default function CreateReward() {
+const  CreateReward=()=> {
+  
   const [segment, setSegment] = useState('');
   const [tier, setTier] = useState('')
   const [condition, setCondition] = useState("");
@@ -61,18 +65,26 @@ export default function CreateReward() {
   const [rewardDescription,setRewardDescription]=useState('')
   const [priority,setPriority]=useState('')
   const [pictures,setPictures]=useState([])
+  const [fileName,setFileName]=useState('')
+  const [fileLength,setFileLength]=useState('')
   const [from,setFrom]=useState(new Date('2014-08-18T21:11:54'))
   const [to,setTo]=useState(new Date('2014-08-18T21:11:54'))
-  const [selectedDateTo, setSelectedDateTo] = React.useState(new Date('2014-08-18'));
-  const [selectedDateFrom, setSelectedDateFrom] = React.useState(new Date('2014-08-18'));
+  const [inputValue, setInputValue] = useState(moment().format("YYYY/MM/DD"));
+  const [inputValue2, setInputValue2] = useState(moment().format("YYYY/MM/DD"));
+  const [selectedDateTo, setSelectedDateTo] = React.useState(moment().format("YYYY/MM/DD"));
+  const [selectedDateFrom, setSelectedDateFrom] = React.useState(moment("YYYY/MM/DD"));
+  const [open, setOpen] = React.useState(false);
 
   console.log(selectedDateFrom)
-  console.log(JSON.stringify(selectedDateTo))
-  console.log(selectedDateTo)
+  
+  
+  console.log(moment(selectedDateTo).format("YYYY/MM/DD"))
+  
   console.log(JSON.stringify(selectedDateTo))
 
   const handleDateChange = (date) => {
-    setSelectedDateTo(date)
+    setSelectedDateTo(moment(date).format("YYYY/MM/DD"))
+    setInputValue(moment(date).format("YYYY/MM/DD"))
     // console.log(selectedDateFrom)
     // console.log(selectedDateTo)
 
@@ -88,7 +100,8 @@ export default function CreateReward() {
     
   };
   const handleDate = (date) => {
-    setSelectedDateFrom(date)
+    setSelectedDateFrom(moment(date).format("YYYY/MM/DD"))
+    setInputValue2(moment(date).format("YYYY/MM/DD"))
     console.log(date)
     // if(e==='from'){
     //   console.log(e.target.value)
@@ -109,11 +122,20 @@ export default function CreateReward() {
   };
 
   const onDrop = e => {
-    setPictures([...picture,e]);
-    console.log(e);       
-  console.log(e[0].name)
+    // setPictures([...pictures,e]);
+    
+
+console.log(e[0].name)
 console.log(e.length===0)
 if(e.length!==0){
+  console.log(e);       
+  console.log(e[0].name)
+  setPictures([...pictures,e])
+  if(e.length!==0){
+    setFileName(e[0].name)
+    setFileLength(e[0])
+  }
+
 // const data={
 // 	"myFile":e,
 // 	"UserId":userPayload.UserId
@@ -175,81 +197,124 @@ else if(condition==="Sales Value"||conditionOne==="Sales Value"|| conditionTwo==
  setPriority()
 }
   }
+
 const Submit=()=>{
+  console.log(condition,conditionOne,conditionTwo,conditionThree)
+  const data={
+    "Segment":segment ,
+"RewardName": rewardName,
+"RewardDiscription":rewardDescription,
+"DateFrom":selectedDateFrom,
+"DateTo":selectedDateTo,
 
-  if(condition){
+"Condition1" :condition,
+"Condition2" :conditionOne,
+"Condition3" :conditionTwo,
+"Condition4" :conditionThree,
 
+"Count1":count,
+"Count2":countOne,
+"Count3":countTwo,
+"Count4":countThree,
+
+"ConditionPriority1":condition==="Site Visit"||conditionOne==="Site Visit"||
+conditionTwo==="Site Visit"||conditionThree==="Site Visit" ? 4:condition==="Sales Value"||conditionOne==="Sales Value"||
+conditionTwo==="Sales Value"||conditionThree==="Sales Value"?1:condition==="Registration"||conditionOne==="Registration"||
+conditionTwo==="Registration"||conditionThree==="Registration"?2:condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0
   }
-const data=[
-{"data":[ {
-    "Condition":condition,
-    "Amount":amount,
-    "Count":count,
-    "ConditionPriority":2
-},
-{
-    "Condition":conditionOne,
-    "Amount":amount,
-    "Count":countOne,
-    "ConditionPriority":1
-},
-{
-    "Condition":conditionTwo,
-    "Amount":amount,
-    "Count":countTwo,
-    "ConditionPriority":2
-}
-,
-{
-  "Condition":conditionThree,
-  "Amount":"",
-  "Count":countThree,
-  "ConditionPriority":2
-}
-],
-"reward":[{
-  "Segment":segment,
-  "RewardName":rewardName,
-  "RewardDiscription":rewardDescription,
-  "DateFrom":selectedDateFrom,
-  "ToDate":selectedDateTo
   
-}],
-"myFile":pictures
-}]
-
-
-//   const data={
-//     "Segment":segment ,
-// "RewardName": rewardName,
-// "RewardDiscription":rewardDescription,
-// "DateFrom":selectedDateFrom,
-// "DateTo":selectedDateTo,
-
-// "Condition1" :condition,
-// "Condition2" :conditionOne,
-// "Condition3" :conditionTwo,
-// "Condition4" :conditionThree,
-
-// "Count1":count,
-// "Count2":countOne,
-// "Count3":countTwo,
-// "Count4":countThree,
-
-// // "ConditionPriority1":"",
-// // "ConditionPriority2":"",
-// // "ConditionPriority3":"",
-// // "ConditionPriority4":"",
-
-//   }
+  console.log(fileLength,fileName)
+  
   const formData = new FormData();
+  formData.append("myFile",fileLength,fileName);
+  // formData.append("myFile",pictures[0]);
+  formData.append("Segment",segment);
+  formData.append("RewardName",rewardName);
+  formData.append("RewardDiscription",rewardDescription);
+  formData.append("DateFrom",selectedDateFrom);
+  formData.append("DateTo",selectedDateTo);
+  formData.append("Condition1",
+  condition==="Site Visit"||conditionOne==="Site Visit"||conditionTwo==="Site Visit"||conditionThree==="Site Visit"?"Site Visit":''
+  );
+  formData.append("Condition2",
+  condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?"Booking Confirmed":''
+  );
+  formData.append("Condition3",
+  condition==="Registration Done"||conditionOne==="Registration Done"||conditionTwo==="Registration Done"||conditionThree==="Registration Done"?"Registration Done":''
+  
+  
+  );
+  formData.append("Condition4",
+  condition==="Sales Value"||conditionOne==="Sales Value"||conditionTwo==="Sales Value"||conditionThree==="Sales Value"?"Sales Value":''
 
+  );
+  formData.append("Count1",count);
+  formData.append("Count2",countOne);
+  formData.append("Count3",countTwo);
+  formData.append("Count4",countThree);
+  formData.append("ConditionPriority4",
+  condition==="Site Visit"||conditionOne==="Site Visit"||
+conditionTwo==="Site Visit"||conditionThree==="Site Visit" ? 4:0
+);
+formData.append("ConditionPriority1",condition==="Sales Value"||conditionOne==="Sales Value"||
+conditionTwo==="Sales Value"||conditionThree==="Sales Value"?1:0)
+formData.append("ConditionPriority2",condition==="Registration"||conditionOne==="Registration"||
+conditionTwo==="Registration"||conditionThree==="Registration"?2:0)
+formData.append("ConditionPriority3",condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0)
+
+createRewards(formData).then((res)=>{
+  console.log(res);
+  if(res.data.success==="200"){
+    console.log("Status here!")
+    setOpen(true);
+  }
+})
+
+  
+
+  
 }
+const dateFormatter = str => {
+  return str;
+};
+const dateFormatter2 = str => {
+  return str;
+};
 console.log(selectedDateTo,selectedDateFrom)
   // console.log(condition);
+  const newf=moment(selectedDateFrom).format("YYYY/MM/DD")
+  console.log(newf)
+  const handleCloseModal=()=>{
+    setOpen(false);
+   }
   return (
     <div style={{ height: "100vh", width: '100%' }}>
-
+{
+  <Dialog
+  onClose={handleCloseModal} 
+  aria-labelledby="customized-dialog-title" 
+  open={open}
+  fullWidth={true}
+  >
+        <DialogTitle id="customized-dialog-title" 
+        onClose={handleCloseModal}
+        >
+          Success
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+          Succesfully Submitted the Reward
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseModal} style={{backgroundColor:'green',color:'white'}}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+}
 
       <div className='row' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: 20, paddingLeft: 0, marginTop: -10, marginBottom: 0 }} >
         <div style={{ dispaly: 'flex', flexDirection: 'column' }}>
@@ -340,7 +405,7 @@ console.log(selectedDateTo,selectedDateFrom)
           style={{paddingLeft:'10px',borderBottom:'none',marginTop:'2px',marginBottom:"180px"}}
           onChange={date => setSelectedDateFrom(date)} 
           /> */}
-   <MuiPickersUtilsProvider utils={DateFnsUtils}>
+   <MuiPickersUtilsProvider  libInstance={moment} utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
@@ -348,8 +413,12 @@ console.log(selectedDateTo,selectedDateFrom)
           format="yyyy/MM/dd"
           margin="normal"
           id="date-picker-inline"
-          value={selectedDateFrom}
+          inputValue={inputValue2}
           onChange={handleDate}
+          error={false}
+          onError={false}
+          helperText={''}
+          rifmFormatter={dateFormatter}
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
             disableUnderline:true
@@ -375,7 +444,7 @@ console.log(selectedDateTo,selectedDateFrom)
             name="count"
             value={count}
             onChange={(e) => handleChange(e)}
-            placeholder="45" 
+            
             style={{ 
              fontSize: 15, 
              borderStyle:'none',
@@ -445,8 +514,11 @@ console.log(selectedDateTo,selectedDateFrom)
           format="yyyy/MM/dd"
           margin="normal"
           id="date-picker-inline"
-          value={selectedDateTo}
+          error={false}
+          helperText={''}
+          inputValue={inputValue}
           onChange={handleDateChange}
+          rifmFormatter={dateFormatter2}
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
             disableUnderline:true
@@ -512,9 +584,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 conditionThree!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { condition!=='Registeration'&&conditionTwo!=="Registeration"&&
-                conditionThree!=="Registeration"?
-                <MenuItem value="Registeration">Registeration</MenuItem>
+                { condition!=='Registeration Done'&&conditionTwo!=="Registeration Done"&&
+                conditionThree!=="Registeration Done"?
+                <MenuItem value="Registeration Done">Registeration</MenuItem>
                 :null}
                  { condition!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
                 conditionThree!=="Booking Confirmed"?
@@ -695,9 +767,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 conditionThree!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { conditionOne!=='Registeration'&&condition!=="Registeration"&&
-                conditionThree!=="Registeration"?
-                <MenuItem value="Registeration">Registeration</MenuItem>
+                { conditionOne!=='Registeration Done'&&condition!=="Registeration Done"&&
+                conditionThree!=="Registeration Done"?
+                <MenuItem value="Registeration Done">Registeration</MenuItem>
                 :null}
                  { conditionOne!=='Booking Confirmed'&&condition!=="Booking Confirmed"&&
                 conditionThree!=="Booking Confirmed"?
@@ -820,9 +892,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 condition!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { conditionOne!=='Registeration'&&conditionTwo!=="Registeration"&&
-                condition!=="Registeration"?
-                <MenuItem value="Registeration">Registeration</MenuItem>
+                { conditionOne!=='Registeration Done'&&conditionTwo!=="Registeration Done"&&
+                condition!=="Registeration Done"?
+                <MenuItem value="Registeration Done">Registeration</MenuItem>
                 :null}
                  { conditionOne!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
                 condition!=="Booking Confirmed"?
@@ -959,7 +1031,7 @@ console.log(selectedDateTo,selectedDateFrom)
             name="rewardname"
             value={rewardName}
             onChange={(e) => handleChange(e)}
-            placeholder="45" 
+            
             style={{ 
              fontSize: 15, 
              borderStyle:'none',
@@ -981,11 +1053,15 @@ console.log(selectedDateTo,selectedDateFrom)
             cols={43}
             name="rewardDescription"
             value={rewardDescription}
+            onChange={handleChange}
             style={{borderStyle:'none'}}
-            placeholder="Minimum 3 rows" />
+            // placeholder="Minimum 3 rows" 
+            />
             </div>
            <div>
-            <Button block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
+            <Button 
+            onClick={Submit}
+            block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
                 SAVE
             </Button>
 
@@ -1039,3 +1115,4 @@ console.log(selectedDateTo,selectedDateFrom)
 
   );
 }
+export default CreateReward;

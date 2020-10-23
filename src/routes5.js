@@ -23,12 +23,12 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import Createe from "views/NUserseg/Createe";
 import Deactivatee from 'views/NUserseg/Deactivatee';
-import Editt from 'views/NUserseg/Editt';
+import {Edit} from 'views/NUserseg/Editt';
 import Add from "@material-ui/icons/AddCircleOutlineOutlined";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
 import Visible from "@material-ui/icons/VisibilityOutlined";
-import { view } from "views/NUserseg/view";
+import  View  from "views/NUserseg/view";
 const dashboardRoutes = [
 
   {
@@ -36,7 +36,7 @@ const dashboardRoutes = [
     name: "View All",
     rtlName: "",
     icon: Visible,
-    component: view,
+    component: View,
     layout: "/admin"
   },
   {
@@ -62,7 +62,7 @@ const dashboardRoutes = [
     name: "",
     rtlName: "لوحة القيادة",
     icon: "",
-    component: Editt,
+    component: Edit,
     layout: "/admin"
   },
   

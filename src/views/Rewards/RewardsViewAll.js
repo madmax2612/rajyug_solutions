@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
@@ -34,17 +34,40 @@ import {
 } from '@material-ui/pickers';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import { getRewards } from "utils/Services";
 
 const useStyles = makeStyles(styles);
 
 export default function RewardsView() {
-  const [segment, setSegment] = useState('');
+  const [segment, setSegment] = useState(null);
   const [tier, setTier] = useState('')
-  const [condition, setCondition] = useState('');
+  const [condition, setCondition] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [rewardData,setRewardData]=useState([]);
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const [editValue,setEditValue]=useState('')
   const [redirect,setRedirecttoedit]=useState(false);
+  const [error,setError]=useState(false);
+useEffect(()=>{
+  const data={
+    "Segment":segment,
+    "Condition":condition
+  }
+  console.log(condition,segment)
+getRewards(data).then((res)=>{
+console.log(res);
+if(res){
+  
+  if(res.data.reward_data){
+    setRewardData(res.data.reward_data);
+  }
+}
+}).catch((err)=>{
+if(err){
+  setError(true);
+}
+})
+},[segment,condition])
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -149,9 +172,10 @@ else if(e.target.name==='condition'){
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Customer">Customer</MenuItem>
-                <MenuItem value="Employee">Employee</MenuItem>
-                <MenuItem value="Channel Partner">Channel Partner</MenuItem>
+                <MenuItem value="Sales Value">Sales Value</MenuItem>
+                <MenuItem value="Booking Confirmed">Booking Confirmed</MenuItem>
+                <MenuItem value="Registration Done">Registration Done</MenuItem>
+                <MenuItem value="Site Visit"> Site Visit</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -160,34 +184,7 @@ else if(e.target.name==='condition'){
           </div>
           
 <div>
-{/* <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  > */}
 
-<span style={{ marginLeft: 15 }}>
-            Amount
-          </span>
-        
-         
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-            <input
-            className='col-lg-12 col-sm-12'
-            type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
-            placeholder="45" 
-            style={{ 
-             fontSize: 15, 
-             borderStyle:'none',
-             background: 'transparent',  
-             borderWidth: 1, 
-             height: 40, 
-             }}
-              />
-            
-            </FormControl>
-            
-          </div> 
 </div>
 </div>
 
@@ -201,14 +198,16 @@ else if(e.target.name==='condition'){
 
         <div class="row">
 
-          <div class="col-lg-4 col-sm-12">
+         {rewardData.length>0 ?rewardData.map((res)=>{
+           return(
+<div class="col-lg-4 col-sm-12">
             <div class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
 
 
               <div className="row" style={{ display: 'flex',padding:'10px' ,flexDirection: 'row' }}>
               <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
               <h6 style={{ color:"black", fontWeight: 'bold', marginBottom: 0}}>
-              REWARDS 1
+              REWARDS {res.id+1}
               </h6>
               </div>
               <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
@@ -250,47 +249,36 @@ else if(e.target.name==='condition'){
 
                   <div style={{ height: 100, width: "100%", backgroundColor: "#E2E3E2", marginBottom: 10, display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center' }}>
                     <img style={{ height: 100, width: "100%", }}
-                      src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
+                      src={res.RewardImage} />
                   </div>
-
-
-                  {/* <div style={{ height: 30, width: 30, backgroundColor: "#bf891b", borderRadius: 35, marginTop: -28, display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 35 }}>
-                    <StarRate className={classes.icons} style={{ color: 'white', fontSize: 35 }} />
-                  </div> */}
                 </div>
 
 
                 
                 <div class="col-lg-12  col-md-12 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
 
-                  <h style={{ fontSize: 23, fontWeight: 'bold', marginBottom: 0, marginLeft: 30 }}>Maruti Swift</h>
+                  <h style={{ fontSize: 23, fontWeight: 'bold', marginBottom: 0, marginLeft: 30 }}>{res.RewardName}</h>
                   <div> <Divider light style={{ marginTop: 10, marginBottom: 10, marginLeft: 30 }} /> </div>
 
                   <div className="row" style={{ display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
 
                     <div className="col-12 col-lg-12 col-md-12 col-sm-12" style={{ display: 'flex', flexDirection: 'column' }} >
-                      <p style={{ fontSize: 16, color: 'gray' }}> Segment</p>
-
-                      <p style={{ fontSize: 18, color: 'blacks', marginTop: -15 }}>Customer</p>
-
-                    </div>
-
-
-                    <div className="col-12 col-lg-12 col-md-12 col-sm-12" style={{ display: 'flex', flexDirection: 'column', marginLeft: -10 }}>
-
-                      <p style={{ fontSize: 16, color: 'gray' }}> Condition</p>
-
-                      <p style={{ fontSize: 18, color: 'blacks', marginTop: -15 }}>Site Visit</p>
+                <p style={{ fontSize: 16, color: 'gray' }}> {res.RewardDiscription}</p>
                     </div>
                   </div>
-</div>
-                
+                </div>
               </div>
-
-
             </div>
           </div>
-        
+           )
+         }) 
+  :
+  <div class="col-lg-12 col-sm-12">
+            <div class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
+  <div>No Results Found</div>  
+  </div>
+  </div>     
+}
         </div>
 
 

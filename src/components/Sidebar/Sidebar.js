@@ -587,7 +587,7 @@ var Advertisement =(
             </ExpansionPanel>
 
 
-            <ExpansionPanel className={classes.list1}
+            {/* <ExpansionPanel className={classes.list1}
               expanded7={expanded7 === 'panel1'} onChange={handleChange7('panel1')} >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
@@ -598,7 +598,7 @@ var Advertisement =(
                 <Link to="/admin/ucreate">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
               </ExpansionPanelSummary>
               {Useg}
-            </ExpansionPanel>
+            </ExpansionPanel> */}
 
 
             <ExpansionPanel className={classes.list1}
@@ -711,7 +711,7 @@ var Advertisement =(
             </ExpansionPanel>
             </div>
 
-            <ExpansionPanel className={classes.list1}
+            {/* <ExpansionPanel className={classes.list1}
               expanded7={expanded7 === 'panel1'} onChange={handleChange7('panel1')} >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
@@ -722,7 +722,7 @@ var Advertisement =(
                 <Link to="/admin/view">  <Typography style={{ color: 'white' }} >User Segment</Typography></Link>
               </ExpansionPanelSummary>
               {Useg}
-            </ExpansionPanel>
+            </ExpansionPanel> */}
 
 
             <ExpansionPanel className={classes.list1}

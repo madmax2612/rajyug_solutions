@@ -25,7 +25,8 @@ const ENDPOINTS={
     EditAdvertisment:'EditAdvertisement',
     DeleteAdvertisement:'DeleteAdvertisement',
     UploadRewards:"UploadRewards",
-    createRewards:"createRewards"
+    createRewards:"createRewards",
+    ViewRewards:"ViewRewards"
 }
 
 
@@ -206,6 +207,15 @@ export const createRewards=async (body)=>{
         timeout: 3 * 60 * 1000
       }
     );
+}
+export const getRewards =async (body) => {
+  return await axios.post(
+      URL + ENDPOINTS.ViewRewards, body,
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+  
 }
 export const getNotification =async (body) => {
   return await axios.post(

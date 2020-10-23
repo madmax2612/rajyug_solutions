@@ -4,10 +4,10 @@ import '../../stylee.css';
 import { Link } from 'react-router-dom';
 import { FormControl, MenuItem, Select } from '@material-ui/core';
 
-const Create=()=> {
+export const Edit=()=> {
     const [Advertisement,setAdvertisement]=useState('')
   const handleChange=(e)=>{
-if(e.target.name==="management")
+if(e.target.name==="mangement")
 {
     setAdvertisement(e.target.value)
 }
@@ -42,8 +42,14 @@ if(e.target.name==="management")
             onChange={handleChange}
             name="mangement"
             disableUnderline={true}
-            >       
-            <MenuItem value="HomePage" >Management</MenuItem>  
+            >    
+            <MenuItem value="HomePage" >
+            <em>
+            None
+            </em>    
+            </MenuItem>  
+
+            <MenuItem value="HomePage" >Home Page</MenuItem>  
             </Select>
             </FormControl>
         {/* <div style={{display:'flex', flexDirection:'row'}}>
@@ -90,7 +96,7 @@ Segment who has referred more than X number and achieved X amount for the curren
       
 
        </div>
-       <Link to="/admin/dashboard">
+       <Link to="/admin/view">
        <div style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:30, }}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
@@ -105,4 +111,4 @@ Segment who has referred more than X number and achieved X amount for the curren
     
 }
 
-export default Create;
+export default Edit;

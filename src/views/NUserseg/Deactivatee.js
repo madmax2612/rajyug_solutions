@@ -19,14 +19,16 @@ export default function UserSeg(props) {
 
 
   const deactivate = () => {
-    const datablock = {
-      "UserId": data.UserId
-    }
-    deactivateUser(datablock).then((res) => {
-      if (res) {
-        setRedirect(true)
-      }
-    })
+    // const datablock = {
+    //   "UserId": data.UserId
+    // }
+    // deactivateUser(datablock).then((res) => {
+    //   if (res) {
+    //     setRedirect(true)
+    //   }
+    // })
+    setShow(true)
+    setRedirect(true)
   }
 const handleChange=(e)=> {
 if(e.target.name="select"){
@@ -35,7 +37,7 @@ if(e.target.name="select"){
 }
 
   if (redirect) {
-    return (<Redirect to="/admin/useruserview" />)
+    return (<Redirect to="/admin/view" />)
   }
   return (
     <div style={{ height: "100vh", width: '100%' }}>
@@ -51,7 +53,7 @@ if(e.target.name="select"){
             Select
          </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 35, borderRadius: 40, marginBottom: 30 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl variant="outlined" style={{ minWidth: "100%", paddingLeft: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -107,16 +109,17 @@ if(e.target.name="select"){
               <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
             </div>
             </Link>
+            <Link to="/admin/deact">       
             <div onClick={() => deactivate()} className="graddred" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'red', zIndex: 5, borderRadius: 30, borderStyle: 'solid', marginLeft: 255, marginTop: -35 }}>
               <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 25, marginTop: 5 }}> DEACTIVATE</div>
             </div>
-
+            </Link>
           </div>
 
 
 
         </Modal>
-        <Link to="/admin/dashboard">
+        <Link to="/admin/view">
         <div style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white', marginLeft: 30, }}>
           <div className="graddbtn" style={{ fontSize: 15, fontWeight: 'bolder', color: 'black', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CANCEL</div>
         </div>

@@ -36,7 +36,7 @@ import Tier from "views/Tier/Tier.js";
 import Tview from "views/Tier/Tview.js";
 import Tedit from "views/Tier/Tedit.js";
 import Tcreate from "views/Tier/Tcreate.js";
-import Rewards from "views/Rewards/Rewards.js";
+import Rewards from "views/Rewards/RewardsViewAll";
 import RewardsAdd from "views/Rewards/RewardsAdd.js";
 import RewardsViewAll from "views/Rewards/RewardsViewAll.js";
 import Rdel from "views/Rewards/Rdel.js";
