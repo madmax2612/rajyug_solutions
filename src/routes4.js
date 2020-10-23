@@ -40,7 +40,7 @@ import Rewards from "views/Rewards/RewardsViewAll";
 import RewardsAdd from "views/Rewards/RewardsAdd.js";
 import RewardsViewAll from "views/Rewards/RewardsViewAll.js";
 import Rdel from "views/Rewards/Rdel.js";
-import Redit from "views/Rewards/Redit.js";
+import {RewardsEdit} from "views/Rewards/Redit";
 import Adminn from "views/Adminn/Adminn.js";
 import AdminResetPassword from "views/Adminn/AdminResetPassword";
 import ResetPwd from "views/UserSegment/ResetPwd.js";
@@ -91,7 +91,7 @@ const dashboardRoutes = [
         name: "",
         rtlName: "Rewards",
         icon: "",
-        component: Redit,
+        component: RewardsEdit,
         layout: "/admin"
       },
     

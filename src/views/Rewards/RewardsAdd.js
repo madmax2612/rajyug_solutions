@@ -25,7 +25,7 @@ import Delete from '@material-ui/icons/Delete';
 import Clear from '@material-ui/icons/Clear';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, Select, TextField, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, Select, TextField, Typography } from "@material-ui/core";
 import DateFnsUtils from '@date-io/date-fns';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import '../../admin.css'
@@ -40,7 +40,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AddRewards } from "utils/Services";
 import { createRewards } from "utils/Services";
+import { Redirect } from "react-router-dom";
+import Slide from '@material-ui/core/Slide';
+import { preview } from "utils/Services";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+})
 const useStyles = makeStyles(styles);
 
 const  CreateReward=()=> {
@@ -74,7 +80,8 @@ const  CreateReward=()=> {
   const [selectedDateTo, setSelectedDateTo] = React.useState(moment().format("YYYY/MM/DD"));
   const [selectedDateFrom, setSelectedDateFrom] = React.useState(moment("YYYY/MM/DD"));
   const [open, setOpen] = React.useState(false);
-
+  const [redirect,setRedirect]=useState(false);
+  const [openUpload, setOpenUpload] = React.useState(false);
   console.log(selectedDateFrom)
   
   
@@ -128,12 +135,20 @@ const  CreateReward=()=> {
 console.log(e[0].name)
 console.log(e.length===0)
 if(e.length!==0){
-  console.log(e);       
-  console.log(e[0].name)
+  // console.log(e);       
+  // console.log(e[0].name)
+setOpenUpload(true)
   setPictures([...pictures,e])
   if(e.length!==0){
+    const formData = new FormData();
+    formData.append("myFile",e[0],e[0].name);
+
     setFileName(e[0].name)
     setFileLength(e[0])
+    
+    preview(formData).then((res)=>{
+        setPictures(res.data.Image)
+    })
   }
 
 // const data={
@@ -197,6 +212,13 @@ else if(condition==="Sales Value"||conditionOne==="Sales Value"|| conditionTwo==
  setPriority()
 }
   }
+
+const RedirectToView=()=>{
+  setRedirect(true);
+}
+if(redirect){
+return<Redirect to="/admin/Rewardsview"/>
+}
 
 const Submit=()=>{
   console.log(condition,conditionOne,conditionTwo,conditionThree)
@@ -264,6 +286,7 @@ conditionTwo==="Registration"||conditionThree==="Registration"?2:0)
 formData.append("ConditionPriority3",condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
 conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0)
 
+
 createRewards(formData).then((res)=>{
   console.log(res);
   if(res.data.success==="200"){
@@ -272,9 +295,6 @@ createRewards(formData).then((res)=>{
   }
 })
 
-  
-
-  
 }
 const dateFormatter = str => {
   return str;
@@ -289,8 +309,37 @@ console.log(selectedDateTo,selectedDateFrom)
   const handleCloseModal=()=>{
     setOpen(false);
    }
+   
+  const handleClickSuccessOpen = () => {
+    setOpenUpload(true);
+  };
+
+  const handleCloseSuccess = () => {
+    setOpenUpload(false);
+  };
   return (
     <div style={{ height: "100vh", width: '100%' }}>
+      {<Dialog
+        open={openUpload}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseSuccess}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Success Message</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Successfuly uploaded Image 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccess} color="primary">
+            OK
+          </Button>
+          
+        </DialogActions>
+      </Dialog>}
 {
   <Dialog
   onClose={handleCloseModal} 
@@ -309,7 +358,7 @@ console.log(selectedDateTo,selectedDateFrom)
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleCloseModal} style={{backgroundColor:'green',color:'white'}}>
+          <Button autoFocus onClick={RedirectToView} style={{backgroundColor:'green',color:'white'}}>
             Ok
           </Button>
         </DialogActions>
@@ -398,13 +447,7 @@ console.log(selectedDateTo,selectedDateFrom)
             From
          </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-          {/* <DatePicker 
-          locale={false}
-          format="yyyy/MM/dd"
-          selected={selectedDateFrom} 
-          style={{paddingLeft:'10px',borderBottom:'none',marginTop:'2px',marginBottom:"180px"}}
-          onChange={date => setSelectedDateFrom(date)} 
-          /> */}
+         
    <MuiPickersUtilsProvider  libInstance={moment} utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
@@ -488,9 +531,6 @@ console.log(selectedDateTo,selectedDateFrom)
           </div>
           </>
          :null }
-
-        
-        
           </div>
          
           <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
@@ -498,14 +538,7 @@ console.log(selectedDateTo,selectedDateFrom)
             To
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-          {/* <DatePicker 
-         format="yyyy/MM/dd"
-          selected={selectedDateTo} 
-          style={{paddingLeft:'10px',borderBottom:'none',marginTop:'2px',marginBottom:"180px"}}
-          value={selectedDateTo}
-          onChange={date => setSelectedDateTo(date)} 
-          
-          /> */}
+ 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
@@ -677,65 +710,7 @@ console.log(selectedDateTo,selectedDateFrom)
             </Button>}
         </>
 }      
-{/* <div class="col-lg-4 col-sm-12 col-md-4">
-          {conditionOne!=="Sales Value"&& conditionOne!==''?<> <span style={{ marginLeft: 15 }}>
-            Count
-          </span>
-        
-         
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-            <input
-            className='col-lg-12 col-sm-12'
-            type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
-            placeholder="45" 
-            style={{ 
-             fontSize: 15, 
-             borderStyle:'none',
-             background: 'transparent',  
-             borderWidth: 1, 
-             height: 40, 
-             }}
-              />
-            
-            </FormControl>
-            
-          </div>
-          </>
-          :
-          conditionOne==="Sales Value"?
-          <> <span style={{ marginLeft: 15 }}>
-            Amount
-          </span>
-        
-         
-          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
-            <input
-            className='col-lg-12 col-sm-12'
-            type="number"
-            name="rewards"
-            // value={rewards}
-            // onChange={(e) => handleChange(e)}
-            placeholder="45" 
-            style={{ 
-             fontSize: 15, 
-             borderStyle:'none',
-             background: 'transparent',  
-             borderWidth: 1, 
-             height: 40, 
-             }}
-              />
-            
-            </FormControl>
-            
-          </div>
-          </>
-         :null }
-</div> */}
+
 
     </div>
           </div>
@@ -1013,7 +988,7 @@ console.log(selectedDateTo,selectedDateFrom)
                 buttonStyles={{color:'white',padding:'4px',marginTop:'-130px',fontSize:"14px",marginRight:'40px',borderRadius:'20px'}}
                     onChange={onDrop}
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
-                    maxFileSize={5242880}
+                    maxFileSize={1000000000000}
                 />
            </div>
            </div>
@@ -1065,7 +1040,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 SAVE
             </Button>
 
-            <Button style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
+            <Button 
+            onClick={()=>RedirectToView()}
+            style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
                 CANCEL
             </Button>
             </div> 
@@ -1085,7 +1062,7 @@ console.log(selectedDateTo,selectedDateFrom)
       <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Preview</div>
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -25, }}></div>
   <img style={{ height: 100,marginTop:20, width: "100%" }}
-              src="https://pngriver.com/wp-content/uploads/2018/04/Download-Car-Transparent-Background.png" />
+              src={pictures} />
 
       </div>
       </div>

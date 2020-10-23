@@ -300,7 +300,7 @@ setStateData(res.data.States)
           <input className='col-lg-12 col-sm-12'
             name=""
             type="text"
-            placeholder="Assistant Channel Partner"
+            // placeholder="Assistant Channel Partner"
             style={{ paddingLeft: 10, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
         </div>
 

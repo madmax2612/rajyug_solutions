@@ -97,7 +97,7 @@ else{
   
             <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -30, }}></div>
           </div>
-          <div style={{ marginTop: 30, display: 'flex', justifySelf: 'flex-end', height: 35, width: 35, borderRadius: 150, backgroundColor: "#E2E3E2", }}> <MoreVertOutlined style={{ marginLeft: 5, marginTop: 4, color: 'gray', fontWeight: 'bold' }} /></div>
+          {/* <div style={{ marginTop: 30, display: 'flex', justifySelf: 'flex-end', height: 35, width: 35, borderRadius: 150, backgroundColor: "#E2E3E2", }}> <MoreVertOutlined style={{ marginLeft: 5, marginTop: 4, color: 'gray', fontWeight: 'bold' }} /></div> */}
   
         </div>
 <div className="row m-3 p-4 " style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', marginTop: 40 }}>
@@ -242,7 +242,7 @@ else{
         <div class="col-lg-12  col-md-12 col-sm-12 " style={{ display: 'flex', flexDirection: 'column', }}>
 
             <div style={{ height: 150, width: "100%", backgroundColor: "#E2E3E2", marginBottom: 10, display: 'flex', justifyContent: 'center', marginTop: 10, alignItems: 'center' }}>
-            <img style={{ height: 100, width: "100%", }}
+            <img style={{ height: 100, width: "100%" }}
               src={res.AdvImage} alt="#Advertisement"/>
             </div>
         </div>

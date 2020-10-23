@@ -26,7 +26,9 @@ const ENDPOINTS={
     DeleteAdvertisement:'DeleteAdvertisement',
     UploadRewards:"UploadRewards",
     createRewards:"createRewards",
-    ViewRewards:"ViewRewards"
+    ViewRewards:"ViewRewards",
+    Preview:"Preview",
+    UpdateRewards:"UpdateRewards"
 }
 
 
@@ -135,6 +137,26 @@ export const deleteTier=async (body)=>{
 export const profileUpload=async (body)=>{
   return await axios.post(
       URL + ENDPOINTS.Upload,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const preview=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.Preview,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const UpdateRewards=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.UpdateRewards,
       body,
   
       {

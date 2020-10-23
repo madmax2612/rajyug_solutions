@@ -35,6 +35,7 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { getRewards } from "utils/Services";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
@@ -94,16 +95,17 @@ else if(e.target.name==='condition'){
   }
 
   const handleEdit=(value)=>{
+    console.log("hello",value)
     if(value){
+      setRedirecttoedit(true)
      setEditValue(value);
-     setRedirecttoedit(true)
+     
     }
      setAnchorEl(null);
        }
        
     if(redirect){
-     return( <Redirect to={{ pathname: "/admin/REdit", state: { data: editValue } }} />
-     )}   
+     return( <Redirect to={{ pathname: "/admin/REdit", state: { data: editValue } }} />)}  
   return (
     <div style={{ height: "100vh", width: '100%' }}>
 
@@ -114,7 +116,7 @@ else if(e.target.name==='condition'){
 
           <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -30, }}></div>
         </div>
-        <div style={{ marginTop: 30, display: 'flex', justifySelf: 'flex-end', height: 35, width: 35, borderRadius: 150, backgroundColor: "#E2E3E2", }}> <MoreVertOutlined style={{ marginLeft: 5, marginTop: 4, color: 'gray', fontWeight: 'bold' }} /></div>
+        {/* <div style={{ marginTop: 30, display: 'flex', justifySelf: 'flex-end', height: 35, width: 35, borderRadius: 150, backgroundColor: "#E2E3E2", }}> <MoreVertOutlined style={{ marginLeft: 5, marginTop: 4, color: 'gray', fontWeight: 'bold' }} /></div> */}
 
       </div>
 
@@ -150,12 +152,8 @@ else if(e.target.name==='condition'){
          
           
           </div>
-          
-
-
-      
-                    <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
-                    <span style={{ marginLeft: 15 }}>
+          <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
+          <span style={{ marginLeft: 15 }}>
             Select Condition
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
@@ -187,13 +185,6 @@ else if(e.target.name==='condition'){
 
 </div>
 </div>
-
-     
-
-
-
-
-
       <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "column" }}>
 
         <div class="row">
@@ -238,7 +229,7 @@ else if(e.target.name==='condition'){
                 </div>
                 </MenuItem>
                 
-            <MenuItem onClick={()=>handleEdit()}><EditIcon/>&nbsp;  Edit</MenuItem>
+            <MenuItem onClick={()=>handleEdit(res)}><EditIcon/>&nbsp;  Edit</MenuItem>
         
             
             <MenuItem onClick={handleClose}><DeleteIcon/>&nbsp; Delete</MenuItem>
@@ -280,34 +271,7 @@ else if(e.target.name==='condition'){
   </div>     
 }
         </div>
-
-
-
-
-        <div class="row">
-
-       
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
       </div>
     </div>
-
-
-
-
-
-
-
   );
 }

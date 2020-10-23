@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, Typography, withStyles } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -9,13 +9,12 @@ import { Link, Redirect } from 'react-router-dom';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ImageUploader from "react-images-upload";
 import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
-import {addAdvertisment} from '../../utils/Services'
-// const MenuItems = withStyles({
-//     root: {
-//       justifyContent: "flex-end"
-//     }
-//   })();
+import {addAdvertisment, preview} from '../../utils/Services'
+import Slide from '@material-ui/core/Slide';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+})
 export const AdCreate = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [picture,setPictures]=useState([])
@@ -32,8 +31,12 @@ export const AdCreate = () => {
     const [open, setOpen] = React.useState(false);
     const [askOpen, setAskOpen] = React.useState(false);
     const [error, setError] = React.useState(false);
-
-
+    const [redirect,setRedirect]=useState(false);
+    const [alert,setAlert]=useState(false);
+    const [openUpload, setOpenUpload] = React.useState(false);
+    const [fileObj,setFileObj] = useState([]);
+    const [fileArray,setFileArray] = useState([]);
+    const [file,setFile]=useState([null])
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -58,13 +61,29 @@ export const AdCreate = () => {
       
      }
       const onDrop = e => {
+
         setPictures([...picture,e]);
-        console.log(e);       
-		console.log(e[0].name)
+        fileObj.push(e.target.files)
+        for (let i = 0; i < fileObj[0].length; i++) {
+          return  fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+        }
+          setFile(fileArray)
+        console.log(URL.createObjectURL(e[0]));    
+        setOpenUpload(true);   
+		// console.log(e[0].name)
 		console.log(e.length===0)
 		if(e.length!==0){
+      
       setFileName(e[0].name)
       setFileLength(e[0])
+      
+      const formData = new FormData();
+      formData.append("myFile",e[0],e[0].name);
+     
+      preview(formData).then((res)=>{
+console.log(res);
+setImage(res.data.Image)
+      })
 		// const data={
 		// 	"myFile":e,
 		// 	"UserId":userPayload.UserId
@@ -72,11 +91,24 @@ export const AdCreate = () => {
         // }
     }
 }
+console.log(file)
 
+  const handleClickSuccessOpen = () => {
+    setOpenUpload(true);
+  };
+
+  const handleCloseSuccess = () => {
+    setOpenUpload(false);
+  };
+if(redirect){
+ return <Redirect to="/admin/adview"/>
+}
 const onAddition=()=>{
     console.log("done")
     
-    const newdata = (<div>
+    const newdata = (
+    <div>
+    
      <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "column" }}>
 
 <div class="row">
@@ -109,7 +141,7 @@ const onAddition=()=>{
                     buttonStyles={{color:'white',padding:'4px',marginTop:'-130px',fontSize:"14px",marginRight:'40px',borderRadius:'20px'}}
                         onChange={onDrop}
                         imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
-                        maxFileSize={5242880}
+                        maxFileSize={1000000000000}
                     />
                </div>
                </div>
@@ -132,7 +164,9 @@ const onAddition=()=>{
                     SAVE
                 </Button>
     
-                <Button style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
+                <Button 
+                onClick={()=>setRedirect(true)}
+                style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
                     CANCEL
                 </Button>
                 </div> 
@@ -185,6 +219,7 @@ console.log(disableBtn)
                 setOpen(true)
                 setShowAdButton(true)
                 setImage(res.data.Image)
+                // setRedirect(true);
               };
          }).catch((err)=>{
            console.log(err)
@@ -228,6 +263,27 @@ console.log(disableBtn)
         </DialogActions>
       </Dialog>
 }
+{<Dialog
+        open={openUpload}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseSuccess}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Success Message</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Successfuly uploaded Image 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccess} color="primary">
+            OK
+          </Button>
+          
+        </DialogActions>
+      </Dialog>}
 {
   <Dialog 
   onClose={handleCloseModal} 
@@ -371,7 +427,7 @@ console.log(disableBtn)
                 buttonStyles={{color:'white',padding:'4px',marginTop:'-130px',fontSize:"14px",marginRight:'40px',borderRadius:'20px'}}
                     onChange={onDrop}
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
-                    maxFileSize={5242880}
+                    maxFileSize={1000000000000}
                 />
            
            </div>
@@ -388,7 +444,8 @@ console.log(disableBtn)
             value={terms}
             onChange={handleChange}
             style={{borderStyle:'none'}}
-            placeholder="Minimum 3 rows" />
+            // placeholder="Minimum 3 rows"
+             />
             </div>
            <div>
             <Button 
@@ -397,7 +454,9 @@ console.log(disableBtn)
                 SAVE
             </Button>
 
-            <Button style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
+            <Button 
+            onClick={()=>setRedirect(true)}
+            style={{backgroundColor:'white',border:'2px solid #000000',color:'#fffff',borderRadius:'20px',width:'40%'}}>
                 CANCEL
             </Button>
             </div> 

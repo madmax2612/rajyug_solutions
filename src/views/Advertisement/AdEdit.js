@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import MoreVertOutlined from '@material-ui/icons/MoreVertOutlined';
-import { Button, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, withStyles } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, Menu, MenuItem, Popper, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
@@ -8,8 +8,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Link, Redirect } from 'react-router-dom';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ImageUploader from "react-images-upload";
-import {addAdvertisment, editAdvertisment} from '../../utils/Services'
+import {addAdvertisment, editAdvertisment, preview} from '../../utils/Services'
 import { EditOutlined, PictureAsPdfSharp } from '@material-ui/icons';
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+})
 // const MenuItems = withStyles({
 //     root: {
 //       justifyContent: "flex-end"
@@ -31,24 +36,33 @@ export const AdEdit = (props) => {
     const [fileLength,setFileLength]=useState('')
     const[imgurl,setImgUrl]=useState(props.location.state?props.location.state.data.AdvImage:'')
     const [redirect,setRedirect]=useState(false)
+    const [askOpen, setAskOpen] = React.useState(false);
+    const [errorMessage,setErrorMessage]=useState('')
+    const [error,setError]=useState(false);
+    const [openUpload,setOpenUpload]=useState(false)
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
-   
+   console.log(props.location.state.data.AdvImage)
     const handleClose = () => {
         setAnchorEl(null);
       };
       const onDrop = e => {
         setPictures([...picture,e]);
         console.log(e);  
-         
+         setOpenUpload(true)
 		// console.log(e[0].name)
 		// console.log(e.length===0)
 		if(e.length>0){
       setFileName(e[0].name)
       setFileLength(e[0])
-		
+      const formData = new FormData();
+      formData.append("myFile",e[0],e[0].name);
+		preview(formData).then((res)=>{
+console.log(res)
+setPictures(res.data.Image);
+    })
     }
 }
 const handleChange =(e)=>{
@@ -66,6 +80,13 @@ const handleChange =(e)=>{
   }
   
  }
+ const handleClickSuccessOpen = () => {
+  setOpenUpload(true);
+};
+
+const handleCloseSuccess = () => {
+  setOpenUpload(false);
+};
 const Submit=()=>{
   console.log("here Edit")
   console.log(fileLength,fileLength)
@@ -76,6 +97,7 @@ const Submit=()=>{
           if(fileLength!==''&& fileName!==''){
           formData.append("myFile",fileLength,fileName);
             }
+            formData.append("myFile",props.location.state.data.AdvImage);  
           formData.append("id",id)
           formData.append("AdvertisementPlacement",Advertisement)
           formData.append("Location",location)
@@ -87,22 +109,79 @@ const Submit=()=>{
           console.log(res)
               if(res.data.success==="200"){
                 // showAdButton(true)
-                setRedirect(true);
+                // setRedirect(true);
+                setAskOpen(true);
               }
               else{
                 setRedirect(false)
               }
          }).catch((err)=>{
+           
            console.log(err)
+          if(err){
+            setError(true);
+            setAskOpen(true);
+            console.log(err.response)
+            setErrorMessage(err.response)
+          }
          })
       }
       if(redirect){
         return <Redirect to="/admin/adview"/>
       }
       console.log(props);
+      const handleCloseAskModal=()=>{
+        
+       setAskOpen(false);
+      setRedirect(true);
+      }
     return (
         <div style={{ height: "100vh", width: '100%' }}>
-
+          {<Dialog
+        open={openUpload}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseSuccess}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Success Message</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Successfuly uploaded Image 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccess} color="primary">
+            OK
+          </Button>
+          
+        </DialogActions>
+      </Dialog>}
+{
+  <Dialog 
+  onClose={handleCloseAskModal} 
+  aria-labelledby="customized-dialog-title" 
+  open={askOpen}
+  fullWidth={true}
+  >
+        <DialogTitle id="customized-dialog-title" 
+        onClose={handleCloseAskModal}
+        >
+          Success
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+          Succesfully Submitted the Advertisement
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseAskModal} style={{backgroundColor:'green',color:'white'}}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+}
 
         <div className='row' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: 20, paddingLeft: 0, marginTop: -10, marginBottom: 0 }} >
           <div style={{ dispaly: 'flex', flexDirection: 'column' }}>
@@ -223,7 +302,7 @@ const Submit=()=>{
                 defaultImage={picture}
                 onChange={onDrop}
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
-                    maxFileSize={5242880}
+                    maxFileSize={1000000000000}
                 />
             {/* <Button style={{backgroundColor:'#28D179',borderRadius:'20px',color:'white',marginTop:'5px',padding:'8px'}}>
             Select File
@@ -269,7 +348,7 @@ const Submit=()=>{
       <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Preview</div>
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -20, }}></div>
   <img style={{ height: 100, width: "100%", }}
-              src={imgurl} />
+              src={picture} />
 
       </div>
       </div>

@@ -75,7 +75,7 @@ export default function TableList() {
   const [open, setOpen] = React.useState(false);
   const [UserView,setUserView]=useState('')
 
-  
+
   useEffect(() => {
 
     getUsersProfile().then((res) => {
@@ -316,22 +316,26 @@ else if(e.target.name==='Search'){
                           <td>{res.Segment}</td>
                           <td>{res.Amount}</td>
 
-                          <td > 
+                          <td style={{width:'100%'}}> 
                             <div 
                             onClick={()=>handleView(res)}
-                            className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#28D179" }}>
+                            className="delete" 
+                            style={{ padding: '3px', marginRight: '2px', width: "30%", display: "inline-block" }}
+                            >
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
+                                {/* <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} /> */}
+                              <img style={{height:'28px'}} src={require("../../assets/img/Group1.png")}/>
                               </div>
                             </div>
-                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#FF3B30" }}>
+                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <EditOutlined style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
+                              <img style={{height:'28px'}} src={require("../../assets/img/Group4.png")}/>
+
                               </div>
                             </div>
-                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '3px', width: "30%", borderRadius: '20px', display: "inline-block", backgroundColor: "#ffDB58" }}>
+                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
                               <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <VisibilityOffIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} />
+                              <img style={{height:'28px'}} src={require("../../assets/img/Group3.png")}/>
                               </div>
                             </div>
                           </td>

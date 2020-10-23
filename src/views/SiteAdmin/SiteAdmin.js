@@ -129,7 +129,7 @@ console.log(userPayload)
          <div style={{width:30, height:2, backgroundColor:'#bf891b', marginTop:3}}></div>
          </div>
 				
-          <div style={{ marginLeft:'auto',  height:35, width:35,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:-30}}> <MoreVertOutlined  style={{marginLeft:5, marginTop:4, color:'gray', fontWeight:'bold'}}/></div>
+          {/* <div style={{ marginLeft:'auto',  height:35, width:35,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:-30}}> <MoreVertOutlined  style={{marginLeft:5, marginTop:4, color:'gray', fontWeight:'bold'}}/></div> */}
 					</div>
           
 
