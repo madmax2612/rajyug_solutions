@@ -62,12 +62,12 @@ export const AdCreate = () => {
      }
       const onDrop = e => {
 
-        setPictures([...picture,e]);
-        fileObj.push(e.target.files)
-        for (let i = 0; i < fileObj[0].length; i++) {
-          return  fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
-        }
-          setFile(fileArray)
+        // setPictures([...picture,e]);
+        // fileObj.push(e.target.files)
+        // for (let i = 0; i < fileObj[0].length; i++) {
+        //   return  fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+        // }
+        //   setFile(fileArray)
         console.log(URL.createObjectURL(e[0]));    
         setOpenUpload(true);   
 		// console.log(e[0].name)
