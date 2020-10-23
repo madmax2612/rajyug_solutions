@@ -30,12 +30,6 @@ export default function Rewards() {
             
     <div style={{width:30, height:2, backgroundColor:'#bf891b',  marginTop:-30}}></div> 
     </div>
-    
-    
-           
-    
-    
-    
     <div  className="row m-3 p-4 " style={{backgroundColor:'white' , display:'flex', flexDirection:'row',  marginTop:40}}>
     
     <div className='col-lg-4 col-sm-12  '  style={{marginRight:0}}  >

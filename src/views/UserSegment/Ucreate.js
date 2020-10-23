@@ -21,7 +21,7 @@ import { Modal } from 'react-bootstrap';
 import Divider from "@material-ui/core/Divider";
 import '../../stylee.css';
 import './css.js';
-import { FormControl, Grid, MenuItem, Select, TextField } from "@material-ui/core";
+import { FormControl, Grid, Link, MenuItem, Select, TextField } from "@material-ui/core";
 import { addUser } from "utils/Services";
 import { Redirect } from "react-router-dom";
 import { getStates } from "utils/Services";
@@ -200,6 +200,7 @@ setStateData(res.data.States)
       console.log(res)
       if (res.data.success === "200") {
         setShow(true)
+       
       }
       else {
         setErrorShow(true)
@@ -211,6 +212,9 @@ setStateData(res.data.States)
       console.log(err.response.data.message)
       setErrorMessage(err.response.data.message)
     })
+  }
+  if(redirect){
+    return<Redirect to="/admin/useruserview"/>
   }
   return (
     <div style={{ height: "100vh", width: '100%' }} >
@@ -229,6 +233,22 @@ setStateData(res.data.States)
           </Modal.Footer>
         </Modal>
       }
+      {
+        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Successfully User Created</Modal.Body>
+        <Modal.Footer>
+          {/* <Link to="/admin/useruserview"> */}
+          <Button style={{color:'white',backgroundColor:'green'}} variant="primary" onClick={()=>RedirectToView()}>
+            Close
+        </Button>
+        {/* </Link> */}
+        </Modal.Footer>
+      </Modal>
+
+      }
       <div style={{ marginLeft: 15, marginTop: -10 }}>
 
         <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> User Segment</div>
@@ -241,7 +261,7 @@ setStateData(res.data.States)
         <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
 
           <div style={{ marginLeft: 15 }}>
-            Select
+            Select Segment
 </div>
 
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
@@ -556,47 +576,15 @@ setStateData(res.data.States)
         </div>
       </div>
 
-      <div class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row", justifyContent: 'flex-end', marginTop: 30, marginBottom: 20 }}>
+      <div 
+      onClick={onSubmit}
+      class="col-lg-12 col-sm-12" style={{ display: "flex", flexDirection: "row", justifyContent: 'flex-end', marginTop: 30, marginBottom: 20 }}>
         <div className="gradd" style={{ paddingBottom: 30, width: 140, height: 35, borderWidth: 1, borderColor: 'black', zIndex: 5, borderRadius: 30, borderStyle: 'solid', }}>
           <div 
           // onClick={() => onSubmit()} 
           style={{ fontSize: 15, fontWeight: 'bolder', color: 'white', letterSpacing: 10, marginLeft: 40, marginTop: 5 }}> CREATE</div>
 
-          {/* <Modal
-            show={show}
-            onHide={() => setShow(false)}
-
-            style={{
-             
-              backgroundColor: 'rgba(100,100,100,0.6)'
-            }}>
-            <div style={{ width: 600 }}>
-              <Clear style={{ color: 'gray', fontSize: 22, justifyContent: 'flex-end', marginTop: 20, marginLeft: 455 }} onClick={handleClose} />
-              <div style={{ backgroundColor: "#4FF48E", height: 33, width: 33, borderRadius: 80, marginTop: 10, marginLeft: 240, marginTop: 4 }}>   <Check style={{ color: 'white', fontSize: 25, marginLeft: 4, marginTop: 3, fontWieght: "1000" }} /></div>
-              <div style={{ fontSize: 22, color: "black", fontWeight: 'bold', marginLeft: 200, paddingTop: 10 }}> Successful</div>
-              <div style={{ fontSize: 16, color: "gray", marginLeft: 60, paddingTop: 20 }}> Your user account has been created successfully
-         </div>
-              <Divider style={{ marginTop: 20, marginLeft: 30, marginRight: 30, width: 430 }} />
-              <div style={{ display: "flex", alignItems: 'center',padding:'10px', justifyContent: 'center', marginTop: '10px',marginRight:'80px' }}>
-
-                <div>
-                  <Button
-                    style={{
-                      borderWidth: 1,
-                      width: '150px',
-                      borderColor: 'black',
-                      borderRadius: 30
-                    }}
-                    onClick={RedirectToView}
-                  >
-                    OK
-            </Button>
-                </div>
-              </div>
-
-            </div>
-          </Modal> */}
-
+          
         </div>
         <div
           className="delete"

@@ -25,7 +25,45 @@ import { editUsers } from "utils/Services";
 import { getStates } from "utils/Services";
 import { Redirect } from "react-router-dom";
 
-
+const IndianState=[
+  {"name":"Andaman and Nicobar Islands"},
+  {"name":"Andhra Pradesh"},
+  {"name":"Arunachal Pradesh"},
+  {"name":"Assam"},
+  {"name":"Bihar"},
+  {"name":"Chandigarh"},
+  {"name":"Chhattisgarh"},
+  {"name":"Dadra and Nagar Haveli"},
+  {"name":"Daman and Diu"},
+  {"name":"Delhi"},
+  {"name":"Goa"},
+  {"name":"Gujarat"},
+  {"name":"Haryana"},
+  {"name":"Himachal Pradesh"},
+  {"name":"Jammu and Kashmir"},
+  {"name":"Jharkhand"},
+  {"name":"Karnataka"},
+  {"name":"Kerala"},
+  {"name":"Ladakh"},
+  {"name":"Lakshadweep"},
+  {"name":"Madhya Pradesh"},
+  {"name":"Maharashtra"},
+  {"name":"Manipur"},
+  {"name":"Meghalaya"},
+  {"name":"Mizoram"},
+  {"name":"Nagaland"},
+  {"name":"Odisha"},
+  {"name":"Puducherry"},
+  {"name":"Punjab"},
+  {"name":"Rajasthan"},
+  {"name":"Sikkim"},
+  {"name":"Tamil Nadu"},
+  {"name":"Telangana"},
+  {"name":"Tripura"},
+  {"name":"Uttar Pradesh"},
+  {"name":"Uttarakhand"},
+  {"name":"West Bengal"}
+ ]
 //import {DropdownMultiple, Dropdown} from 'reactjs-dropdown-component';
 const styles = {
   cardCategoryWhite: {
@@ -466,9 +504,9 @@ setStateData(res.data.States)
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {stateData && stateData.map((res)=>{
+                {IndianState && IndianState.map((res)=>{
                   return(
-                  <MenuItem value={res.StateName}>{res.StateName}</MenuItem>
+                  <MenuItem value={res.name}>{res.name}</MenuItem>
                   )})}
               </Select>
             </FormControl>
