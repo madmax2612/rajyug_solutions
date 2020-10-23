@@ -90,8 +90,6 @@ export default function Dashboard() {
 	return (
 
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height: "100vh", width: '100%', }}>
-
-
 			<div class="col-lg-9 col-sm-12" style={{ display: "flex", flexDirection: "column" }}>
 				<div style={{ display: "flex", flexDirection: "column", }}>
 					<p style={{ marginTop: 30, marginBottom: 3, fontSize: 20, paddingLeft: 5, fontWeight: 'bold' }}>Total No of Referrals</p>
@@ -187,10 +185,7 @@ export default function Dashboard() {
 							<div class="p-3 rounded m-2 mt-3" style={{ backgroundColor: '#fff' }}>
 
 								<div style={{  background: 'transparent', width: 140, borderStyle: 'solid', borderWidth: 1, borderColor: 'black', height: 30, borderRadius: 30, marginLeft: 'auto' }}>
-									{/* <span style={{ marginLeft: 10, fontSize: 12, padding: 10 }}> Select Quater</span>
-									<ExpandMore className={classes.icons} style={{ marginLeft: 5 }} /> */}
-									<FormControl style={{width:'100%',paddingLeft:'5px'}} className={classes.formControl}>
-										
+									<FormControl style={{width:'100%',paddingLeft:'5px'}} className={classes.formControl}>			
 										<Select
 											labelId="demo-simple-select-label"
 											id="demo-simple-select"
@@ -216,79 +211,10 @@ export default function Dashboard() {
 									/>
 								</CardHeader>
 							</div>
-
-
-
-
-
 						</div>
 					</div>
 				</div>
 			</div>
-
-			{/* <div class="col-lg-3 col-sm-12" style={{ display: "flex", flexDirection: "column", }}>
-				<h style={{ marginTop: 30, fontSize: 20, paddingLeft: 5, fontWeight: 'bold' }}>Activities</h>
-				<span style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginLeft: 10 }}></span>
-				<div class="col-lg-12 col-sm-12 pl-0">
-					<div class=" pt-3 pb-3 rounded  mt-3" style={{ backgroundColor: '#fff' }}>
-						<div style={{ display: "flex", flexDirection: "row", }} >
-							<img style={{ height: 35, width: 35, borderRadius: 60, margin: 10, marginLeft: 8, marginRight: 8, marginTop: 0 }}
-								src="https://barefootmedia.co.uk/wp-content/uploads/2016/01/Chris-user-profile.jpg"
-								alt="avatar" />
-							<div>
-								<p style={{ marginTop: 0, fontSize: 12, fontWeight: 'bold' }}>Rakesh Sharma just claimed a gift</p>
-								<p style={{ marginTop: -20, fontSize: 10 }}>Rakesh Sharma just claimed a gift</p>
-							</div>
-
-						</div>
-						<Divider light style={{ marginBottom: 20 }} />
-						<div style={{ display: "flex", flexDirection: "row", }} >
-							<img style={{ height: 35, width: 35, borderRadius: 60, margin: 10, marginLeft: 8, marginRight: 8, marginTop: 0 }}
-								src="http://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
-								alt="avatar" />
-							<div>
-								<p style={{ marginTop: 0, fontSize: 12, fontWeight: 'bold' }}>Rakesh Sharma just claimed a gift</p>
-								<p style={{ marginTop: -20, fontSize: 10 }}>Rakesh Sharma just claimed a gift</p>
-							</div>
-
-						</div>
-						<Divider light style={{ marginBottom: 20 }} />
-						<div style={{ display: "flex", flexDirection: "row", }} >
-							<img style={{ height: 35, width: 35, borderRadius: 60, margin: 10, marginLeft: 8, marginRight: 8, marginTop: 0 }}
-								src="https://barefootmedia.co.uk/wp-content/uploads/2016/01/Chris-user-profile.jpg"
-								alt="avatar" />
-							<div>
-								<p style={{ marginTop: 0, fontSize: 12, fontWeight: 'bold' }}>Rakesh Sharma just claimed a gift</p>
-								<p style={{ marginTop: -20, fontSize: 10 }}>Rakesh Sharma just claimed a gift</p>
-							</div>
-
-						</div>
-						<Divider light style={{ marginBottom: 20 }} />
-						<div style={{ display: "flex", flexDirection: "row", }} >
-							<img style={{ height: 35, width: 35, borderRadius: 60, margin: 10, marginLeft: 8, marginRight: 8, marginTop: 0 }}
-								src="http://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
-								alt="avatar" />
-							<div>
-								<p style={{ marginTop: 0, fontSize: 12, fontWeight: 'bold' }}>Rakesh Sharma just claimed a gift</p>
-								<p style={{ marginTop: -20, fontSize: 10 }}>Rakesh Sharma just claimed a gift</p>
-							</div>
-
-						</div>
-
-						<Divider light style={{ marginBottom: 20 }} />
-
-						<div style={{ display: "flex", flexDirection: "row", marginBottom: 0 }} >
-							<img style={{ height: 35, width: 35, borderRadius: 60, margin: 10, marginLeft: 8, marginRight: 8, marginTop: 0 }}
-								src="https://i.imgur.com/C3EuAb2.jpg"
-								alt="avatar" />
-							<div>
-								<p style={{ marginTop: 0, fontSize: 12, fontWeight: 'bold' }}>Rakesh Sharma just claimed a gift</p>
-								<p style={{ marginTop: -20, fontSize: 10 }}>Rakesh Sharma just claimed a gift</p>
-							</div>
-
-						</div>
-					</div></div>
-			</div> */}
 		</div>
 	);
 }

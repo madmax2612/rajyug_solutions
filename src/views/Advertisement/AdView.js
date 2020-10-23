@@ -246,13 +246,6 @@ else{
               src={res.AdvImage} alt="#Advertisement"/>
             </div>
         </div>
-
-           
-
-
-          {/* <div style={{ height: 30, width: 30, backgroundColor: "#bf891b", borderRadius: 35, marginTop: -28, display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 35 }}>
-            <StarRate className={classes.icons} style={{ color: 'white', fontSize: 35 }} />
-          </div> */}
         </div>
         </div>
         </div>

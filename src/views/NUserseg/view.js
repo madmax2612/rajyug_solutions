@@ -163,9 +163,7 @@ import { Button } from "react-bootstrap";
 
 
       <Modal
-        // show={show}
-        // onHide={() => setShow(false)}
-
+        
         style={{
           paddingTop: 320,
           backgroundColor: 'rgba(100,100,100,0.6)'

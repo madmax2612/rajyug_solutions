@@ -52,13 +52,6 @@ if(e.target.name==="mangement")
             <MenuItem value="HomePage" >Home Page</MenuItem>  
             </Select>
             </FormControl>
-        {/* <div style={{display:'flex', flexDirection:'row'}}>
-        <div style={{marginLeft:10, fontSize:15, lineHeight:2}}> Management</div> 
-					<div style={{marginLeft:'auto', padding:5}}>   	<ExpandMore /> </div>		
-        </div> */}
-        
-        
-        
         </div>
         </div>
 
@@ -104,8 +97,6 @@ Segment who has referred more than X number and achieved X amount for the curren
        </div>
 
 </div>
-        
-        
         
         );
     

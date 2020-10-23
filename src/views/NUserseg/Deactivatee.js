@@ -19,14 +19,6 @@ export default function UserSeg(props) {
 
 
   const deactivate = () => {
-    // const datablock = {
-    //   "UserId": data.UserId
-    // }
-    // deactivateUser(datablock).then((res) => {
-    //   if (res) {
-    //     setRedirect(true)
-    //   }
-    // })
     setShow(true)
     setRedirect(true)
   }

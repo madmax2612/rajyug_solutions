@@ -88,10 +88,7 @@ else if(e.target.name==='condition'){
                 <MenuItem value="Channel Partner">Channel Partner</MenuItem>
               </Select>
             </FormControl>
-            {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5 }}> Channel Partner</div>
-              <div style={{ marginLeft: 'auto', padding: 6 }}>   	<ExpandMore /> </div>
-            </div> */}
+         
           </div>
         </div>
 
