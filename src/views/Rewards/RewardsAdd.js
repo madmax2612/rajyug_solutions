@@ -43,12 +43,16 @@ import { createRewards } from "utils/Services";
 import { Redirect } from "react-router-dom";
 import Slide from '@material-ui/core/Slide';
 import { preview } from "utils/Services";
+import { check } from "prettier";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 })
 const useStyles = makeStyles(styles);
 
+const TextFieldComponent = (props) => {
+  return <TextField {...props} disabled={true} />
+}
 const  CreateReward=()=> {
   
   const [segment, setSegment] = useState('');
@@ -72,7 +76,17 @@ const  CreateReward=()=> {
   const [priority,setPriority]=useState('')
   const [pictures,setPictures]=useState([])
   const [fileName,setFileName]=useState('')
+  const [testCount,setTestCount]=useState('');
+  const [testCountOne,setTestCountOne]=useState('');
+  const [testCountTwo,setTestCountTwo]=useState('');
+  const [testCountThree,setTestCountThree]=useState('');
+  const [finalCount,setfinalCount]=useState(0);
+  const [finalCountOne,setfinalCountOne]=useState(0);
+  const [finalCountTwo,setfinalCountTwo]=useState(0);
+  const [finalCountThree,setfinalCountThree]=useState(0);
+
   const [fileLength,setFileLength]=useState('')
+  const [payload,setPayload]=useState(sessionStorage.getItem("payload"))
   const [from,setFrom]=useState(new Date('2014-08-18T21:11:54'))
   const [to,setTo]=useState(new Date('2014-08-18T21:11:54'))
   const [inputValue, setInputValue] = useState(moment().format("YYYY/MM/DD"));
@@ -82,9 +96,12 @@ const  CreateReward=()=> {
   const [open, setOpen] = React.useState(false);
   const [redirect,setRedirect]=useState(false);
   const [openUpload, setOpenUpload] = React.useState(false);
+  const [CountArray,setCountArray]=useState([])
   console.log(selectedDateFrom)
   
-  
+  console.log(JSON.parse(payload));
+  const UserId=JSON.parse(payload)
+  console.log(UserId.UserProfile.UserId)
   console.log(moment(selectedDateTo).format("YYYY/MM/DD"))
   
   console.log(JSON.stringify(selectedDateTo))
@@ -160,7 +177,22 @@ setOpenUpload(true)
 }
 
   const classes = useStyles();
-  const handleChange = (e) => {
+  const handleChange = (e,value) => {
+// console.log(value)
+if(value==="Site Visit"){
+  const value=1
+  setCountArray([...CountArray,value]);
+}
+if(value==="Booking Confirmed"){
+  const value=2
+  setCountArray([...CountArray,value]);
+}
+if(value==="Registration Done"){
+  const value=3
+  setCountArray([...CountArray,value]);
+}
+
+  // setCountArray(e.target.value)  
 if(e.target.name==="segment"){
   setSegment(e.target.value);
 }
@@ -175,36 +207,92 @@ else if(e.target.name==='conditionthree'){
   setConditionThree(e.target.value);
 }
 else if(e.target.name==='condition'){
-  console.log(e.target.value);
+  // console.log(e.target.value);
   setCondition(e.target.value)
 }
 else if(e.target.name==='amount'){
-  console.log(e.target.value);
+  // console.log(e.target.value);
   setAmount(e.target.value)
 }
 else if(e.target.name==='rewardname'){
-  console.log(e.target.value);
+  // console.log(e.target.value);
   setRewardName(e.target.value)
 }
-else if(e.target.name==='count'){
-  console.log(e.target.value);
+else if(e.target.name==='count' ){
+  if(condition==="Site Visit"||conditionOne==="Site Visit"||
+  conditionTwo==="Site Visit"||conditionThree==="Site Visit"&& e.target.name==='count'){
+    setfinalCount(e.target.value)
+  }
+  else if
+    (condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+    conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"&& e.target.name==='count'){
+      setfinalCountOne(e.target.value)
+    }
+    else if
+    (condition==="Registration Done"||conditionOne==="Registration Done"||
+    conditionTwo==="Registration Done"||conditionThree==="Registration Done"&& e.target.name==='count'){
+      setfinalCountTwo(e.target.value)
+    }
+  // console.log(e.target.name==='count'||e.target.name==='counttwo'|| e.target.name==='countone'|| e.target.name==='countthree' && value==='Site Visit');
   setCount(e.target.value)
-}else if(e.target.name==='countone'){
-  console.log(e.target.value);
+}else if(e.target.name==='countone' ){
+  if(condition==="Site Visit"||conditionOne==="Site Visit"||
+  conditionTwo==="Site Visit"||conditionThree==="Site Visit"&&e.target.name==='countone'){
+    setfinalCount(e.target.value)
+  }
+  else if
+    (condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+    conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"&& e.target.name==='countone'){
+      setfinalCountOne(e.target.value)
+    }
+    else if
+    (condition==="Registration Done"||conditionOne==="Registration Done"||
+    conditionTwo==="Registration Done"||conditionThree==="Registration Done"&& e.target.name==='countone'){
+      setfinalCountTwo(e.target.value)
+    }
+  // console.log(e.target.name==='countone' && value==="Booking Confirmed");
   setCountOne(e.target.value)
-}else if(e.target.name==='counttwo'){
-  console.log(e.target.value);
+}else if(e.target.name==='counttwo' ){
+  if(condition==="Site Visit"||conditionOne==="Site Visit"||
+  conditionTwo==="Site Visit"||conditionThree==="Site Visit"&& e.target.name==='counttwo'){
+    setfinalCount(e.target.value)
+  }
+  else if
+    (condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+    conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"&& e.target.name==='counttwo'){
+      setfinalCountOne(e.target.value)
+    }
+    else if
+    (condition==="Registration Done"||conditionOne==="Registration Done"||
+    conditionTwo==="Registration Done"||conditionThree==="Registration Done"&& e.target.name==='counttwo'){
+      setfinalCountTwo(e.target.value)
+    }
+  // console.log(e.target.name==='counttwo' && value==="Registration Done");
   setCountTwo(e.target.value)
 }else if(e.target.name==='countthree'){
-  console.log(e.target.value);
+  if(condition==="Site Visit"||conditionOne==="Site Visit"||
+  conditionTwo==="Site Visit"||conditionThree==="Site Visit"&& e.target.name==='countthree'){
+    setfinalCount(e.target.value)
+  }
+  else if
+    (condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+    conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"&& e.target.name==='countthree'){
+      setfinalCountOne(e.target.value)
+    }
+    else if
+    (condition==="Registration Done"||conditionOne==="Registration Done"||
+    conditionTwo==="Registration Done"||conditionThree==="Registration Done"&& e.target.name==='countthree'){
+      setfinalCountTwo(e.target.value)
+    }
+  // console.log(e.target.value ==="countthree");
   setCountThree(e.target.value)
 }
 else if(e.target.name==='amount'){
-  console.log(e.target.value);
+  // console.log(e.target.name==='amount' && value==="Sales Value");
   setAmount(e.target.value)
 }
 else if(e.target.name==='rewardDescription'){
-  console.log(e.target.value);
+  // console.log(e.target.value);
   setRewardDescription(e.target.value)
 }
 
@@ -212,7 +300,7 @@ else if(condition==="Sales Value"||conditionOne==="Sales Value"|| conditionTwo==
  setPriority()
 }
   }
-
+console.log(CountArray)
 const RedirectToView=()=>{
   setRedirect(true);
 }
@@ -220,37 +308,57 @@ if(redirect){
 return<Redirect to="/admin/Rewardsview"/>
 }
 
-const Submit=()=>{
-  console.log(condition,conditionOne,conditionTwo,conditionThree)
-  const data={
-    "Segment":segment ,
-"RewardName": rewardName,
-"RewardDiscription":rewardDescription,
-"DateFrom":selectedDateFrom,
-"DateTo":selectedDateTo,
-
-"Condition1" :condition,
-"Condition2" :conditionOne,
-"Condition3" :conditionTwo,
-"Condition4" :conditionThree,
-
-"Count1":count,
-"Count2":countOne,
-"Count3":countTwo,
-"Count4":countThree,
-
-"ConditionPriority1":condition==="Site Visit"||conditionOne==="Site Visit"||
-conditionTwo==="Site Visit"||conditionThree==="Site Visit" ? 4:condition==="Sales Value"||conditionOne==="Sales Value"||
-conditionTwo==="Sales Value"||conditionThree==="Sales Value"?1:condition==="Registration"||conditionOne==="Registration"||
-conditionTwo==="Registration"||conditionThree==="Registration"?2:condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
-conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0
+const check=()=>{
+  if(condition==="Site Visit"||conditionOne==="Site Visit"||
+  conditionTwo==="Site Visit"||conditionThree==="Site Visit" && count ){
+    console.log("Site Visit")
   }
+  if(condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+  conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed" && countOne ){
+    console.log("Booking Confirmed")    
+  }
+  if(condition==="Registration Done"||conditionOne==="Registration Done"||
+  conditionTwo==="Registration Done"||conditionThree==="Registration Done" && countTwo ){
+    console.log("Booking Confirmed")    
+  }
+
+}
+console.log(finalCount,finalCountOne,finalCountTwo,finalCountThree,amount);
+
+const Submit=()=>{
   
-  console.log(fileLength,fileName)
+//   const data={
+//     "Segment":segment ,
+// "RewardName": rewardName,
+// "RewardDiscription":rewardDescription,
+// "DateFrom":selectedDateFrom,
+// "DateTo":selectedDateTo,
+// "UserId ": UserId.UserProfile.UserId,
+// "Condition1" :condition,
+// "Condition2" :conditionOne,
+// "Condition3" :conditionTwo,
+// "Condition4" :conditionThree,
+
+// "Count1":finalCount?finalCount:0,
+// "Count2":finalCountOne?finalCountOne:0,
+// "Count3":finalCountTwo?finalCountTwo:0,
+
+
+// "ConditionPriority1":condition==="Site Visit"||conditionOne==="Site Visit"||
+// conditionTwo==="Site Visit"||conditionThree==="Site Visit" ? 4:condition==="Sales Value"||conditionOne==="Sales Value"||
+// conditionTwo==="Sales Value"||conditionThree==="Sales Value"?1:condition==="Registration"||conditionOne==="Registration"||
+// conditionTwo==="Registration"||conditionThree==="Registration"?2:condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
+// conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0
+//   }
+  
+  // console.log(fileLength,fileName)
   
   const formData = new FormData();
-  formData.append("myFile",fileLength,fileName);
+  if(fileLength!==''&&fileName!==''){
+    formData.append("myFile",fileLength,fileName);
+
   // formData.append("myFile",pictures[0]);
+
   formData.append("Segment",segment);
   formData.append("RewardName",rewardName);
   formData.append("RewardDiscription",rewardDescription);
@@ -271,22 +379,13 @@ conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0
   condition==="Sales Value"||conditionOne==="Sales Value"||conditionTwo==="Sales Value"||conditionThree==="Sales Value"?"Sales Value":''
 
   );
-  formData.append("Count1",count);
-  formData.append("Count2",countOne);
-  formData.append("Count3",countTwo);
-  formData.append("Count4",countThree);
-  formData.append("ConditionPriority4",
-  condition==="Site Visit"||conditionOne==="Site Visit"||
-conditionTwo==="Site Visit"||conditionThree==="Site Visit" ? 4:0
-);
-formData.append("ConditionPriority1",condition==="Sales Value"||conditionOne==="Sales Value"||
-conditionTwo==="Sales Value"||conditionThree==="Sales Value"?1:0)
-formData.append("ConditionPriority2",condition==="Registration"||conditionOne==="Registration"||
-conditionTwo==="Registration"||conditionThree==="Registration"?2:0)
-formData.append("ConditionPriority3",condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
-conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed"?3:0)
+  formData.append("Count1",finalCount?finalCount:0);
+  formData.append("Count2",finalCountOne?finalCountOne:0);
+  formData.append("Count3",finalCountTwo?finalCountTwo:0);
+  // formData.append("Count4",countThree);
+  formData.append("Amount",amount)
 
-
+formData.append("UserId", UserId.UserProfile.UserId)     
 createRewards(formData).then((res)=>{
   console.log(res);
   if(res.data.success==="200"){
@@ -294,6 +393,7 @@ createRewards(formData).then((res)=>{
     setOpen(true);
   }
 })
+}
 
 }
 const dateFormatter = str => {
@@ -302,10 +402,10 @@ const dateFormatter = str => {
 const dateFormatter2 = str => {
   return str;
 };
-console.log(selectedDateTo,selectedDateFrom)
+// console.log(selectedDateTo,selectedDateFrom)
   // console.log(condition);
   const newf=moment(selectedDateFrom).format("YYYY/MM/DD")
-  console.log(newf)
+  // console.log(newf)
   const handleCloseModal=()=>{
     setOpen(false);
    }
@@ -317,6 +417,9 @@ console.log(selectedDateTo,selectedDateFrom)
   const handleCloseSuccess = () => {
     setOpenUpload(false);
   };
+  // console.log(condition,conditionOne,conditionTwo,conditionThree,
+    // count,countOne,countTwo,countThree
+    // )
   return (
     <div style={{ height: "100vh", width: '100%' }}>
       {<Dialog
@@ -425,9 +528,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 conditionThree!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { conditionOne!=='Registeration'&&conditionTwo!=="Registeration"&&
-                conditionThree!=="Registeration"?
-                <MenuItem value="Registeration">Registeration</MenuItem>
+                { conditionOne!=='Registration Done'&&conditionTwo!=="Registration Done"&&
+                conditionThree!=="Registration Done"?
+                <MenuItem value="Registration Done">Registration Done</MenuItem>
                 :null}
                  { conditionOne!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
                 conditionThree!=="Booking Confirmed"?
@@ -462,14 +565,17 @@ console.log(selectedDateTo,selectedDateFrom)
           onError={false}
           helperText={''}
           rifmFormatter={dateFormatter}
+          
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
-            disableUnderline:true
+            disableUnderline:true,
+            "aria-disabled":true
           }}
-          
+          TextFieldComponent={TextFieldComponent}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
+         
         />
         </Grid>
         </MuiPickersUtilsProvider>
@@ -486,8 +592,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="count"
             value={count}
-            onChange={(e) => handleChange(e)}
-            
+            onChange={(e)=>handleChange(e,condition)}
             style={{ 
              fontSize: 15, 
              borderStyle:'none',
@@ -515,8 +620,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="amount"
             value={amount}
-            onChange={(e) => handleChange(e)}
-            placeholder="45" 
+            onChange={(e) => handleChange(e,condition)}
             style={{ 
              fontSize: 15, 
              borderStyle:'none',
@@ -554,9 +658,11 @@ console.log(selectedDateTo,selectedDateFrom)
           rifmFormatter={dateFormatter2}
           style={{paddingLeft:'10px',marginTop:'2px',marginBottom:"180px"}}
           InputProps={{
-            disableUnderline:true
+            disableUnderline:true,
+            "aria-disabled":true
           }}
           
+          TextFieldComponent={TextFieldComponent}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
@@ -617,9 +723,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 conditionThree!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { condition!=='Registeration Done'&&conditionTwo!=="Registeration Done"&&
-                conditionThree!=="Registeration Done"?
-                <MenuItem value="Registeration Done">Registeration</MenuItem>
+                { condition!=='Registration Done'&&conditionTwo!=="Registration Done"&&
+                conditionThree!=="Registration Done"?
+                <MenuItem value="Registration Done">Registration Done</MenuItem>
                 :null}
                  { condition!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
                 conditionThree!=="Booking Confirmed"?
@@ -646,7 +752,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="countone"
             value={countOne}
-            onChange={(e) => handleChange(e)}
+            onChange={(e)=>handleChange(e,conditionOne)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -742,9 +848,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 conditionThree!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { conditionOne!=='Registeration Done'&&condition!=="Registeration Done"&&
-                conditionThree!=="Registeration Done"?
-                <MenuItem value="Registeration Done">Registeration</MenuItem>
+                { conditionOne!=='Registration Done'&&condition!=="Registration Done"&&
+                conditionThree!=="Registration Done"?
+                <MenuItem value="Registration Done">Registration Done</MenuItem>
                 :null}
                  { conditionOne!=='Booking Confirmed'&&condition!=="Booking Confirmed"&&
                 conditionThree!=="Booking Confirmed"?
@@ -771,7 +877,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="counttwo"
             value={countTwo}
-            onChange={(e) => handleChange(e)}
+            onChange={(e)=>handleChange(e,conditionTwo)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -800,7 +906,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="amount"
             value={amount}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e,conditionTwo)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -867,9 +973,9 @@ console.log(selectedDateTo,selectedDateFrom)
                 condition!=="Sales Value"?
                   <MenuItem value="Sales Value">Sales Value</MenuItem>
                 :null}
-                { conditionOne!=='Registeration Done'&&conditionTwo!=="Registeration Done"&&
-                condition!=="Registeration Done"?
-                <MenuItem value="Registeration Done">Registeration</MenuItem>
+                { conditionOne!=='Registration Done'&&conditionTwo!=="Registration Done"&&
+                condition!=="Registration Done"?
+                <MenuItem value="Registration Done">Registration Done</MenuItem>
                 :null}
                  { conditionOne!=='Booking Confirmed'&&conditionTwo!=="Booking Confirmed"&&
                 condition!=="Booking Confirmed"?
@@ -896,7 +1002,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="countthree"
             value={countThree}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e,conditionThree)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -925,7 +1031,7 @@ console.log(selectedDateTo,selectedDateFrom)
             type="number"
             name="amount"
             value={amount}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e,conditionThree)}
             placeholder="45" 
             style={{ 
              fontSize: 15, 
@@ -1035,7 +1141,7 @@ console.log(selectedDateTo,selectedDateFrom)
             </div>
            <div>
             <Button 
-            onClick={Submit}
+            onClick={()=>Submit()}
             block style={{backgroundColor:'#000000',width:'40%',color:'white',margin:'10px',padding:'5px',borderRadius:'20px'}}>
                 SAVE
             </Button>

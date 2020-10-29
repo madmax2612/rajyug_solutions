@@ -25,6 +25,7 @@ import { getUsersProfile } from "utils/Services";
 import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select, Typography } from "@material-ui/core";
 import { getAllTier } from "utils/Services";
 import { Button } from "react-bootstrap";
+import { ActivateUser } from "utils/Services";
 
 const styles = {
   cardCategoryWhite: {
@@ -77,14 +78,20 @@ export default function TableList() {
 
 
   useEffect(() => {
-
-    getUsersProfile().then((res) => {
-      console.log(res.data.Data);
-      if (res.data.Data) {
-        setData(res.data.Data)
+    const data={
+      "Name":search,
+      "Segment":selectSegment
+  }
+  // console.log(data)
+    getUsersProfile(data).then((res) => {
+      console.log(res)
+      console.log(res.data.DataU);
+      if (res) {
+        console.log('hello')
+        setData(res.data.DataU)
       }
       else {
-        setData('NO DATA FOUND')
+        setData({})
       }
     }).catch((err) => {
       if (err.response) {
@@ -92,12 +99,13 @@ export default function TableList() {
       }
     })
 
-    getAllTier().then((res)=>{
-      console.log(res.data.Tiers);
-      setTierData(res.data.Tiers);
-    })
+    // getAllTier().then((res)=>{
+    //   console.log(res.data.Tiers);
+    //   setTierData(res.data.Tiers);
+    // })
 
-  }, [])
+  }, [search,selectSegment])
+
   const handleCloseModal = () => {
     setOpen(false);
   };
@@ -106,18 +114,125 @@ const handleChange=(e)=>{
 
 if(e.target.name=="Segment"){
   setSelectSegment(e.target.value)
-}
-else if(e.target.name==="Tier"){
-  setSelectTier(e.target.value)
+  if(e.target.value===""){
+    setSearch('')
+  }
+  // getUsersProfile({"Segment":e.target.value,"Name":search}).then((res) => {
+  //   console.log(res);
+  //   if (res.data.DataU) {
+  //     console.log('hello')
+  //     setData(res.data.DataU)
+  //   }
+  //   else {
+  //     setData({})
+  //   }
+  // }).catch((err) => {
+  //   if (err.response) {
+  //     setData(err.response)
+  //   }
+  // })
+  console.log(e.target.value)
+
+
 }
 else if(e.target.name==='Search'){
   setSearch(e.target.value)
+  console.log("hi search here!!")
+  console.log(e.target.value)
+  // getUsersProfile({"Segment":selectSegment,"Search":e.target.value}).then((res) => {
+  //   console.log(res);
+  //   if (res.data.DataU) {
+  //     console.log('hello')
+  //     setData(res.data.DataU)
+  //   }
+  //   else {
+  //     setData({})
+  //   }
+  // }).catch((err) => {
+  //   if (err.response) {
+  //     setData(err.response)
+  //   }
+  // })
 }
+}
+
+const FetchAll=()=>{
+
+if(search!==''||selectSegment!==''){
+  const data={
+    "Name":search,
+    "Segment":selectSegment
+}
+
+console.log(search,selectSegment)
+
+  getUsersProfile(data).then((res) => {
+    console.log(res.data.DataU);
+    if (res.data.Data!==undefined) {
+      setData(res.data.DataU)
+    }
+    else {
+      setData({})
+    }
+  }).catch((err) => {
+    if (err.response) {
+      setData(err.response)
+    }
+  })
+}
+  else{
+    getUsersProfile(data).then((res) => {
+      console.log(res.data.DataU);
+      if (res.data.DataU) {
+        setData(res.data.DataU)
+      }
+      else {
+        setData({})
+      }
+    }).catch((err) => {
+      if (err.response) {
+        setData(err.response)
+      }
+    })
+  }
+
+  
 }
   const handleClose = () => setShow(false);
   const openEdit = (e) => {
     setEditValue(e);
     setRedirect(true);
+  }
+  const ActiveUser=(value)=>{
+    const data={
+      "UserId":value.UserId
+    }
+    ActivateUser(data).then((res)=>{
+    console.log(res);
+    if(res.data.success==="200"){
+   
+      window.location.reload();
+      const data={
+        "Name":search,
+        "Segment":selectSegment
+    }
+   
+    getUsersProfile(data).then((res) => {
+      console.log(res.data.DataU);
+      if (res.data.DataU) {
+        setData(res.data.DataU)
+      }
+      else {
+        setData({})
+      }
+    }).catch((err) => {
+      if (err.response) {
+        setData(err.response)
+      }
+    })
+  }
+    })
+    
   }
   const handleView=(res)=>{
     setUserView(res)
@@ -210,11 +325,6 @@ else if(e.target.name==='Search'){
                 Select Segments
                 </span>
               <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-
-                {/* <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <div style={{ marginLeft: 10, fontSize: 15, lineHeight: 2.5 }}> Channel Partner</div>
-                  <div style={{ marginLeft: 'auto', padding: 6 }}>   	<ExpandMore /> </div>
-                </div> */}
                 <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
 
                   <Select
@@ -226,7 +336,7 @@ else if(e.target.name==='Search'){
                     disableUnderline={true}
                   >
                     <MenuItem value="">
-                      <em>None</em>
+                      <em>View ALL</em>
                     </MenuItem>
                     <MenuItem value="Customer">Customer</MenuItem>
                     <MenuItem value="Employee">Employee</MenuItem>
@@ -246,19 +356,16 @@ else if(e.target.name==='Search'){
                 onChange={handleChange}
                 className='col-lg-12 col-sm-12' type="text" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
             </div>
-            <div className='col-lg-3 col-sm-12'   >
+            {/* <div className='col-lg-3 col-sm-12'   >
             <div 
-            // onClick={}
+            onClick={FetchAll}
             className="gradd" style={{  width: "100%", height: 35, borderWidth: 1, borderColor: '#bf891b', zIndex: 5, borderRadius: 30, borderStyle: 'solid', backgroundColor: 'white',marginTop:23 }}>
             <div style={{ fontSize: 15, fontWeight: 'bolder', color: 'white',justifyContent:'center',display:'flex',alignItems:'center',padding:'5px'}}> FETCH ALL</div>
           </div>
-          </div>
+          </div> */}
           </div>
         </div>
-
       </div>
-
-
       <div class="col-lg-12 col-sm-12" style={{ alignItems: 'center' }}>
         <div class="p-1 rounded  mt-3 " >
           <div class="col-lg-12 col-sm-12">
@@ -308,7 +415,8 @@ else if(e.target.name==='Search'){
                   {  data ? data && data.map((res) => {
                     return (
                       <>
-                        <tr key={res.UserId} style={{ backgroundColor: 'white' }} >
+                        {res.IsActive===false?
+                          <tr key={res.UserId} style={{ backgroundColor: 'lightgray' }} >
                           <td>{res.Name}</td>
                           <td>{res.UserId}</td>
                           <td>{res.MobileNo}</td>
@@ -316,34 +424,56 @@ else if(e.target.name==='Search'){
                           <td>{res.Segment}</td>
                           <td>{res.Amount}</td>
 
-                          <td style={{width:'100%'}}> 
+                          <td > 
                             <div 
-                            onClick={()=>handleView(res)}
+                            // onClick={()=>handleView(res)}
                             className="delete" 
                             style={{ padding: '3px', marginRight: '2px', width: "30%", display: "inline-block" }}
                             >
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                              <div onClick={()=>ActiveUser(res)} style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                                 {/* <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} /> */}
-                              <img style={{height:'28px'}} src={require("../../assets/img/Group1.png")}/>
+                              <img style={{height:'28px'}} src={require("../../assets/img/power-off.svg")}/>
                               </div>
-                            </div>
-                            <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                              <img style={{height:'28px'}} src={require("../../assets/img/Group4.png")}/>
-
-                              </div>
-                            </div>
-                            <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
-                              <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                              <img style={{height:'28px'}} src={require("../../assets/img/Group3.png")}/>
-                              </div>
-                            </div>
+                            </div>                           
                           </td>
                         </tr>
-                        <div style={{ marginBottom: '10px' }} />
+                        :
+                        <tr key={res.UserId} style={{ backgroundColor: 'white' }} >
+                        <td>{res.Name}</td>
+                        <td>{res.UserId}</td>
+                        <td>{res.MobileNo}</td>
+                        <td>{res.Email}</td>
+                        <td>{res.Segment}</td>
+                        <td>{res.Amount}</td>
+
+                        <td style={{width:'100%'}}> 
+                          <div 
+                          onClick={()=>handleView(res)}
+                          className="delete" 
+                          style={{ padding: '3px', marginRight: '2px', width: "30%", display: "inline-block" }}
+                          >
+                            <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                              {/* <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} /> */}
+                            <img style={{height:'28px'}} src={require("../../assets/img/Group1.png")}/>
+                            </div>
+                          </div>
+                          <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
+                            <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                            <img style={{height:'28px'}} src={require("../../assets/img/Group4.png")}/>
+
+                            </div>
+                          </div>
+                          <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
+                            <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                            <img style={{height:'28px'}} src={require("../../assets/img/Group3.png")}/>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+}                        <div style={{ marginBottom: '10px' }} />
                       </>
                     )
-                  }):data }
+                  }):<div>No result Found</div> }
                 </tbody>
               </Table>
 

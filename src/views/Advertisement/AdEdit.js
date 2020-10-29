@@ -25,7 +25,7 @@ export const AdEdit = (props) => {
     
     const [terms,setTerms]=useState(props.location.state?props.location.state.data.TermAndConditions:'')
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [picture,setPictures]=useState(props.location.state?props.location.state.data.AdvImage:[])
+    const [picture,setPictures]=useState(props.location.state.data.AdvImage?props.location.state.data.AdvImage:[])
     const [addArray,setAddArray]=useState([]);
     const [disableBtn,setDisableBtn]=useState(0)
     const [id,setId]=useState(props.location.state?props.location.state.data.id:'')
@@ -87,12 +87,13 @@ const handleChange =(e)=>{
 const handleCloseSuccess = () => {
   setOpenUpload(false);
 };
+console.log(picture)
 const Submit=()=>{
   console.log("here Edit")
   console.log(fileLength,fileLength)
         const formData = new FormData();
         if (Advertisement && location && segment && terms &&id)
-          
+          // userId
           
           if(fileLength!==''&& fileName!==''){
           formData.append("myFile",fileLength,fileName);
@@ -304,9 +305,7 @@ const Submit=()=>{
                     imgExtension={[".jpg", ".gif", ".svg",".png",".jpeg"]}
                     maxFileSize={1000000000000}
                 />
-            {/* <Button style={{backgroundColor:'#28D179',borderRadius:'20px',color:'white',marginTop:'5px',padding:'8px'}}>
-            Select File
-            </Button> */}
+            
            </div>
            </div>
           </div>

@@ -283,21 +283,6 @@ setStateData(res.data.States)
           </FormControl>
           </div>
         </div>
-
-
-
-        <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
-        <span style={{ marginLeft: 15 }}>
-            Select
-         </span>
-
-          <input className='col-lg-12 col-sm-12'
-            name=""
-            type="text"
-            // placeholder="Assistant Channel Partner"
-            style={{ paddingLeft: 10, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
-        </div>
-
       </div>
 
 

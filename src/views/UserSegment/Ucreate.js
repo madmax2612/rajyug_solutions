@@ -93,7 +93,8 @@ export default function Ucreate() {
   const [redirect, setRedirect] = useState(false);
   const [stateData,setStateData]=useState('')
   const[country,setCountry]=useState('')
-
+  const [userData,setUserData]=useState(sessionStorage.getItem('payload'))
+  const newPayload=JSON.parse(userData);
     useEffect(()=>{
 getStates().then((res)=>{
 console.log(res.data.States);
@@ -190,8 +191,8 @@ setStateData(res.data.States)
       "State": state,
       "Pincode": pincode,
       "DOB": dob,
-      "HouesNo": houseNo
-
+      "HouesNo": houseNo,
+      "UserId":newPayload.UserProfile.UserId
     }
 
 
@@ -290,22 +291,7 @@ setStateData(res.data.States)
           </div>
         </div>
 
-
-
-        <div className='col-lg-4 col-sm-12 ' style={{ marginRight: 0 }} >
-
-          <div style={{ marginLeft: 15 }}>
-            Select
-</div>
-          <input className='col-lg-12 col-sm-12'
-            name=""
-            type="text"
-            // placeholder="Assistant Channel Partner"
-            style={{ paddingLeft: 10, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
-        </div>
-
       </div>
-
 
       <div style={{ marginLeft: 15 }}>
         <div style={{ fontSize: 20, fontWeight: "bold", lineHeight: 4 }}> Personal Information</div>
@@ -313,9 +299,6 @@ setStateData(res.data.States)
         <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -30 }}></div>
 
       </div>
-
-
-
       <div className="row m-3 p-4" style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', marginTop: 40 }}>
 
         <div></div>

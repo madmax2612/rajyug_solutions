@@ -36,6 +36,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import { getRewards } from "utils/Services";
 import { Redirect } from "react-router-dom";
+import { deleteRewards } from "utils/Services";
 
 const useStyles = makeStyles(styles);
 
@@ -49,7 +50,11 @@ export default function RewardsView() {
   const [editValue,setEditValue]=useState('')
   const [redirect,setRedirecttoedit]=useState(false);
   const [error,setError]=useState(false);
+
+
+
 useEffect(()=>{
+
   const data={
     "Segment":segment,
     "Condition":condition
@@ -73,14 +78,44 @@ if(err){
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  const handleClick = (event) => {
+  const handleClick = (event,res) => {
     setAnchorEl(event.currentTarget);
+    console.log(res)
+    
+    setEditValue(res)
   };
-
-  const handleClose = () => {
+console.log(editValue);
+  const handleClose = (res) => {
     setAnchorEl(null);
+    console.log("result here",res)
   };
+const handleDelete=()=>{
+  console.log(editValue);
+  if(editValue){
+    const data={
+      "id":editValue.id
+    }
+    deleteRewards(data).then((res)=>{
+      console.log(res);
+      setAnchorEl(null);
+      if(res.data.success==="200"){
+        getRewards(data).then((res)=>{
+          console.log(res);
+          if(res){    
+            if(res.data.reward_data){
+              setRewardData(res.data.reward_data);      
+            }
+          }
+          }).catch((err)=>{
+          if(err){
+            setError(true);
+          }
+          })
+      }
 
+    })
+  }
+}
   const classes = useStyles();
   const handleChange = (e) => {
 if(e.target.name==="segment"){
@@ -96,10 +131,8 @@ else if(e.target.name==='condition'){
 
   const handleEdit=(value)=>{
     console.log("hello",value)
-    if(value){
-      setRedirecttoedit(true)
-     setEditValue(value);
-     
+    if(editValue){
+      setRedirecttoedit(true) 
     }
      setAnchorEl(null);
        }
@@ -202,14 +235,14 @@ else if(e.target.name==='condition'){
               </h6>
               </div>
               <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
-                  <MoreHoriz style={{ marginLeft: 'auto', color: 'gray', fontWeight: 'bold', }} onClick={handleClick}/>
+                  <MoreHoriz style={{ marginLeft: 'auto', color: 'gray', fontWeight: 'bold', }} onClick={(e)=>handleClick(e,res)}/>
                   <Popper
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
             style={{backgroundColor:'white',width:'200px',marginRight:'180px '}}
             open={Boolean(anchorEl)}
-            onClose={handleClose}
+            onClose={()=>handleClose(res)}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
@@ -220,7 +253,7 @@ else if(e.target.name==='condition'){
               }}
               
           >
-            <MenuItem onClick={handleClose} style={{backgroundColor:'black',color:'white',display:'flex',justifyContent:'space-between'}}>
+            <MenuItem onClick={()=>handleClose(res)} style={{backgroundColor:'black',color:'white',display:'flex',justifyContent:'space-between'}}>
                 <div>
                 Options
                 </div>
@@ -229,10 +262,10 @@ else if(e.target.name==='condition'){
                 </div>
                 </MenuItem>
                 
-            <MenuItem onClick={()=>handleEdit(res)}><EditIcon/>&nbsp;  Edit</MenuItem>
+            <MenuItem onClick={()=>handleEdit()}><EditIcon/>&nbsp;  Edit</MenuItem>
         
             
-            <MenuItem onClick={handleClose}><DeleteIcon/>&nbsp; Delete</MenuItem>
+            <MenuItem onClick={()=>handleDelete()}><DeleteIcon/>&nbsp; Delete</MenuItem>
             
           </Popper>
                   </div>

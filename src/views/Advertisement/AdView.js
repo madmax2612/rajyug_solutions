@@ -23,22 +23,48 @@ export const AdView = () => {
     const [segment,setSegment]=useState('')
     const [redirect,setRedirecttoedit]=useState(false);
 
-    const handleClick = (event) => {
+    const handleClick = (event,value,res) => {
       setAnchorEl(event.currentTarget);
+      console.log(res);
+      console.log(value)
+      setEditValue(value);
+    //   if(res==="edit"){
+    //     if(value){
+    //     setEditValue(value);
+    //     // setRedirecttoedit(true)
+    //   }
+    // else{
+    //   setRedirecttoedit(false);
+    // }
+    //   }
+    //   else if(res==="delete"){
+    //     // handleDelete(value);
+    //   }
+      
     };
-   const handleDelete =(value)=>{
+    console.log(editValue)
+  
+  
+    const handleDelete =(value)=>{
     console.log(value);
+    console.log(editValue)
+    if(editValue){
     const data={
-      "id":value.id
+      "id":editValue.id
     }
     deleteAdvertisment(data).then((res)=>{
       console.log(res)
       if(res.data.success==='200'){
         setAnchorEl(null);
-        getAdvertisement().then((res)=>{
-          console.log(res.data.advertisement)
-          if(res.data.advertisement)
-              setAdvertisement(res.data.advertisement)
+        const data={
+          "AdvertisementPlacement":placement,
+          "Segment":segment,
+          "Location":location
+        }
+        getAdvertisement(data).then((res)=>{
+          console.log(res.data.DataU)
+          if(res.data.DataU)
+              setAdvertisement(res.data.DataU)
       else{
           setAdvertisement('')
       }
@@ -47,6 +73,10 @@ export const AdView = () => {
     }).catch(err=>{
       console.log(err)
     })
+  }
+  else{
+    return ;
+  }
    }
     const handleClose = () => {
         
@@ -54,19 +84,25 @@ export const AdView = () => {
 
       };
       useEffect(()=>{
-getAdvertisement().then((res)=>{
-    console.log(res.data.advertisement)
-    if(res.data.advertisement)
-        setAdvertisement(res.data.advertisement)
+        const data={
+          "AdvertisementPlacement":placement,
+          "Segment":segment,
+          "Location":location
+        }
+getAdvertisement(data).then((res)=>{
+    console.log(res.data.DataU)
+    if(res.data)
+        setAdvertisement(res.data.DataU)
 else{
     setAdvertisement('')
 }
         })
-      },[])
+      },[placement,segment,location])
 
   const handleEdit=(value)=>{
-   if(value){
-    setEditValue(value);
+    console.log(value);
+   if(editValue){
+    console.log(editValue)
     setRedirecttoedit(true)
    }
     setAnchorEl(null);
@@ -85,7 +121,9 @@ else{
    if(redirect){
     return( <Redirect to={{ pathname: "/admin/Adedit", state: { data: editValue } }} />
     )}   
-    
+    const datatransfer=(res)=>{
+      // console.log(res);
+    }
       console.log(Advertisement)
     return (
         <div style={{ height: "100vh", width: '100%' }}>
@@ -118,16 +156,12 @@ else{
         disableUnderline={true}
       >
         <MenuItem value="">
-          {/* <em>None</em> */}
+          <em>None</em>
         </MenuItem>
         <MenuItem value="HomePage" >HomePage</MenuItem>
        
       </Select>
     </FormControl>
-    {/* <div style={{display:'flex', flexDirection:'row'}}>
-<div style={{marginLeft:10, fontSize:15, lineHeight:2.5}}> Customer</div> 
-<div style={{marginLeft:'auto', padding:6}}>   	<ExpandMore /> </div>		
-</div> */}
   </div>
   </div>
 <div className='col-lg-4 col-sm-12  ' style={{ marginRight: 0 }}  >
@@ -192,7 +226,9 @@ else{
 {Advertisement && Advertisement.map((res,id)=>{
   return(
   <div class="col-lg-4 col-sm-12">
-    <div class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
+    <div 
+    onClick={()=>datatransfer(res)}
+    class="p-2 rounded m-1 mt-3 mb-4 " style={{ backgroundColor: "white" }}>
 
 
       <div className="row" style={{ display: 'flex',padding:'20px' ,flexDirection: 'row' }}>
@@ -202,7 +238,7 @@ else{
       </p>
       </div>
       <div class="col-lg-6  col-md-6 col-sm-12" style={{ display: 'flex', flexDirection: 'column', }}>
-          <MoreHoriz style={{ marginLeft: 'auto', color: 'gray', fontWeight: 'bold', }} onClick={handleClick}/>
+          <MoreHoriz style={{ marginLeft: 'auto', color: 'gray', fontWeight: 'bold', }} onClick={(e)=>handleClick(e,res,"")}/>
           <Popper
             id="simple-menu"
             anchorEl={anchorEl}
@@ -220,7 +256,9 @@ else{
               }}
               
           >
-            <MenuItem onClick={handleClose} style={{backgroundColor:'black',color:'white',display:'flex',justifyContent:'space-between'}}>
+            <MenuItem 
+            onClick={handleClose} 
+            style={{backgroundColor:'black',color:'white',display:'flex',justifyContent:'space-between'}}>
                 <div>
                 Options
                 </div>
@@ -229,10 +267,18 @@ else{
                 </div>
                 </MenuItem>
                 
-            <MenuItem onClick={()=>handleEdit(res)}><EditIcon/>&nbsp;  Edit</MenuItem>
+            <MenuItem
+            name="edit"
+            value="0"
+             onClick={(e)=>handleEdit(e)}
+             ><EditIcon/>&nbsp;  Edit</MenuItem>
         
             
-            <MenuItem onClick={()=>handleDelete(res)}><DeleteIcon/>&nbsp; Delete</MenuItem>
+            <MenuItem 
+            name="delete"
+            value="1"
+            onClick={(e)=>handleDelete(e)}
+            ><DeleteIcon/>&nbsp; Delete</MenuItem>
             
           </Popper>
           </div>
@@ -246,6 +292,13 @@ else{
               src={res.AdvImage} alt="#Advertisement"/>
             </div>
         </div>
+
+           
+
+
+          {/* <div style={{ height: 30, width: 30, backgroundColor: "#bf891b", borderRadius: 35, marginTop: -28, display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: 35 }}>
+            <StarRate className={classes.icons} style={{ color: 'white', fontSize: 35 }} />
+          </div> */}
         </div>
         </div>
         </div>

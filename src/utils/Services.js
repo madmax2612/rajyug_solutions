@@ -2,7 +2,8 @@ import React from 'react'
 import axios from "axios";
 
 // export const URL="http://18.222.54.135:8080/api/"
-export const URL="http://18.216.36.135:8080/api/"
+// export const URL="http://18.216.36.135:8080/api/"
+export const URL="http://18.222.119.223:8080/api/"
 
 
 const ENDPOINTS={
@@ -28,7 +29,10 @@ const ENDPOINTS={
     createRewards:"createRewards",
     ViewRewards:"ViewRewards",
     Preview:"Preview",
-    UpdateRewards:"UpdateRewards"
+    UpdateRewards:"UpdateRewards",
+    Forgotpassword:"Forgotpassword",
+    DeleteRewards:"DeleteRewards",
+    ActiveUser:"ActiveUser"
 }
 
 
@@ -44,14 +48,25 @@ export const AdminLogin =async body => {
     
 }
 
-export const getUsersProfile =async () => {
-    return await axios.get(
-        URL + ENDPOINTS.GetUsersProfile, 
+export const getUsersProfile =async (data) => {
+    return await axios.post(
+        URL + ENDPOINTS.GetUsersProfile,
+        data, 
         {
           timeout: 3 * 60 * 1000
         }
       );
     
+}
+export const Forgotpassword =async (data) => {
+  return await axios.post(
+      URL + ENDPOINTS.Forgotpassword,
+      data, 
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+  
 }
 
 export const addUser=async (body)=>{
@@ -68,6 +83,16 @@ export const addUser=async (body)=>{
 export const deactivateUser =async (body)=>{
   return await axios.post(
       URL + ENDPOINTS.DeactivateUser,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const ActivateUser =async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.ActiveUser,
       body,
   
       {
@@ -174,9 +199,10 @@ export const getChannelPartner =async () => {
       );
     
 }
-export const getAdvertisement =async () => {
-  return await axios.get(
+export const getAdvertisement =async (body) => {
+  return await axios.post(
       URL + ENDPOINTS.Advertisement, 
+      body,
       {
         timeout: 3 * 60 * 1000
       }
@@ -223,6 +249,16 @@ export const AddRewards=async (body)=>{
 export const createRewards=async (body)=>{
   return await axios.post(
       URL + ENDPOINTS.createRewards,
+      body,
+  
+      {
+        timeout: 3 * 60 * 1000
+      }
+    );
+}
+export const deleteRewards=async (body)=>{
+  return await axios.post(
+      URL + ENDPOINTS.DeleteRewards,
       body,
   
       {

@@ -30,6 +30,7 @@ export const AdCreate = () => {
     const [showAdButton,setShowAdButton]=useState(false);
     const [open, setOpen] = React.useState(false);
     const [askOpen, setAskOpen] = React.useState(false);
+  const [payload,setPayload]=useState(sessionStorage.getItem("payload"))
     const [error, setError] = React.useState(false);
     const [redirect,setRedirect]=useState(false);
     const [alert,setAlert]=useState(false);
@@ -41,7 +42,7 @@ export const AdCreate = () => {
       setAnchorEl(event.currentTarget);
     };
   
-   
+    const UserId=JSON.parse(payload)
     const handleClose = () => {
         setAnchorEl(null);
       };
@@ -206,20 +207,21 @@ console.log(disableBtn)
         console.log("Submit")
         console.log(fileLength,fileLength)
         const formData = new FormData();
-        if(fileLength && fileName &&Advertisement&&location&&segment&&terms)
+        if(fileLength && fileName &&Advertisement&&location&&segment&&terms&&UserId)
           formData.append("myFile",fileLength,fileName);
           formData.append("AdvertisementPlacement",Advertisement)
           formData.append("Location",location)
           formData.append("Segment",segment)
           formData.append("TermAndConditions",terms)     
-         
+          formData.append("UserId", UserId.UserProfile.UserId)     
+          console.log(formData)
           addAdvertisment(formData).then((res)=>{
               console.log(res);
             if(res.data.success==="200"){
                 setOpen(true)
                 setShowAdButton(true)
                 setImage(res.data.Image)
-                // setRedirect(true);
+                setRedirect(true);
               };
          }).catch((err)=>{
            console.log(err)
@@ -472,14 +474,14 @@ console.log(disableBtn)
   <div style={{ width: 30, height: 2, backgroundColor: '#bf891b', marginTop: -25, }}></div>
   <img style={{ height: 100,marginTop:20, width: "100%" }}
               src={Image} />
-
+  
       </div>
       </div>
       </div>
             </div>
-            
+{/*             
         {addArray}
-        <Button onClick={onAddition} disabled={disableBtn===9|| !showAdButton?true:false}>Add More Advertisement</Button>
+        <Button onClick={onAddition} disabled={disableBtn===9|| !showAdButton?true:false}>Add More Advertisement</Button> */}
         </div>
         </div>
     
