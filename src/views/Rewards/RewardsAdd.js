@@ -373,7 +373,6 @@ const Submit=()=>{
   formData.append("Condition3",
   condition==="Registration Done"||conditionOne==="Registration Done"||conditionTwo==="Registration Done"||conditionThree==="Registration Done"?"Registration Done":''
   
-  
   );
   formData.append("Condition4",
   condition==="Sales Value"||conditionOne==="Sales Value"||conditionTwo==="Sales Value"||conditionThree==="Sales Value"?"Sales Value":''
