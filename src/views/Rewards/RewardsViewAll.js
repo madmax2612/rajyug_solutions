@@ -162,7 +162,7 @@ else if(e.target.name==='condition'){
             Select Segment
      </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -190,7 +190,7 @@ else if(e.target.name==='condition'){
             Select Condition
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"

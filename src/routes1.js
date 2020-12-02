@@ -53,11 +53,11 @@ const dashboardRoutes = [
 
   
   {
-    path: "/user1",
+    path: "/useruserview",
     name: "Users",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserSegment,
+    rtlName: "",
+    icon: "",
+    component: ViewAll,
     layout: "/admin"
   },
 

@@ -26,6 +26,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuIte
 import { getAllTier } from "utils/Services";
 import { Button } from "react-bootstrap";
 import { ActivateUser } from "utils/Services";
+import { Pagination } from "@material-ui/lab";
 
 const styles = {
   cardCategoryWhite: {
@@ -75,20 +76,24 @@ export default function TableList() {
   const [tierData,setTierData]=useState('')
   const [open, setOpen] = React.useState(false);
   const [UserView,setUserView]=useState('')
+  const [page,setPage]=useState(1);
+  const [totalPage,setTotalPage]=useState(0)
 
 
   useEffect(() => {
     const data={
       "Name":search,
-      "Segment":selectSegment
+      "Segment":selectSegment,
+      "page":page
   }
   // console.log(data)
     getUsersProfile(data).then((res) => {
-      console.log(res)
+      console.log("useEffect",res)
       console.log(res.data.DataU);
       if (res) {
         console.log('hello')
         setData(res.data.DataU)
+        setTotalPage(res.data.TotalPages)
       }
       else {
         setData({})
@@ -104,7 +109,7 @@ export default function TableList() {
     //   setTierData(res.data.Tiers);
     // })
 
-  }, [search,selectSegment])
+  }, [search,selectSegment,page])
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -117,20 +122,7 @@ if(e.target.name=="Segment"){
   if(e.target.value===""){
     setSearch('')
   }
-  // getUsersProfile({"Segment":e.target.value,"Name":search}).then((res) => {
-  //   console.log(res);
-  //   if (res.data.DataU) {
-  //     console.log('hello')
-  //     setData(res.data.DataU)
-  //   }
-  //   else {
-  //     setData({})
-  //   }
-  // }).catch((err) => {
-  //   if (err.response) {
-  //     setData(err.response)
-  //   }
-  // })
+  
   console.log(e.target.value)
 
 
@@ -139,65 +131,10 @@ else if(e.target.name==='Search'){
   setSearch(e.target.value)
   console.log("hi search here!!")
   console.log(e.target.value)
-  // getUsersProfile({"Segment":selectSegment,"Search":e.target.value}).then((res) => {
-  //   console.log(res);
-  //   if (res.data.DataU) {
-  //     console.log('hello')
-  //     setData(res.data.DataU)
-  //   }
-  //   else {
-  //     setData({})
-  //   }
-  // }).catch((err) => {
-  //   if (err.response) {
-  //     setData(err.response)
-  //   }
-  // })
-}
-}
-
-const FetchAll=()=>{
-
-if(search!==''||selectSegment!==''){
-  const data={
-    "Name":search,
-    "Segment":selectSegment
-}
-
-console.log(search,selectSegment)
-
-  getUsersProfile(data).then((res) => {
-    console.log(res.data.DataU);
-    if (res.data.Data!==undefined) {
-      setData(res.data.DataU)
-    }
-    else {
-      setData({})
-    }
-  }).catch((err) => {
-    if (err.response) {
-      setData(err.response)
-    }
-  })
-}
-  else{
-    getUsersProfile(data).then((res) => {
-      console.log(res.data.DataU);
-      if (res.data.DataU) {
-        setData(res.data.DataU)
-      }
-      else {
-        setData({})
-      }
-    }).catch((err) => {
-      if (err.response) {
-        setData(err.response)
-      }
-    })
-  }
-
   
 }
+}
+
   const handleClose = () => setShow(false);
   const openEdit = (e) => {
     setEditValue(e);
@@ -233,6 +170,31 @@ console.log(search,selectSegment)
   }
     })
     
+  }
+  const handlePageChange=(event,value)=>{
+    setPage(value)
+  //   if(value)
+  //  {
+  //     const data={
+  //     "Name":search,
+  //     "Segment":selectSegment,
+  //     "page":page
+  //     }
+  //   getUsersProfile(data).then((res) => {
+  //     console.log(res.data.DataU);
+  //     if (res.data.DataU) {
+  //       setData(res.data.DataU)
+  //       setTotalPage(res.data.TotalPages)
+  //     }
+  //     else {
+  //       setData({})
+  //     }
+  //   }).catch((err) => {
+  //     if (err.response) {
+  //       setData(err.response)
+  //     }
+  //   })
+  // }
   }
   const handleView=(res)=>{
     setUserView(res)
@@ -298,12 +260,6 @@ console.log(search,selectSegment)
           </strong>
            {UserView.Segment}
           </Typography>
-          <Typography gutterBottom>
-            <strong>
-          Tier: 
-          </strong>
-          {UserView.Tier}
-          </Typography>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleCloseModal} color="primary">
@@ -325,7 +281,7 @@ console.log(search,selectSegment)
                 Select Segments
                 </span>
               <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-                <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+                <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
                   <Select
                     labelId="demo-simple-select-outlined-label"
@@ -354,7 +310,7 @@ console.log(search,selectSegment)
                 value={search}
                 name="Search"
                 onChange={handleChange}
-                className='col-lg-12 col-sm-12' type="text" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
+                className='col-lg-12 col-sm-12' type="text" autocomplete="off" placeholder="search..." style={{ paddingLeft: 10, marginBottom: 15, fontSize: 15, background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} />
             </div>
             {/* <div className='col-lg-3 col-sm-12'   >
             <div 
@@ -398,14 +354,9 @@ console.log(search,selectSegment)
                         <p style={{ color: 'white', fontWeight: 'bold', }}>Segment </p>
                       </div>
                     </th>
-                    <th>
+                    <th >
                       <div class="col-lg-12 col-sm-3"  >
-                        <p style={{ color: 'white', fontWeight: 'bold', }}>Tier</p>
-                      </div>
-                    </th>
-                    <th>
-                      <div class="col-lg-12 col-sm-3"  >
-                        <p style={{ color: 'white', fontWeight: 'bold', }}>Action</p>
+                        <p style={{ color: 'white', fontWeight: 'bold' }}>Action</p>
                       </div>
                     </th>
 
@@ -444,26 +395,24 @@ console.log(search,selectSegment)
                         <td>{res.MobileNo}</td>
                         <td>{res.Email}</td>
                         <td>{res.Segment}</td>
-                        <td>{res.Amount}</td>
-
                         <td style={{width:'100%'}}> 
                           <div 
                           onClick={()=>handleView(res)}
                           className="delete" 
-                          style={{ padding: '3px', marginRight: '2px', width: "30%", display: "inline-block" }}
+                          style={{ padding: '3px',  width: "30%", display: "inline-block" }}
                           >
                             <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                               {/* <VisibilityIcon style={{ color: 'white', fontSize: 20, fontWeight: "1000" }} /> */}
                             <img style={{height:'28px'}} src={require("../../assets/img/Group1.png")}/>
                             </div>
                           </div>
-                          <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
+                          <div onClick={() => openEdit(res)} className="delete" style={{ padding: '3px', width: "30%",  display: "inline-block" }}>
                             <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                             <img style={{height:'28px'}} src={require("../../assets/img/Group4.png")}/>
 
                             </div>
                           </div>
-                          <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px', marginRight: '2px', width: "30%",  display: "inline-block" }}>
+                          <div className="delete" onClick={() => deleteUser(res)} style={{ padding: '3px',  width: "30%",  display: "inline-block" }}>
                             <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                             <img style={{height:'28px'}} src={require("../../assets/img/Group3.png")}/>
                             </div>
@@ -486,8 +435,8 @@ console.log(search,selectSegment)
       </div>
 
       <div style={{ display: 'flex', flex: 1, flexDirection: 'row', marginTop: 10, marginBottom: 60, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-
-        <ArrowBack style={{ color: 'gray', fontSize: 20, marginLeft: 6, marginTop: 6, fontWieght: "1000" }} />
+      <Pagination count={totalPage} page={page} onChange={handlePageChange} />
+        {/* <ArrowBack style={{ color: 'gray', fontSize: 20, marginLeft: 6, marginTop: 6, fontWieght: "1000" }} />
         <span style={{ color: 'gray', fontSize: 12, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} > 1</span>
         <span style={{ color: '#99A3A4 ', fontSize: 12, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} > 2</span>
         <span style={{ color: '#99A3A4 ', fontSize: 12, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} > 3</span>
@@ -495,7 +444,7 @@ console.log(search,selectSegment)
         <span style={{ color: '#99A3A4 ', fontSize: 12, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} > 5</span>
 
 
-        <ArrowForward style={{ color: 'gray', fontSize: 20, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} />
+        <ArrowForward style={{ color: 'gray', fontSize: 20, marginLeft: 15, marginTop: 6, fontWieght: "1000" }} /> */}
       </div>
 
 

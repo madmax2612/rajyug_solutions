@@ -108,13 +108,13 @@ console.log(props.rtlActive)
             {makeBrand()}
           </Button>
         </div>
-        <div className={classes.searchWrapper} >
+        {/* <div className={classes.searchWrapper} >
           <div style={{ background: 'transparent', width: 280, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginLeft: -20, marginRight: 20, }}>
             <input placeholder="Search" style={{ background: 'transparent', paddingLeft: 10, borderColor: 'transparent', marginTop: 5, fontSize: 12, }} />
             <SearchRounded className={classes.icons} style={{ marginLeft: 245, marginTop: -55, fontSize: 18, color: "#bf891b" }} />
           </div>
 
-        </div>
+        </div> */}
         <Hidden smDown implementation="css">
           {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
         </Hidden>

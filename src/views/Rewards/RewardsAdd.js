@@ -308,21 +308,6 @@ if(redirect){
 return<Redirect to="/admin/Rewardsview"/>
 }
 
-const check=()=>{
-  if(condition==="Site Visit"||conditionOne==="Site Visit"||
-  conditionTwo==="Site Visit"||conditionThree==="Site Visit" && count ){
-    console.log("Site Visit")
-  }
-  if(condition==="Booking Confirmed"||conditionOne==="Booking Confirmed"||
-  conditionTwo==="Booking Confirmed"||conditionThree==="Booking Confirmed" && countOne ){
-    console.log("Booking Confirmed")    
-  }
-  if(condition==="Registration Done"||conditionOne==="Registration Done"||
-  conditionTwo==="Registration Done"||conditionThree==="Registration Done" && countTwo ){
-    console.log("Booking Confirmed")    
-  }
-
-}
 console.log(finalCount,finalCountOne,finalCountTwo,finalCountThree,amount);
 
 const Submit=()=>{
@@ -486,7 +471,7 @@ const dateFormatter2 = str => {
             Select Segment
      </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl    style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -510,7 +495,7 @@ const dateFormatter2 = str => {
             Select Condition
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -519,6 +504,7 @@ const dateFormatter2 = str => {
                 onChange={(e)=>handleChange(e)}
                 name="condition"
                 disableUnderline={true}
+                style={{border:"none"}}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -553,6 +539,7 @@ const dateFormatter2 = str => {
    <MuiPickersUtilsProvider  libInstance={moment} utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
+          autoOk
           disableToolbar
           variant="inline"
           format="yyyy/MM/dd"
@@ -645,6 +632,7 @@ const dateFormatter2 = str => {
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
+          autoOK
           disableToolbar
           variant="inline"
           format="yyyy/MM/dd"
@@ -705,7 +693,7 @@ const dateFormatter2 = str => {
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -745,7 +733,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -774,7 +762,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -830,7 +818,7 @@ const dateFormatter2 = str => {
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -870,7 +858,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -899,7 +887,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -955,7 +943,7 @@ const dateFormatter2 = str => {
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -995,7 +983,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -1024,7 +1012,7 @@ const dateFormatter2 = str => {
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -1104,7 +1092,7 @@ const dateFormatter2 = str => {
           Reward Name
         </span>
         <div style={{ padding:'10px',background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', borderRadius: 40, marginBottom: 15 }}>
-        <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+        <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="text"

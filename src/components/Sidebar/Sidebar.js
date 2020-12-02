@@ -609,7 +609,7 @@ var Advertisement =(
                 id="panel1bh-header"
               >
                 <PersonIcon style={{ color: 'white', marginRight: 15 }} />
-                <Link to="/admin/user1"> <Typography style={{ color: 'white' }} >Users</Typography> </Link>
+                <Link to="/admin/useruserview"> <Typography style={{ color: 'white' }} >Users</Typography> </Link>
               </ExpansionPanelSummary>
               {Users}
             </ExpansionPanel>
@@ -733,7 +733,7 @@ var Advertisement =(
                 id="panel1bh-header"
               >
                 <PersonIcon style={{ color: 'white', marginRight: 15 }} />
-                <Link to="/admin/user1"> <Typography style={{ color: 'white' }} >Users</Typography> </Link>
+                <Link to="/admin/useruserview"> <Typography style={{ color: 'white' }} >Users</Typography> </Link>
               </ExpansionPanelSummary>
               {Users}
             </ExpansionPanel>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // react plugin for creating charts
-import ChartistGraph from "react-chartist";
+// import ChartistGraph from "react-chartist";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
@@ -36,18 +36,20 @@ import Divider from "@material-ui/core/Divider";
 
 import { bugs, website, server } from "variables/general.js";
 
-import {
-	dailySalesChart,
-	emailsSubscriptionChart,
-	completedTasksChart,
-} from "variables/charts.js";
+// import {
+// 	dailySalesChart,
+// 	emailsSubscriptionChart,
+// 	completedTasksChart,
+// } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { Redirect } from "react-router-dom";
-import { getChannelPartner } from "utils/Services";
+import { getChannelPartner ,getQuaterlyDropDown,getQuaterlyReport,getGraphQuaterly} from "utils/Services";
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { Bar, Line } from "react-chartjs-2";
 
 const useStyles = makeStyles(styles);
+
 
 export default function Dashboard() {
 
@@ -55,10 +57,30 @@ export default function Dashboard() {
 	const [redirect, setRedirect] = useState(false);
 	const [channelCount, setChannelCount] = useState(null)
 	const [graphSelect, setGraphSelect] = useState('')
+	const [percentage,setPercentage]=useState('')
+	const [color,setColor]=useState('');
+	const [quaterlyDropDown,setQuaterlyDropDown]=useState([])
+	const [qauterReport,setQuaterReport]=useState('');
+	const [graphData,setGraphData]=useState([])
+	const [labels,setLabels]=useState([])
 	const classes = useStyles();
+	
 
-
-
+	const state = {
+		labels: [graphData.quarter,"Current Quarter"],
+		datasets: [
+		  {
+			fill: true,
+			lineTension: 0.5,
+			backgroundColor: 'rgb(19,239,143)',
+			borderColor: 'rgb(6,188,109)',
+			borderWidth: 2,
+			tooltip:'rgb(255,255,255)',
+			data: [graphData.previous,graphData.Current]
+		  },
+		  
+		],
+	  }
 	useEffect(() => {
 
 		if (!payload) {
@@ -69,24 +91,75 @@ export default function Dashboard() {
 			console.log(res)
 			if (res) {
 				setChannelCount(res.data.Data)
+				setPercentage(res.data.PrevData);
+				let percentage=res.data.PrevData
+			if(percentage&& percentage > 0){
+				console.log(percentage > 0)
+				setColor('green')
+			}
+				else{
+				setColor('red')}
 			}
 		}).catch((err) => {
 			console.log(err)
 		})
 	}, [])
+	
+	useEffect(()=>{
+		const graphData ={
+			"quarters":graphSelect
+		}
+		getGraphQuaterly(graphData).then((res)=>{
+			console.log(res.data);
+			setGraphData(res.data);
+		})
 
+		getQuaterlyDropDown().then((res)=>{
+			console.log(res.data);
+			if(res.data){
+				setQuaterlyDropDown(res.data.data)
+				const data1=res.data.data
+
+				// const last5 = data1.filter((el, index)=> {
+				// 	console.log(data1.length)
+				// 	return index >= data1.length - 5
+				//   });
+				//   setQuaterlyDropDown(last5)
+			}
+		})
+
+		const data={
+			"quarters":graphSelect
+		}
+			getQuaterlyReport(data).then((res)=>{
+			console.log(res.data);
+			if(res.data){
+				setQuaterReport(res.data);
+			}
+			})
+	},[graphSelect])
 
 	const handleChange = (e) => {
 		if (e) {
 			setGraphSelect(
 				e.target.value
 			)
+			
+		// const data={
+		// 	"quarters":e.target.value
+		// }
+		// 	getQuaterlyReport(data).then((res)=>{
+		// 	console.log(res.data);
+		// 	if(res.data){
+		// 		setQuaterReport(res.data);
+		// 	}
+		// 	})
 		}
 	}
 	if (redirect) {
 		return (<Redirect to="/" />)
 	}
-
+	console.log(qauterReport)
 	return (
 
 		<div class="row" style={{ display: "flex", flexDirection: "row", padding: 8, height: "100vh", width: '100%', }}>
@@ -101,11 +174,11 @@ export default function Dashboard() {
 								<p >CUSTOMER</p>
 								<div class="row ml-1" >
 									<div class="col-2">
-										<h3 style={{ marginTop: -5, marginLeft: -18, fontWeight: 'bold' }}>250</h3>
+										<h3 style={{ marginTop: -5, marginLeft: -18, fontWeight: 'bold' }}>0</h3>
 									</div>
 									<div class="col-10 mt-2 text-right" style={{ marginTop: 10 }}>
 										<br />
-										<p style={{ color: 'green', alignItems: 'right', fontSize: '12px', marginTop: -37 }}>+40%</p>
+										<p style={{ color: 'green', alignItems: 'right', fontSize: '12px', marginTop: -37 }}>0%</p>
 										<p style={{ alignItems: 'right', fontSize: '12px', marginTop: -27, }}>This Quarter</p>
 									</div>
 								</div>
@@ -114,14 +187,14 @@ export default function Dashboard() {
 
 						<div class="col-lg-4 col-sm-12">
 							<div class="pl-3 pr-3 pt-3 rounded m-2 mt-3  " style={{ backgroundColor: '#fff' }}>
-								<p >EMPLOYEES</p>
+								<p>EMPLOYEES</p>
 								<div class="row ml-1" >
 									<div class="col-2">
-										<h3 style={{ marginTop: -5, marginLeft: -18, fontWeight: 'bold' }}>250</h3>
+										<h3 style={{ marginTop: -5, marginLeft: -18, fontWeight: 'bold' }}>0</h3>
 									</div>
 									<div class="col-10 mt-2 text-right" style={{ marginTop: 10 }}>
 										<br />
-										<p style={{ color: 'green', alignItems: 'right', fontSize: '12px', marginTop: -37 }}>+40%</p>
+										<p style={{ color: 'green', alignItems: 'right', fontSize: '12px', marginTop: -37 }}>0%</p>
 										<p style={{ alignItems: 'right', fontSize: '12px', marginTop: -27, }}>This Quarter</p>
 									</div>
 								</div>
@@ -137,7 +210,7 @@ export default function Dashboard() {
 									</div>
 									<div class="col-10 mt-2 text-right" style={{ marginTop: 10 }}>
 										<br />
-										<p style={{ color: 'red', alignItems: 'right', fontSize: '12px', marginTop: -37 }}>-40%</p>
+										<p style={{ color: color, alignItems: 'right', fontSize: '12px', marginTop: -37 }}>{percentage}%</p>
 										<p style={{ alignItems: 'right', fontSize: '12px', marginTop: -27, }}>This Quarter</p>
 									</div>
 								</div>
@@ -145,9 +218,6 @@ export default function Dashboard() {
 						</div>
 					</div>
 				</div>
-
-
-
 
 				<div class="mt-3" style={{ display: "flex", flexDirection: "column" }}>
 					<p style={{ marginTop: 30, marginBottom: 3, fontSize: 20, paddingLeft: 5, fontWeight: 'bold' }}>Quarterly Report</p>
@@ -157,29 +227,30 @@ export default function Dashboard() {
 
 
 						<div class="col-lg-4 col-sm-12 pr-0 ">
-							<div class="p-3 rounded m-2 mt-3" style={{ backgroundColor: '#fff' }}>
+							<div class="p-2 rounded m-2 mt-3" style={{ backgroundColor: '#fff' }}>
 								<div style={{ margin: 10, marginTop: 0 }}>
 									<p style={{ fontSize: 18, fontWeight: '500' }}>Customer Reports</p>
-									<p style={{ fontSize: 14, marginTop: -12, marginBottom: 40 }}>Show overview Jan 2019-March 2019</p>
+									<p style={{ fontSize: 14, marginTop: -12, marginBottom: 40 }}>{qauterReport.overview}</p>
 								</div>
 
 								<div style={{ margin: 10, marginTop: 20, marginBottom: 20 }}>
-									<p style={{ fontSize: 15 }}>No. Of referrals: 250</p>
-									<ProgressBar variant="primary" now={50} style={{ height: 5, marginTop: -15, width: 210 }} />
+									<p style={{ fontSize: 15 }}>No. Of referrals: {qauterReport.TotalReferrals}</p>
+									{/* <ProgressBar variant="primary" now={50} style={{ height: 5, marginTop: -15, width: 210 }} /> */}
 								</div>
-
 								<div style={{ margin: 10, marginTop: 30, marginBottom: 20 }}>
-									<p style={{ fontSize: 15 }}>Booking Amount Paid: 150</p>
-									<ProgressBar variant="warning" now={30} style={{ height: 5, marginTop: -15, width: 210 }} />
+									<p style={{ fontSize: 15 }}>Booking Amount Paid: {qauterReport.Book}</p>
+									{/* <ProgressBar variant="warning" now={30} style={{ height: 5, marginTop: -15, width: 210 }} /> */}
 								</div>
-
+								<div style={{ margin: 10, marginTop: 30, marginBottom: 20 }}>
+									<p style={{ fontSize: 15 }}>Registration Done: {qauterReport.Registration}</p>
+									{/* <ProgressBar variant="danger" now={15} style={{ height: 5, marginTop: -15, width: 210 }} /> */}
+								</div>
 								<div style={{ margin: 10, marginTop: 30, marginBottom: 110 }}>
-									<p style={{ fontSize: 15 }}>First Cheque: 153</p>
-									<ProgressBar variant="danger" now={15} style={{ height: 5, marginTop: -15, width: 210 }} />
-								</div>
+									<p style={{ fontSize: 15 }}>Site Visit: {qauterReport.SiteVisit}</p>
+									{/* <ProgressBar variant="danger" now={15} style={{ height: 5, marginTop: -15, width: 210 }} /> */}
+								</div>	
 							</div>
 						</div>
-
 
 						<div class="col-lg-8 col-sm-12 pl-0">
 							<div class="p-3 rounded m-2 mt-3" style={{ backgroundColor: '#fff' }}>
@@ -194,20 +265,38 @@ export default function Dashboard() {
 											disableUnderline={true}
 											
 										>
-											<MenuItem value={10}>Ten</MenuItem>
-											<MenuItem value={20}>Twenty</MenuItem>
-											<MenuItem value={30}>Thirty</MenuItem>
+											<MenuItem value="">
+												<>None</>
+											</MenuItem>
+										{quaterlyDropDown && quaterlyDropDown.map((res)=>
+										{
+											return(
+											
+											<MenuItem value={res.QuarterDate}>{res.QuarterDate}</MenuItem>
+										)})}
+
 										</Select>
 									</FormControl>
 								</div>
-								<CardHeader color="success" style={{ marginTop: 10, marginBottom: 50, height: 320 }}>
-									<ChartistGraph
+								<CardHeader color="" style={{ marginTop: 10,width:"100%" }}>
+									{/* <ChartistGraph
 										style={{ marginTop: 20, height: "100%" }}
 										className="ct-chart"
 										data={dailySalesChart.data}
 										type="Line"
 										options={dailySalesChart.options}
 										listener={dailySalesChart.animation}
+									/> */}
+									<Line
+									data={state}
+									style={{height:'500px'}}
+									options={{
+										
+										legend:{
+										display:false,
+										position:'right'
+										}
+									}}
 									/>
 								</CardHeader>
 							</div>

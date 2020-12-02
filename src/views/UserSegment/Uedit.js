@@ -264,7 +264,7 @@ setStateData(res.data.States)
          </span>
          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
         
-          <FormControl variant="outlined" style={{ minWidth: "100%",paddingLeft:"10px",padding:"5px" }}>
+          <FormControl  style={{ minWidth: "100%",paddingLeft:"10px",padding:"5px" }}>
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
@@ -355,7 +355,7 @@ setStateData(res.data.States)
          </div>
          <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 30 }} >
 
-         <FormControl variant="outlined" style={{ minWidth: "100%",padding:"5px",paddingLeft:'10px' }}>
+         <FormControl  style={{ minWidth: "100%",padding:"5px",paddingLeft:'10px' }}>
          
             <Select
               labelId="demo-simple-select-outlined-label"
@@ -476,7 +476,7 @@ setStateData(res.data.States)
 
              
             </div> */}
-           <FormControl variant="outlined" style={{ minWidth: "100%", padding: "5px",paddingLeft:'10px' }}>
+           <FormControl  style={{ minWidth: "100%", padding: "5px",paddingLeft:'10px' }}>
               {/* <InputLabel id="demo-simple-select-outlined-label"></InputLabel> */}
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -505,7 +505,7 @@ setStateData(res.data.States)
           <div style={{ background: 'transparent', marginBottom: 15, borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, }} >
 
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <FormControl variant="outlined" style={{ minWidth: "100%", padding: "5px" }}>
+          <FormControl  style={{ minWidth: "100%", padding: "5px" }}>
               {/* <InputLabel id="demo-simple-select-outlined-label"></InputLabel> */}
               <Select
                 labelId="demo-simple-select-outlined-label"

@@ -44,6 +44,9 @@ import Tdelete from "views/Tier/Tdelete.js";
 import SiteAdmin from "views/SiteAdmin/SiteAdmin.js";
 import VisibilityOffOutlined from "@material-ui/icons/VisibilityOffOutlined";
 import AResetPwd from "views/SiteAdmin/Aresetpwd.js";
+import SiteView from "views/SiteAdmin/ViewAll";
+import SiteCreate from "views/SiteAdmin/CreateAdmin";
+import SiteEdit from "views/SiteAdmin/EditAdmin";
 
 
 
@@ -52,9 +55,9 @@ const dashboardRoutes = [
 
     {
         path: "/sadmin",
-        name: "Admin",
+        name: "",
         rtlName: "Site Admin",
-        icon: Person,
+        icon: "",
         component: SiteAdmin,
         layout: "/admin",
         display:'none'
@@ -64,20 +67,20 @@ const dashboardRoutes = [
       
 
       {
-        path: "/useruserview",
+        path: "/adminview",
         name: "View All",
         rtlName: "User Segment",
         icon: Visible,
-        component: ViewAll,
+        component: SiteView,
         layout: "/admin"
       },
     
       {
-        path: "/ucreate",
+        path: "/adminCreate",
         name: "Create",
         rtlName: "User Segment/create",
         icon: Add,
-        component: Ucreate,
+        component: SiteCreate,
         layout: "/admin"
       },
     
@@ -91,11 +94,11 @@ const dashboardRoutes = [
         layout: "/admin"
       },
       {
-        path: "/uedit",
+        path: "/adminEdit",
         name: "",
         rtlName: "User Segment/edit",
         icon: "",
-        component: Uedit,
+        component: SiteEdit,
         layout: "/admin"
       },
       {

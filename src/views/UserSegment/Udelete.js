@@ -84,8 +84,13 @@ setRedirect(true)
 }
 })
 }
-if(redirect){
-  return(<Redirect to="/admin/useruserview"/>)
+if(redirect ){
+  if(props.location.state && !props.location.state.data.IsSiteAdmin)
+  {
+    return(<Redirect to="/admin/useruserview"/>)}
+  else{
+    return(<Redirect to="/admin/adminview"/>)
+  }
 }
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
@@ -126,7 +131,7 @@ if(redirect){
          <div style={{width:30, height:2, backgroundColor:'#bf891b', marginTop:3}}></div>
          </div>
 				
-          <div style={{ marginLeft:'auto',  height:35, width:35,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:-30}}> <MoreVertOutlined  style={{marginLeft:5, marginTop:4, color:'gray', fontWeight:'bold'}}/></div>
+          {/* <div style={{ marginLeft:'auto',  height:35, width:35,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:-30}}> <MoreVertOutlined  style={{marginLeft:5, marginTop:4, color:'gray', fontWeight:'bold'}}/></div> */}
 					</div>
           
 
@@ -147,7 +152,7 @@ if(redirect){
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}}> User Segment</div>
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Subcategory</div>
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >User Id</div>
-<div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Password</div>
+{/* <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Password</div> */}
 
  </div>
 
@@ -156,14 +161,15 @@ if(redirect){
   <div  style={{fontSize:16, color:'black',   paddingTop:20}}>{data.Segment}</div>
 <div style={{fontSize:16, color:'black',   paddingTop:20}} > Assistant Channel Partner</div>
 <div style={{fontSize:16, color:'black',  paddingTop:20}} >{data.UserId}</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Password}</div>  
+{/* <div style={{fontSize:16, color:'black',   paddingTop:20}} >{data.Password}</div>   */}
  </div>
  <div className="col-lg-3 col-sm-4" style={{display:'flex'  }}>
 
  <div style={{ height:150, width:150,borderRadius:150, backgroundColor:"#E2E3E2", marginBottom:10, marginLeft:-22}}>
  <img style={{ height: 150, width: 150, borderRadius: 150,}}
-  src="https://barefootmedia.co.uk/wp-content/uploads/2016/01/Chris-user-profile.jpg"
-  alt="avatar"/>
+  src={props.location.state?props.location.state.data.ProfileImage:''}
+  // alt="avatar"
+  />
   </div>
                               
    
@@ -225,7 +231,7 @@ if(redirect){
 
     </div>
 
-<div class="col-lg-4 col-sm-12" style={{ display: "flex",  flexDirection: "column"}}>
+{/* <div class="col-lg-4 col-sm-12" style={{ display: "flex",  flexDirection: "column"}}>
   <div class="row">
 <div class="col-lg-12 col-sm-12 pr-0 p-3">
 
@@ -250,10 +256,10 @@ if(redirect){
 									</div>
 							</div>
 						</div>
-  </div>
+  </div> */}
 
 
-  <div class="col-lg-12 col-sm-12 pr-0 p-1">
+  {/* <div class="col-lg-12 col-sm-12 pr-0 p-1">
   <h style={{ marginTop: 30, fontSize:20 , fontWeight:'800'  , marginLeft:6}}>Reports</h>
 				<div style={{width:30, height:2, backgroundColor:'#bf891b', marginLeft:6, marginTop:3}}></div>
 
@@ -261,19 +267,19 @@ if(redirect){
         
 
 
-                <CardHeader color="success" style={{ marginTop: 10, marginBottom:20, height:320 }}>
-                    <ChartistGraph
+                <CardHeader color="success" style={{ marginTop: 10, marginBottom:20, height:320 }}> */}
+                    {/* <ChartistGraph
                         style={{ marginTop: 20, height:"100%" , width:'100%',}}
                         className="ct-chart"
                         data={dailySalesChart.data}
                         type="Line"
                         options={dailySalesChart.options}
                         listener={dailySalesChart.animation}
-                    />
-                </CardHeader>
+                    /> */}
+                {/* </CardHeader>
     </div>
 </div>
-  </div>
+  </div> */}
 
  
   <div class="col-lg-8 col-sm-12" style={{ display: "flex", flexDirection: "row" , justifyContent:'center', marginTop:30, marginBottom:20}}>
@@ -283,18 +289,17 @@ if(redirect){
 
        <Modal
         show={show}
-        onHide={() => setShow(false)}
-        
+        onHide={() => setShow(false)}     
         style={{ 
             backgroundColor: 'rgba(100,100,100,0.6)'}}>
           <div  style={{width:1500, height:340 ,}}>
           <Clear style={{color:'gray', fontSize:22, justifyContent:'flex-end', marginTop:20, marginLeft:455}} onClick={handleClose}  />
           <div  style={{backgroundColor:"red", height:33, width:33, borderRadius:80, marginTop:10, marginLeft:220, marginTop:4}}>   <VisibilityOffOutlined style={{color:'white', fontSize:25, marginLeft:4, marginTop:3,fontWieght:"1000"}} /></div>
 		 <div style={{fontSize:22, color:"black", fontWeight:'bold', marginLeft:120, paddingTop:10}}> Deactivate Confirmation</div>
-         <div style={{fontSize:16, color:"black",  marginLeft:60, paddingTop:30}}> This if you want to permanenttly deactivate a teammate. <br />
-         <span style={{marginLeft:60}}> This acccount cannot be restored</span>
+         <div style={{fontSize:16, color:"black",  marginLeft:60, paddingTop:30}}> Team Mate Account will be Deactivated  <br />
          </div>			
-         
+         <div style={{fontSize:16, color:"black",  marginLeft:60, paddingTop:30}}> To restore Account you need to click on Active button <br />
+         </div>	
          <div className="graddbtn" onClick={()=>setShow(false)} style={{paddingBottom:30,width:140, height:35, borderWidth:1, borderColor:'black', zIndex:5, borderRadius:30, borderStyle:'solid', backgroundColor:'white', marginLeft:95, marginTop:40}}>
        <div style={{ fontSize:15, fontWeight:'bolder', color:'black', letterSpacing:10, marginLeft:40, marginTop:5}}> CANCEL</div>
        </div>
@@ -303,6 +308,7 @@ if(redirect){
        <div  style={{ fontSize:15, fontWeight:'bolder', color:'white', letterSpacing:10, marginLeft:25, marginTop:5}}> DEACTIVATE</div>
        </div>
               
+
      </div>
         
         

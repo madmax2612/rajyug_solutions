@@ -455,7 +455,7 @@ console.log(selectedDateTo,selectedDateFrom)
             Select Segment
      </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -479,7 +479,7 @@ console.log(selectedDateTo,selectedDateFrom)
             Select Condition
           </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -523,6 +523,7 @@ console.log(selectedDateTo,selectedDateFrom)
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
+          autoOk
           variant="inline"
           format="yyyy/MM/dd"
           margin="normal"
@@ -556,7 +557,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -585,7 +586,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -622,6 +623,7 @@ console.log(selectedDateTo,selectedDateFrom)
       <Grid container justify="space-around">
         <KeyboardDatePicker
           disableToolbar
+          autoOk
           variant="inline"
           format="yyyy/MM/dd"
           margin="normal"
@@ -684,7 +686,7 @@ console.log(selectedDateTo,selectedDateFrom)
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -724,7 +726,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -753,7 +755,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -808,7 +810,7 @@ console.log(selectedDateTo,selectedDateFrom)
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -848,7 +850,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -877,7 +879,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -933,7 +935,7 @@ console.log(selectedDateTo,selectedDateFrom)
               Select Condition
             </span>
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -973,7 +975,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -1002,7 +1004,7 @@ console.log(selectedDateTo,selectedDateFrom)
         
          
           <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-            <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+            <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="number"
@@ -1082,7 +1084,7 @@ console.log(selectedDateTo,selectedDateFrom)
           Reward Name
         </span>
         <div style={{ padding:'10px',background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', borderRadius: 40, marginBottom: 15 }}>
-        <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+        <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
             <input
             className='col-lg-12 col-sm-12'
             type="text"

@@ -150,7 +150,7 @@ console.log(userPayload)
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}}> User Segment</div>
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Subcategory</div>
 <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >User Id</div>
-<div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Password</div>
+{/* <div style={{fontSize:16, color:'black', fontWeight:'400',  paddingTop:20}} >Password</div> */}
 
  </div>
 
@@ -159,7 +159,7 @@ console.log(userPayload)
 <div  style={{fontSize:16, color:'black',   paddingTop:20}}>{userPayload.Segment}</div>
 <div style={{fontSize:16, color:'black',   paddingTop:20}} > Assistant Channel Partner</div>
 <div style={{fontSize:16, color:'black',  paddingTop:20}} >{userPayload.UserId}</div>
-<div style={{fontSize:16, color:'black',   paddingTop:20}} >{userPayload.Password}</div>  
+{/* <div style={{fontSize:16, color:'black',   paddingTop:20}} >{userPayload.Password}</div>   */}
  </div>
 
 

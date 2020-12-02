@@ -150,7 +150,7 @@ export default function RTLNavbarLinks() {
         aria-label="Person"
         className={classes.buttonLink}
       >
-        >
+        
       </Button>
     </div>
   );

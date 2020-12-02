@@ -24,6 +24,7 @@ import SearchRounded from "@material-ui/icons/SearchRounded";
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import {Link} from 'react-router-dom'
 import { getNotification } from "utils/Services";
+import { seenNotification } from "utils/Services";
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
@@ -64,7 +65,14 @@ export default function AdminNavbarLinks() {
       setOpenNotification(event.currentTarget);
     }
   };
-  const handleCloseNotification = () => {
+  const handleCloseNotification = (res) => {
+    console.log(res);
+    const data={
+      id:res.id
+    }
+    seenNotification(data).then((response)=>{
+      console.log(response)
+    })
     setOpenNotification(null);
     
   };
@@ -146,7 +154,7 @@ console.log(notification)
                       {res.SeenStatus===false
                       &&
                       <MenuItem
-                      onClick={handleCloseNotification}
+                      onClick={()=>handleCloseNotification(res)}
                       className={classes.dropdownItem}
                     >   
                     <small>{res.Notification}</small>
@@ -218,13 +226,13 @@ console.log(notification)
                     </Link>
                  <Divider light />
 
-                 <Link to="/reset">
+                 <Link to="resetpwdd">
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
                       <Lock style={{ fontSize:15, marginRight:10}}/>
-                      Reset Password
+                      Change Password
                      
                     </MenuItem>
                     </Link>

@@ -326,7 +326,7 @@ console.log(disableBtn)
     Advertisement Placement
 </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-    <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+    <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
       <Select
         labelId="demo-simple-select-outlined-label"
@@ -349,7 +349,7 @@ console.log(disableBtn)
     Select Segement
   </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }} >
-    <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+    <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
 
       <Select
         labelId="demo-simple-select-outlined-label"
@@ -375,7 +375,7 @@ console.log(disableBtn)
     Location
  </span>
   <div style={{ background: 'transparent', borderStyle: 'solid', borderWidth: 1, borderColor: '#bf891b', height: 40, borderRadius: 40, marginBottom: 15 }}>
-  <FormControl variant="outlined" style={{ minWidth: "100%", padding: '5px' }}>
+  <FormControl  style={{ minWidth: "100%", padding: '5px' }}>
     <input
         className='col-lg-12 col-sm-12'
         type="text"
